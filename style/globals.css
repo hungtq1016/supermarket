@@ -1,0 +1,55 @@
+@import  "slick-carousel/slick/slick-theme.css";
+@import 'slick-carousel/slick/slick.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn{
+    @apply py-4 px-12 rounded-md relative capitalize before:absolute before:inset-0 before:bg-transparent before:rounded-md  before:border-4 hover:before:translate-x-3 hover:before:-translate-y-3 before:-z-[1] before:duration-500
+}
+
+.section-title{
+    @apply font-semibold py-3 text-rose-600 pl-9 capitalize relative before:content-[''] before:absolute before:inset-y-0 before:left-0  before:bg-rose-600 before:w-5 before:rounded-md
+}
+
+
+.slick-slide{
+    @apply px-2
+}
+
+/* .slick-slide > div{
+    @apply pb-4
+} */
+
+.slick-slider.slick-initialized{
+    @apply relative
+}
+
+.span-pos .pos-0{
+    @apply col-start-1 col-span-2 row-start-1 row-span-2 
+}
+.span-pos .pos-1{
+    @apply col-start-3 col-span-1 row-span-1 
+}
+
+.span-pos .pos-2{
+    @apply col-start-4 col-span-1 row-span-1
+}
+.span-pos .pos-3{
+    @apply col-span-2 row-start-2 row-span-1
+}
+input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+.slick-dots{
+    @apply !bottom-0 inset-x-0
+}
+.slick-dots button{
+    @apply before:!content-[''] !w-3 !h-3 !bg-gray-400 rounded-full hover:!bg-rose-600
+}
+.slick-dots .slick-active button{
+    @apply !border-2 !bg-rose-600
+}
