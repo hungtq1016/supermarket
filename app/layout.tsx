@@ -4,9 +4,9 @@ import '../style/globals.css';
 import React from 'react';
 import Header from '@/ui/Header';
 import Footer from '@/ui/Footer';
-import {SessionProvider} from 'next-auth/react';
+import ProviderWrapper from '@/ui/Auth/ProviderWrapper';
 
-export default function RootLayout({children,session}:{children:React.ReactNode,session:any}) {
+export default function RootLayout({children}:{children:React.ReactNode}) {
   
   return (
     <html>
@@ -16,9 +16,9 @@ export default function RootLayout({children,session}:{children:React.ReactNode,
       <body>
         <Header/>
         <main>
-          <SessionProvider session={session}>
+          <ProviderWrapper >
             {children}
-          </SessionProvider>
+          </ProviderWrapper>
           
         </main>
         <Footer/>

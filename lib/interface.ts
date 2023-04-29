@@ -42,3 +42,19 @@ export interface Nav{
     icon?:IconProp
     subNav?:Array<Nav>
 }
+
+export interface User {
+    id:String,
+    name: String,
+    slug: String,
+    email: String,
+    password:String,
+    phone:String,
+    address:String,
+    role: Role
+}
+
+export interface Role{
+    id:String,
+    name:String
+}

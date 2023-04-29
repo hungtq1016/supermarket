@@ -1,17 +1,40 @@
+'use client'
+
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {fas} from '@fortawesome/free-solid-svg-icons'
 import {library } from "@fortawesome/fontawesome-svg-core";
-import LoginWithGoogle from "../Google";
+// import LoginWithGoogle from "../Google";
+import { useCallback, useEffect, useState } from "react";
+import axios from 'axios';
 library.add(fas)
 
+type Form = {
+    email:string,
+    name:string,
+    password:string
+}
+
 function Page() {
+
+    const [formData,setFormData] = useState<Form>({ email:"", name:"", password:"" })
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try {
+            const response = await axios.post('/api/user', formData);
+            console.log(response);
+          } catch (error) {
+            console.error(error);
+          }
+      }
+
     return ( 
         <>
             <div className="text-4xl font-medium text-center">
                 Đăng Ký
             </div>
-            <form className="space-y-4 mt-6">
+            <form className="space-y-4 mt-6" onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-y-1 ">
                     <label htmlFor="email" className="text-lg font-medium capitalize">
                         Email 
@@ -20,20 +43,22 @@ function Page() {
                         <div className="flex items-center justify-center rounded-l-md border  border-gray-600 bg-gray-100 ">
                             <FontAwesomeIcon icon={'user'} className='w-4 h-4 px-4 text-gray-600'/>
                         </div>
-                        <input type="email" name="email" id="email" placeholder="Nhập email tại đây"
+                        <input onChange={(e)=> setFormData({...formData,email:e.target.value})} value={formData.email}
+                        type="email" name="email" id="email" placeholder="Nhập email tại đây"
                         className="border rounded-r-md py-2 pl-2 pr-4 w-full border-gray-600 border-l-0 focus:bg-gray-100 focus:ring-0 focus:outline-none hover:bg-gray-100 duration-500"/>
                         
                     </div>
                 </div>
                 <div className="flex flex-col gap-y-1 ">
                     <label htmlFor="phone" className="text-lg font-medium capitalize">
-                        Số Điện Thoại 
+                        Tên
                     </label>
                     <div className="flex">
                         <div className="flex items-center justify-center rounded-l-md border  border-gray-600 bg-gray-100 ">
                             <FontAwesomeIcon icon={'phone'} className='w-4 h-4 px-4 text-gray-600'/>
                         </div>
-                        <input type="text" name="phone" id="phone" placeholder="Nhập số điện thoại tại đây"
+                        <input  onChange={(e)=> setFormData({...formData,name:e.target.value})} value={formData.name}
+                        type="text" name="phone" id="phone" placeholder="Nhập số điện thoại tại đây"
                         className="border rounded-r-md py-2 pl-2 pr-4 w-full border-gray-600 border-l-0 focus:bg-gray-100 focus:ring-0 focus:outline-none hover:bg-gray-100 duration-500"/>
                         
                     </div>
@@ -46,7 +71,8 @@ function Page() {
                         <div className="flex items-center justify-center rounded-l-md border  border-gray-600 bg-gray-100 ">
                             <FontAwesomeIcon icon={'lock'} className='w-4 h-4 px-4 text-gray-600'/>
                         </div>
-                        <input type="password" name="password" id="password" placeholder="Nhập mật khẩu tại đây"
+                        <input  onChange={(e)=> setFormData({...formData,password:e.target.value})} value={formData.password}
+                        type="password" name="password" id="password" placeholder="Nhập mật khẩu tại đây"
                         className="border rounded-r-md py-2 pl-2 pr-4 w-full border-gray-600 border-l-0 focus:bg-gray-100 focus:ring-0 focus:outline-none hover:bg-gray-100 duration-500"/>
                         
                     </div>
@@ -67,9 +93,9 @@ function Page() {
                 <div className="!mt-5">
                     <button type="submit" className="py-2 px-4 w-full bg-rose-600 text-gray-50 rounded-md hover:bg-rose-700 duration-500">Đăng Ký</button>
                 </div>
-                <div className="!mt-5">
+                {/* <div className="!mt-5">
                     <LoginWithGoogle/>
-                </div>
+                </div> */}
                 <div className="text-sm mt-4 text-center text-gray-600">
                     <span>Đã có tài khoản</span><Link href={'/auth'} className='text-gray-900 hover:underline duration-700 ml-2'> Đăng nhập thôi</Link>
                 </div>
