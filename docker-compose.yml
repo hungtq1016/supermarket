@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  app:
+    image: s-market
+    build: .
+    ports:
+      - 3000:3000
+    # volumes:
+    #   - ./pages:/app/pages
+    #   - ./app:/app/app
+    #   - ./hook:/app/hook
+    #   - ./lib:/app/lib
+    #   - ./style:/app/style
+    #   - ./ui:/app/ui
+    #   - ./prisma:/app/prisma
+    #   - ./public:/app/public
