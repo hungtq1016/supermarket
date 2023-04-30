@@ -14,12 +14,13 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_SECRET_KEY as string,
         }),
         CredentialsProvider({
+            id:'auth',                            
             name: 'credentials',
             credentials: {
               email: { label: 'email', type: 'text' },
               password: { label: 'password', type: 'password' }
             },
-            async authorize(credentials) {
+            async authorize(credentials,req) {
               if (!credentials?.email || !credentials?.password) {
                 throw new Error('Invalid credentials');
               }
@@ -42,14 +43,15 @@ export const authOptions: NextAuthOptions = {
               if (!isCorrectPassword) {
                 throw new Error('Invalid credentials');
               }
-      
+              console.log(user);
+              
               return user;
             }
           })
     ],
-    pages: {
-        signIn: '/',
-      },
+    // pages: {
+    //     signIn: '/auth',
+    //   },
     debug: process.env.NODE_ENV === 'development',
     session:{
         strategy: 'jwt'
