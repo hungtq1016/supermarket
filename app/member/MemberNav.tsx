@@ -9,63 +9,63 @@ const navbar:Array<Nav> = [
     },
     {
         title:'Tài Khoản',
-        slug:'account',
+        slug:'/account',
         subNav:[
             {
                 title:'Trang Cá Nhân',
-                slug:'profile',
+                slug:'/profile',
             },
             {
                 title:'Địa Chỉ Giao Hàng',
-                slug:'address',
+                slug:'/address',
             },
             {
                 title:'Thanh Toán',
-                slug:'payment',
+                slug:'/payment',
             }
         ]
     },
     {
         title:'Đơn Hàng',
-        slug:'order',
+        slug:'/order',
         subNav:[
             {
                 title:'Đang Vận Chuyển',
-                slug:'shipping',
+                slug:'?filter=doing',
             },
             {
                 title:'Đã Thanh Toán',
-                slug:'paid',
+                slug:'?filter=done',
             },
             {
                 title:'Hoàn Trả',
-                slug:'return',
+                slug:'?filter=back',
             },
             {
                 title:'Hủy Đơn',
-                slug:'cancel',
+                slug:'?filter=cancel',
             }
         ]
     },
     {
         title:'Yêu Thích',
-        slug:'wishlist',
+        slug:'/wishlist',
         subNav:[]
     }
 ]
 
 function DropDown(nav:any){
     return (
-        <Link href={`/member/${nav.slug}`}>
-            <div className="font-medium">{nav.title}</div>
+        <div>
+            <Link className="font-medium" href={`/member/${nav.slug}`}>{nav.title}</Link>
             <div className="ml-6 py-2 space-y-2">
-                {nav.subNav.map((item:Nav)=>(
-                    <Link href={`/member/${nav.slug}/${item.slug}`}>
+                {nav.subNav.map((item:Nav,index:number)=>(
+                    <Link href={`/member${nav.slug+item.slug}`} key={index}>
                         <div className="text-gray-600 hover:text-rose-600">{item.title}</div>
                     </Link>
                 ))}
             </div>
-        </Link>
+        </div>
     )
 }
 

@@ -23,7 +23,7 @@ function Page() {
                         <input type="text" id="phone" placeholder="Số điện thoai..." className="py-3 px-4 bg-gray-100 rounded-md"/>
                     </div>
                     <div className="flex flex-col gap-y-4 col-span-2">
-                        <label htmlFor="curentPassword">Tên</label>
+                        <label htmlFor="curentPassword">Mật Khẩu</label>
                         <input type="password" id="currentPassword" placeholder="Mật khẩu hiện tại..." className="py-3 px-4 bg-gray-100 rounded-md"/>
                         <input type="password" id="newPassword" placeholder="Mật khẩu mới..." className="py-3 px-4 bg-gray-100 rounded-md"/>
                         <input type="password" id="rePassword" placeholder="Xác Nhân..." className="py-3 px-4 bg-gray-100 rounded-md"/>
@@ -31,7 +31,7 @@ function Page() {
                 </div>
                 <div className="flex justify-end items-center gap-x-4 mt-4">
                     <Link href='/member/account' className="text-sm hover:underline text-gray-700">Trở Về</Link>
-                    <button type="submit" className="py-2 px-4 bg-rose-600 text-gray-50 rounded-md hover:bg-rose-700 duration-500">Xác Nhận</button>
+                    <button type="submit" className="py-2 px-4 bg-rose-600 text-gray-50 font-medium rounded-md hover:bg-rose-700 duration-500">Xác Nhận</button>
                 </div>
             </div>
         </form>

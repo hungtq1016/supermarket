@@ -10,9 +10,9 @@ import {fas} from '@fortawesome/free-solid-svg-icons'
 
 library.add(fas)
 
-export const metadata = {
-    title: 'Smarket | Danh Mục '
-};
+// export const metadata = {
+//     title: 'Smarket | Danh Mục '
+// };
 
 const settings = {
     dots: false,
@@ -128,7 +128,7 @@ function Page() {
                                 </span>
                                 <div className="flex gap-x-2">
                                 {colors.map((item,index)=>(
-                                    <div className="flex items-center gap-x-2">
+                                    <div className="flex items-center gap-x-2" key={index}>
                                         <input id={item+index} type="radio" value={item} name="colored-radio" className="w-4 h-4" style={{accentColor:item}} checked={color === item} onChange={changeColor}/>
                                         <label htmlFor={item+index} className={`font-medium capitalize `}>{item}</label>
                                     </div>

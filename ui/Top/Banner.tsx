@@ -9,33 +9,33 @@ import Slider from "react-slick";
 const navigations : Array<Nav>  = [
     {
         title:'Thời Trang Nam',
-        slug:'men-fashion',
+        slug:'/category/men-fashion',
         subNav:[
             {
                 title:"Quần",
-                slug:'pant'
+                slug:'/category/pant'
             },
             {
                 title:"Áo",
-                slug:'shirt'
+                slug:'/category/shirt'
             },
         ]
     },
     {
         title:"Điện Thoại",
-        slug:'cell-phone'
+        slug:'/category/cell-phone'
     },
     {
         title:"Máy Tính",
-        slug:'computer'
+        slug:'/category/computer'
     },
     {
         title:"Laptop",
-        slug:'laptop'
+        slug:'/category/laptop'
     },
     {
         title:"Màn Hình",
-        slug:'monitor'
+        slug:'/category/monitor'
     }
 ]
 

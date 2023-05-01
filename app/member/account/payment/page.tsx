@@ -21,7 +21,7 @@ function Page() {
                 </div>
                 <div className="flex justify-end items-center gap-x-4 mt-4">
                     <Link href='/member/account' className="text-sm hover:underline text-gray-700">Trở Về</Link>
-                    <button type="submit" className="py-2 px-4 bg-rose-600 text-gray-50 rounded-md hover:bg-rose-700 duration-500">Xác Nhận</button>
+                    <button type="submit" className="py-2 px-4 bg-rose-600 font-medium text-gray-50 rounded-md hover:bg-rose-700 duration-500">Xác Nhận</button>
                 </div>
             </div>
         </form>

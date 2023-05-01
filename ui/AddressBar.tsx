@@ -51,7 +51,7 @@ const AddressBar = () => {
               })}
           </>
         ) : null}
-        {searchParams.toString().length !== 0 ? (
+        {/* {searchParams.toString().length !== 0 ? (
           <div className="px-2 text-gray-500">
             <span>?</span>
             {Array.from(searchParams.entries()).map(([key, value], index) => {
@@ -67,7 +67,7 @@ const AddressBar = () => {
               );
             })}
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     </div>
     </section>

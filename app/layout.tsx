@@ -6,22 +6,21 @@ import Header from '@/ui/Header';
 import Footer from '@/ui/Footer';
 import ProviderWrapper from '@/ui/Auth/ProviderWrapper';
 
-export default function RootLayout({children}:{children:React.ReactNode}) {
-  
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+
   return (
     <html>
       <head>
         <title>S-market</title>
       </head>
       <body>
-        <Header/>
-        <main>
-          <ProviderWrapper >
+        <ProviderWrapper >
+          <Header />
+          <main>
             {children}
-          </ProviderWrapper>
-          
-        </main>
-        <Footer/>
+          </main>
+          <Footer />
+        </ProviderWrapper>
       </body>
     </html>
   );

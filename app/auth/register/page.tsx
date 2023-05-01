@@ -7,6 +7,7 @@ import {library } from "@fortawesome/fontawesome-svg-core";
 // import LoginWithGoogle from "../Google";
 import { useCallback, useEffect, useState } from "react";
 import axios from 'axios';
+import { signIn } from "next-auth/react";
 library.add(fas)
 
 type Form = {
@@ -20,13 +21,23 @@ function Page() {
     const [formData,setFormData] = useState<Form>({ email:"", name:"", password:"" })
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        
         e.preventDefault()
         try {
             const response = await axios.post('/api/user', formData);
-            console.log(response);
-          } catch (error) {
+            if (response) {
+                const email = formData.email;
+                const password = formData.password;
+                await signIn("credentials",{
+                    email,
+                    password,
+                    redirect:true,
+                    callbackUrl:'/'
+                })
+            }
+        } catch (error) {
             console.error(error);
-          }
+        }
       }
 
     return ( 

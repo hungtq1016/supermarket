@@ -4,6 +4,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
 import AccountDropdown from './AccountDropdown';
+import { useSession } from "next-auth/react";
 
 library.add(fas)
 
@@ -17,17 +18,18 @@ const navigations : Array<navEntity>=[
     {title:'Liên Hệ',link:'/contact'},
     {title:'Thông tin',link:'/about'},
     {title:'Thành Viên',link:'/auth'},
+    {title:'Tài Liệu',link:'/document'},
 ]
-
-const isAuthen:boolean = true
 
 const navList = navigations.map((navigation,index)=>(
     <Link href={navigation.link} key={index}>{navigation.title}</Link>
 ))
 function Header():ReactElement {
+    const { data: session, status } = useSession()
     return ( 
         <>
             <section className="bg-black">
+                
                 <div className="max-w-7xl mx-4 md:mx-auto">
                     <div className="flex justify-between items-center py-3">
                         <div className="text-sm space-x-2">
@@ -70,14 +72,19 @@ function Header():ReactElement {
                                 </div>
                             </div>
                             <div className="flex gap-x-4 items-center">
-                                <Link href={'/wishlist'}>
+                                <Link href={'/member/wishlist'}>
                                     <FontAwesomeIcon icon='heart' className="w-5 h-5 text-gray-900"/>
                                 </Link>
                                 <Link href={'/cart'}>
                                     <FontAwesomeIcon icon='shopping-cart' className="w-5 h-5 text-gray-900"/>
                                 </Link>
-                                {isAuthen && 
-                                <AccountDropdown/>}
+                                {   status === "authenticated" ? 
+                                    <AccountDropdown/>
+                                    :
+                                    <Link href={'/auth'}>
+                                        <FontAwesomeIcon icon='user' className="w-5 h-5 text-gray-900"/>
+                                    </Link>
+                                }
                             </div>
                         </div>
                     </div>

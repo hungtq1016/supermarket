@@ -6,6 +6,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Nav } from '@/lib/interface';
 import Link from 'next/link';
+import { signOut } from 'next-auth/react';
 
 library.add(fas)
 
@@ -53,7 +54,7 @@ function AccountDropdown() {
                         {navList}
                         <Menu.Item >
                         {({ active }) => (
-                            <button 
+                            <button onClick={async() =>  await signOut()}
                                 className={`${active ? 'bg-rose-500 text-white' : 'text-gray-900' } flex w-full group rounded-md p-2 border-t`} >
                                 <div className='flex items-center gap-x-3'>
                                     <FontAwesomeIcon icon={'right-from-bracket'} className='w-4 h-4'/>
