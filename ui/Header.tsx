@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
 import AccountDropdown from './AccountDropdown';
 import { useSession } from "next-auth/react";
-
+import slugify from 'slugify';
 library.add(fas)
 
 interface navEntity{
@@ -17,7 +17,7 @@ const navigations : Array<navEntity>=[
     {title:'Trang Chủ',link:'/'},
     {title:'Liên Hệ',link:'/contact'},
     {title:'Thông tin',link:'/about'},
-    {title:'Thành Viên',link:'/auth'},
+    {title:'Sản Phẩm',link:'/products'},
     {title:'Tài Liệu',link:'/document'},
 ]
 
@@ -29,7 +29,6 @@ function Header():ReactElement {
     return ( 
         <>
             <section className="bg-black">
-                
                 <div className="max-w-7xl mx-4 md:mx-auto">
                     <div className="flex justify-between items-center py-3">
                         <div className="text-sm space-x-2">
@@ -78,7 +77,7 @@ function Header():ReactElement {
                                 <Link href={'/cart'}>
                                     <FontAwesomeIcon icon='shopping-cart' className="w-5 h-5 text-gray-900"/>
                                 </Link>
-                                {   status === "authenticated" ? 
+                                {   status == "authenticated" ? 
                                     <AccountDropdown/>
                                     :
                                     <Link href={'/auth'}>

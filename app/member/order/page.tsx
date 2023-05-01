@@ -90,7 +90,6 @@ const timeline: Array<TimeLine> =  [
 
 function Page() {
   const searchParams = useSearchParams();
-
   const filter = searchParams.get('filter');
 
 
@@ -109,7 +108,7 @@ function Page() {
   const data =filterQuery();
   return (
     <>
-      <div className="flow-root max-h-[400px] overflow-y-scroll">
+      <div className="flow-root max-h-[400px] h-full overflow-y-scroll">
         <ul role="list" className="-mb-8">
           {data.map((event, eventIdx) => (
             <li key={event.id} className='pr-4'>

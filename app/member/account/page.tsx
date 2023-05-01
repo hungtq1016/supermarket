@@ -1,3 +1,6 @@
+'use client'
+
+import useCurrentUser from "@/hook/useCurrentUser";
 import Image from "next/image";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -6,11 +9,10 @@ import Tab from './Tab';
 
 library.add(fas)
 
-export const metadata = {
-  title: 'Tài Khoản || S-market',
-};
+export default function Account() {
 
-export default async function Page() {
+    const {data:user} = useCurrentUser();
+    
     return ( 
       <div className="space-y-3">
         <div className="relative">
@@ -23,13 +25,13 @@ export default async function Page() {
         </div>
         <div className="space-y-1">
           <div className="flex items-center gap-x-3">
-            <div className="text-2xl font-medium">Trần Quốc Hưng</div>
+            <div className="text-2xl font-medium">{user?.name}</div>
             <div className="flex items-start text-gray-600 gap-x-1 text-sm">
               <FontAwesomeIcon icon={'location-dot'} className="w-5 h-5"/>
-              <span>TP.Hồ Chí Minh</span>
+              <span>{user?.address}</span>
             </div>
           </div>
-          <div className="text-sky-600">hungtq1016@gmail.com</div>
+          <div className="text-sky-600">{user?.email}</div>
           <div className="text-gray-600">(+84) 0865123456</div>
           <section className="py-5">
             <Tab/>

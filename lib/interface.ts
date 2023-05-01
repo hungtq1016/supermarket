@@ -58,3 +58,10 @@ export interface Role{
     id:String,
     name:String
 }
+
+export interface Form {
+    email:string,
+    name:string,
+    password:string,
+    address:string
+}

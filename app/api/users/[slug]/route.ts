@@ -6,7 +6,7 @@ export async function GET(request:Request,{ params }: { params: { slug: string }
     // assuming your body has json data
     const user:any = await prisma.user.findUnique({
         where: {
-            id: params.slug,
+            email: params.slug,
         },
         select: {
             name: true,

@@ -4,21 +4,18 @@ import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {fas} from '@fortawesome/free-solid-svg-icons'
 import {library } from "@fortawesome/fontawesome-svg-core";
-// import LoginWithGoogle from "../Google";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import axios from 'axios';
 import { signIn } from "next-auth/react";
+import { State }  from 'country-state-city';
+import { Form } from "@/lib/interface";
 library.add(fas)
 
-type Form = {
-    email:string,
-    name:string,
-    password:string
-}
+const cities = State.getStatesOfCountry('VN')
 
 function Page() {
 
-    const [formData,setFormData] = useState<Form>({ email:"", name:"", password:"" })
+    const [formData,setFormData] = useState<Form>({ email:"", name:"", password:"",address:""})
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         
@@ -28,6 +25,7 @@ function Page() {
             if (response) {
                 const email = formData.email;
                 const password = formData.password;
+
                 await signIn("credentials",{
                     email,
                     password,
@@ -52,26 +50,46 @@ function Page() {
                     </label>
                     <div className="flex">
                         <div className="flex items-center justify-center rounded-l-md border  border-gray-600 bg-gray-100 ">
-                            <FontAwesomeIcon icon={'user'} className='w-4 h-4 px-4 text-gray-600'/>
+                            <FontAwesomeIcon icon={'at'} className='w-4 h-4 px-4 text-gray-600'/>
                         </div>
                         <input onChange={(e)=> setFormData({...formData,email:e.target.value})} value={formData.email}
-                        type="email" name="email" id="email" placeholder="Nhập email tại đây"
+                        type="email" name="email" id="email" placeholder="Nhập email..."
                         className="border rounded-r-md py-2 pl-2 pr-4 w-full border-gray-600 border-l-0 focus:bg-gray-100 focus:ring-0 focus:outline-none hover:bg-gray-100 duration-500"/>
                         
                     </div>
                 </div>
                 <div className="flex flex-col gap-y-1 ">
-                    <label htmlFor="phone" className="text-lg font-medium capitalize">
+                    <label htmlFor="name" className="text-lg font-medium capitalize">
                         Tên
                     </label>
                     <div className="flex">
                         <div className="flex items-center justify-center rounded-l-md border  border-gray-600 bg-gray-100 ">
-                            <FontAwesomeIcon icon={'phone'} className='w-4 h-4 px-4 text-gray-600'/>
+                            <FontAwesomeIcon icon={'user'} className='w-4 h-4 px-4 text-gray-600'/>
                         </div>
                         <input  onChange={(e)=> setFormData({...formData,name:e.target.value})} value={formData.name}
-                        type="text" name="phone" id="phone" placeholder="Nhập số điện thoại tại đây"
+                        type="text" name="name" id="name" placeholder="Nhập họ và tên..."
                         className="border rounded-r-md py-2 pl-2 pr-4 w-full border-gray-600 border-l-0 focus:bg-gray-100 focus:ring-0 focus:outline-none hover:bg-gray-100 duration-500"/>
                         
+                    </div>
+                </div>
+                <div className="flex flex-col gap-y-1 ">
+                    <label htmlFor="address" className="text-lg font-medium capitalize">
+                        Địa Chỉ
+                    </label>
+                    <div className="flex">
+                        <div className="flex items-center justify-center rounded-l-md border  border-gray-600 bg-gray-100 ">
+                            <FontAwesomeIcon icon={'location-dot'} className='w-4 h-4 px-4 text-gray-600'/>
+                        </div>
+                        <select name="address" id="address" onChange={(e)=> setFormData({...formData,address:e.target.value})}
+                        className="border rounded-r-md py-2 pl-2 pr-4 w-full border-gray-600 border-l-0 focus:bg-gray-100 focus:ring-0 focus:outline-none hover:bg-gray-100 duration-500">
+                            {cities.map((city)=>{
+                                return(
+                                    <option value={city.name} key={city.isoCode}>
+                                        {city.name}
+                                    </option>
+                                )
+                            })}    
+                        </select> 
                     </div>
                 </div>
                 <div className="flex flex-col gap-y-1 ">

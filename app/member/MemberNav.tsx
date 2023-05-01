@@ -57,7 +57,7 @@ const navbar:Array<Nav> = [
 function DropDown(nav:any){
     return (
         <div>
-            <Link className="font-medium" href={`/member/${nav.slug}`}>{nav.title}</Link>
+            <Link className="font-semibold" href={`/member/${nav.slug}`}>{nav.title}</Link>
             <div className="ml-6 py-2 space-y-2">
                 {nav.subNav.map((item:Nav,index:number)=>(
                     <Link href={`/member${nav.slug+item.slug}`} key={index}>
