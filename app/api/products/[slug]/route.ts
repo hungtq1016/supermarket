@@ -23,6 +23,7 @@ export async function GET(request:Request,{ params }: { params: { slug: string }
                     color:true,
                     images:{
                         select:{
+                            id:true,
                             url:true,
                             alt:true
                         }

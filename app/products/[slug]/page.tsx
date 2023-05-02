@@ -67,27 +67,35 @@ const imageList = images.map((image,index)=>(
 
     </div>
 ))
-
+interface Variant {
+    id:string,
+    price:number,
+    discount:number,
+    count:number,
+    quantity:number,
+    color:string,
+    images:never
+}
 function Page({ params }: { params: { slug: string } }) {
     const {data:product} = useProduct(params.slug);
     console.log(product);
+
+    const [variant,setVariant] = useState(0);
+    const [selectVariant,setSelectVariant]  =useState<Variant>();
     
-    const slider = images.map((image,index)=>(
-        <div key={index} className='relative'>
-            <Image src={image.url} alt="#" className="w-full h-full object-cover" width={400} height={400}/>
+    useEffect(()=>{
+        setSelectVariant(product?.variants[variant])
+    },[product,variant])
+
+    console.log(selectVariant);
+    
+    const slider = product?.variants[variant].images?.map((image:any)=>(
+        <div key={image.id} className='relative'>
+            <Image src={image.url} alt={image.alt} className="w-full h-full object-cover" width={400} height={400}/>
             <div className="absolute inset-0 bg-black bg-opacity-20 z-[1]"/>
     
         </div>
     ))
-
-    const [variant,setVariant] = useState();
-    
-    useEffect(()=>{
-        setVariant(product?.variants[0])
-    },[product])
-
-    console.log(variant);
-    
         
     const [nav1, setNav1] = useState<Slider>();
     const [nav2, setNav2] = useState<Slider>();
@@ -118,18 +126,18 @@ function Page({ params }: { params: { slug: string } }) {
                         <div className="col-span-7">
                             <div className="grid grid-cols-5">
                                 <div className="flex items-center">
-                                <Slider  {...settings} asNavFor={nav1} 
+                                {/* <Slider  {...settings} asNavFor={nav1} 
                                 // ref={(slider2) => setNav2(slider2)} 
                                 >
-                                    {imageList}
-                                </Slider>
+                                    {slider}
+                                </Slider> */}
                                 </div>
                                 <div className="col-span-4">
                                     
                                     <Slider asNavFor={nav2} arrows={false} 
                                     // ref={(slider1) => setNav1(slider1)}
                                     >
-                                        {imageList}
+                                        {slider}
                                     </Slider>
                                 </div>
                             </div>
@@ -137,7 +145,6 @@ function Page({ params }: { params: { slug: string } }) {
                         <div className="col-span-5">
                             <div className="flex flex-col justify-between h-full">
                             <div className="text-2xl font-semibold capitalize">{product?.name}</div>
-                            <Test abc={product?.id}/>
                             <div className="flex gap-x-3 text-sm">
                                 <div className="flex items-center gap-x-2"><Rating value={producttest.rating}/> <span>({producttest.totalRating} đánh giá)</span></div>
                                 <span>|</span>
@@ -163,10 +170,13 @@ function Page({ params }: { params: { slug: string } }) {
                                     Màu:
                                 </span>
                                 <div className="flex gap-x-2">
-                                {colors.map((item,index)=>(
-                                    <div className="flex items-center gap-x-2" key={index}>
-                                        <input id={item+index} type="radio" value={item} name="colored-radio" className="w-4 h-4" style={{accentColor:item}} checked={color === item} onChange={changeColor}/>
-                                        <label htmlFor={item+index} className={`font-medium capitalize `}>{item}</label>
+                                {product?.variants.map((variant:any,index:number)=>(
+                                    <div className="flex items-center gap-x-2" key={variant.id}>
+                                        <input id={variant.id} type="radio" value={variant.name} name="colored-radio" className="w-4 h-4" 
+                                        // checked={color === item} 
+                                        onChange={()=>{setVariant(index)}}
+                                        />
+                                        <label htmlFor={variant.id} className={`font-medium capitalize `}>{variant.color}</label>
                                     </div>
                                         
                                     ))}
