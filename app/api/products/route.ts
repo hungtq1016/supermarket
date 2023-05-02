@@ -7,8 +7,8 @@ export async function GET(request: Request) {
         select:{
             id:true,
             name:true,
-            desc:true,
             slug:true,  
+            detail:true,
             variants:true          
         },
         

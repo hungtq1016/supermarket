@@ -6,14 +6,29 @@ export async function GET(request:Request,{ params }: { params: { slug: string }
     // assuming your body has json data
     const product:any = await prisma.product.findUnique({
         where: {
-            slug: params.slug,
+            slug:params.slug
         },
         select:{
             id:true,
             name:true,
-            desc:true,
+            detail:true,
             slug:true,
-            variants:true
+            variants:{
+                select:{
+                    id:true,
+                    price:true,
+                    discount:true,
+                    quantity:true,
+                    count:true,
+                    color:true,
+                    images:{
+                        select:{
+                            url:true,
+                            alt:true
+                        }
+                    }
+                }
+            }
         },
     })
     return  NextResponse.json(product);
