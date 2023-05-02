@@ -3,13 +3,11 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
 
-    const products:any = await prisma.product.findMany({
+    const products:any = await prisma.variant.findMany({
         select:{
             id:true,
             name:true,
-            desc:true,
-            slug:true,  
-            variants:true          
+            color:true
         },
         
     })

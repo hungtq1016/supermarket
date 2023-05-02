@@ -7,67 +7,78 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  slug     String    @unique
-  title    String
-  body     String
-  author   User      @relation(fields: [authorId], references: [id])
-  authorId String    @db.ObjectId
-  comments Comment[]
-}
+// model Post {
+//   id       String    @id @default(auto()) @map("_id") @db.ObjectId
+//   slug     String    @unique
+//   title    String
+//   body     String
+//   author   User      @relation(fields: [authorId], references: [id])
+//   authorId String    @db.ObjectId
+//   comments Comment[]
+// }
 
 model Product {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  slug     String    @unique
-  name     String
-  desc     String 
-  quantity Int @default(0)
-  price    BigInt @default(1000)
-  discount BigInt? @default(0)
-  sizes       Size[]
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  slug  String @unique
+  name  String
+  desc  String
+  quantity Int    @default(0)
+  price    Float  @default(1000)
+  discount Float? @default(0)
+  parentProduct Product?   @relation("SubProducts", fields: [parentId], references: [id] , onDelete: NoAction, onUpdate: NoAction)
+  parentId      String?
+  subProducts   Product[]  @relation("SubProducts")
+  category   Category   @relation(fields: [categoryId], references: [id])
+  categoryId String @db.ObjectId
+  images Image[]
+  colors Color[]
 }
 
-
-model Size {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  price       Float
-  images      Image[]
-  product     Product  @relation(fields: [productId], references: [id])
-  productId   String
-  color       Color    @relation(fields: [colorId], references: [id])
-  colorId     String
+model Category {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  slug      String
+  products   Product[]
+  image     Image   @relation(fields: [imageId], references: [id])
+  imageId   String  @unique @db.ObjectId
 }
 
-model Image {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  url       String
-  size      Size    @relation(fields: [sizeId], references: [id])
-  sizeId    String
+model Image{
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  url String
+  name String
+  alt String
+  category Category?
+  product   Product?   @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  productId String? @db.ObjectId
 }
 
 model Color {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  hexCode String
-  sizes   Size[]
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  codeName  String
+  product   Product?   @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  productId String? @db.ObjectId
 }
 
 model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  email   String   @unique
-  name    String
-  hashedPassword    String
-  address String
-  posts   Post[]
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  email          String @unique
+  name           String
+  hashedPassword String
+  address        String
+}
+
+model Role{
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  name String 
 }
 
 model Comment {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   comment String
-  post    Post   @relation(fields: [postId], references: [id])
-  postId  String @db.ObjectId
+  // post    Post   @relation(fields: [postId], references: [id])
+  // postId  String @db.ObjectId
 }
 
 // Address is an embedded document
