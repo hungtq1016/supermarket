@@ -165,7 +165,7 @@ function ProductSection(props:SectionProps) {
                 </div>
                 {
                     props.btnBottom && <div className="mt-14 flex justify-center">
-                    <Link href={'/product'} className="btn bg-rose-600 text-gray-50 before:border-rose-600">
+                    <Link href={'/products'} className="btn bg-rose-600 text-gray-50 before:border-rose-600">
                         Xem thêm
                     </Link>
                 </div>

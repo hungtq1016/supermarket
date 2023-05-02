@@ -17,6 +17,43 @@ model Post {
   comments Comment[]
 }
 
+model Product {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  slug     String    @unique
+  name     String
+  desc     String 
+  quantity Int @default(0)
+  price    BigInt @default(1000)
+  discount BigInt? @default(0)
+  sizes       Size[]
+}
+
+
+model Size {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  price       Float
+  images      Image[]
+  product     Product  @relation(fields: [productId], references: [id])
+  productId   String
+  color       Color    @relation(fields: [colorId], references: [id])
+  colorId     String
+}
+
+model Image {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  size      Size    @relation(fields: [sizeId], references: [id])
+  sizeId    String
+}
+
+model Color {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  hexCode String
+  sizes   Size[]
+}
+
 model User {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   email   String   @unique

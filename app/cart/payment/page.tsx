@@ -4,7 +4,6 @@ import {library } from "@fortawesome/fontawesome-svg-core";
 import {fas} from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 library.add(fas)
 const inCart = [
@@ -55,7 +54,7 @@ function CartList(item:any){
     return (
         <div className="grid grid-cols-4 px-10 items-center py-7 border border-gray-100 rounded-md relative group" >
             <div className="flex gap-x-5 items-center">
-                <Image src={item.product.image} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
+                <img src={item.product.image} alt={item.product.name} className='w-20 h-20 object-cover' />
                 <span>{item.product.name} </span>
             </div>
             <div className="text-center">{item.product.discount ? item.product.discount.toLocaleString() : item.product.price.toLocaleString()} VNĐ </div>
@@ -118,7 +117,7 @@ function Page() {
                                 <div className='flex justify-between py-4'><span className='font-medium'>Tổng:</span><span className='font-medium'>1,020,000 VNĐ</span></div>
                             </div>
                             <div className='flex justify-center mt-3'>
-                                <Link href={'/cart/payment'} className='w-full mx-6 py-2 text-center bg-rose-600 text-gray-50 rounded-md font-medium'>Thanh Toán</Link>
+                                <button className='w-full mx-6 py-2 bg-rose-600 text-gray-50 rounded-md font-medium'>Thanh Toán</button>
                             </div>
                         </div>
                     </div>

@@ -31,7 +31,7 @@ function Discount() {
                             <div className="text-gray-900 text-5xl font-semibold mt-3">{imageData.product.desc}</div>
                             <div className="mt-5"><Timer duration={countDownTime}/></div>
                             <div className="mt-10">
-                                <Link href={`/product/${imageData.product.slug}`} className="btn bg-pink-600 before:border-pink-600 text-gray-50">Mua ngay</Link>
+                                <Link href={`/products/${imageData.product.slug}`} className="btn bg-pink-600 before:border-pink-600 text-gray-50">Mua ngay</Link>
                             </div>
                         </div>
                     </div>  

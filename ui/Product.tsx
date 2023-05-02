@@ -28,7 +28,7 @@ function Product({product}:{product:Product}) {
                         </button>
                     </div>
                     <div className="bg-gray-50 rounded-full">
-                        <Link href={`/product/${product.slug}`} className="w-6 h-6 flex items-center  justify-center ">
+                        <Link href={`/products/${product.slug}`} className="w-6 h-6 flex items-center  justify-center ">
                             <FontAwesomeIcon icon={'eye'} className='w-4 h-4 text-gray-700'/>
                         </Link>
                     </div>

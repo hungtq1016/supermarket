@@ -37,10 +37,7 @@ const AddressBar = () => {
                 return (
                   <React.Fragment key={segment}>
                     <span>
-                      <span
-                        key={segment}
-                        className="text-gray-900"
-                      >
+                      <span key={segment} className="text-gray-900" >
                         {segment}
                       </span>
                     </span>

@@ -49,7 +49,7 @@ function CartList(item:any){
                 {item.inStock > 0 ? <div className='text-lime-600'>Còn Hàng</div>: <div className='text-red-600'>Hết Hàng</div>}
             </div>
             
-            <Link href={`/product${item.slug}`} className="text-right text-gray-600 hover:text-gray-900">Xem sản phẩm</Link>
+            <Link href={`/products${item.slug}`} className="text-right text-gray-600 hover:text-gray-900">Xem sản phẩm</Link>
             <button className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'x'} className='w-4 h-4 text-red-600'/></button>
         </div>
     )
