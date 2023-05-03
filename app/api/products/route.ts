@@ -8,8 +8,14 @@ export async function GET(request: Request) {
             id:true,
             name:true,
             slug:true,  
+            image:true,
             detail:true,
-            variants:true          
+            variants:{
+                select:{
+                    price:true,
+                    count:true
+                }
+            }          
         },
         
     })

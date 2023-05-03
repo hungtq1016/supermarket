@@ -15,36 +15,8 @@ library.add(fas)
 import useProduct from "@/hook/useProduct";
 import Slider from "./Slider";
 import { IImage } from "@/lib/interface";
+import Children from "./Children";
 
-const settings = {
-    dots: false,
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    vertical: true,
-    verticalSwiping: true,
-    swipeToSlide:true,
-    focusOnSelect:true,
-    arrows:false
-  };
-const images =[
-    {
-        url: '/images/ps5-1.jpg'
-    },
-    {
-        url: '/images/ps5-2.jpg'
-    },
-    {
-        url: '/images/ps5-3.jpg'
-    },
-    {
-        url: '/images/ps5-4.jpg'
-    },
-    {
-        url: '/images/ps5-5.jpg'
-    },
-]
-const colors=['red','white','lightblue']
 const sizes = ['xs','s','m','l','xl']
 
 const producttest = {
@@ -60,19 +32,11 @@ const producttest = {
     inStock: 5
 }
 
-const imageList = images.map((image,index)=>(
-    <div key={index} className='relative'>
-        <img src={image.url} alt="#" className="w-full h-full object-cover"/>
-        <div className="absolute inset-0 bg-black bg-opacity-20 z-[1]"/>
-
-    </div>
-))
 
 function Page({ params }: { params: { slug: string } }) {
 
     const {data:product} = useProduct(params.slug);
-    console.log(product);
-    
+        
     const [variantId,setVariantId] = useState(0);
     
     const [size,setSize] = useState<string>(producttest.size);
@@ -118,36 +82,26 @@ function Page({ params }: { params: { slug: string } }) {
                             } 
                             </div>
                             <div className="text-sm text-gray-900 text-justify pb-8 border-b-2 border-gray-400">{product?.detail}</div>
-                            <div className="flex gap-x-6 items-center">
-                                <span className="capitalize text-xl">
-                                    Size:
-                                </span>
-                                <div className="flex gap-x-2">
-                                    {sizes.map((item,index)=>(
-                                        <div className="flex items-center gap-x-4" key={index}>
-                                            <input id={item+index} type="radio" value={item} name="size-radio" className="sr-only peer"  checked={size === item} onChange={changeSize}/>
-                                            <label htmlFor={item+index} className='text-sm font-medium uppercase w-8 h-8 flex items-center justify-center border-2 border-gray-400 hover:border-rose-600 duration-500 rounded-md peer-checked:border-rose-600'>{item}</label>
+                            <Children parentId={product?.parentId} id={product?.id}/>
+                            <section className="py-2">
+                                <div className="flex gap-x-6 items-center">
+                                    <span className="capitalize text-xl">
+                                        Màu:
+                                    </span>
+                                    <div className="flex gap-x-2">
+                                    {product?.variants.map((variant:any,index:number)=>(
+                                        <div className={`flex items-center gap-x-2`} key={variant.id}>
+                                            <input id={variant.id} type="radio" value={variant.name} name="colored-radio" className="w-4 h-4" 
+                                            checked={variantId === index} 
+                                            onChange={()=>{setVariantId(index)}}
+                                            />
+                                            <label htmlFor={variant.id} className={`font-medium capitalize`}>{variant.color}</label>
                                         </div>
-                                    ))}
-                                </div>
-                            </div>
-                            <div className="flex gap-x-6 items-center">
-                                <span className="capitalize text-xl">
-                                    Màu:
-                                </span>
-                                <div className="flex gap-x-2">
-                                {product?.variants.map((variant:any,index:number)=>(
-                                    <div className="flex items-center gap-x-2" key={variant.id}>
-                                        <input id={variant.id} type="radio" value={variant.name} name="colored-radio" className="w-4 h-4" 
-                                        checked={variantId === index} 
-                                        onChange={()=>{setVariantId(index)}}
-                                        />
-                                        <label htmlFor={variant.id} className={`font-medium capitalize `}>{variant.color}</label>
+                                            
+                                        ))}
                                     </div>
-                                        
-                                    ))}
-                                </div>
                             </div>
+                            </section>
                             
                             <div className="flex gap-x-4">
                                 <div className="flex">
@@ -156,7 +110,7 @@ function Page({ params }: { params: { slug: string } }) {
                                     <button onClick={increase} className='w-10 h-10 flex items-center justify-center border rounded-r-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50' disabled={!(producttest.inStock >0)}><FontAwesomeIcon icon={'plus'}/></button>
                                 </div>
                                 <button className="px-6 py-2 bg-rose-600 rounded-md capitalize text-gray-50 font-medium hover:bg-rose-700 disabled:bg-gray-400" disabled={!(producttest.inStock >0)}>mua hàng</button>
-                                <button className='w-10 h-10 flex items-center justify-center border rounded-md duration-500 bg-red-600 text-gray-50 hover:bg-red-700'><FontAwesomeIcon icon={'heart'}/></button>
+                                <button className='w-10 h-10 flex items-center justify-center border rounded-md duration-500 bg-red-600 text-gray-50 hover:bg-red-700'><FontAwesomeIcon icon={'heart'} width={16} height={16}/></button>
                             </div>
                             <div className="border-2 border-gray-400 rounded-md divide-y-2 divide-gray-400">
                                 <div className="flex items-center gap-x-4 p-3">

@@ -13,6 +13,7 @@ export async function GET(request:Request,{ params }: { params: { slug: string }
             name:true,
             detail:true,
             slug:true,
+            parentId:true,
             variants:{
                 select:{
                     id:true,
