@@ -65,3 +65,9 @@ export interface Form {
     password:string,
     address:string
 }
+
+export interface IImage {
+    id:string,
+    url:string,
+    alt:string
+}

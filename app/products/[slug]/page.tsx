@@ -1,20 +1,20 @@
 'use client'
-import { useEffect, useState } from "react";
-import { Rating } from "@mui/material";
+import { useState } from "react";
+
 import ProductSection from "@/ui/ProductSection";
+
 import Link from "next/link";
-import Slider from "react-slick";
+import Image from "next/image";
+
+import { Rating } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {library } from "@fortawesome/fontawesome-svg-core";
 import {fas} from '@fortawesome/free-solid-svg-icons'
-import Image from "next/image";
-import useProduct from "@/hook/useProduct";
-import Test from './test';
 library.add(fas)
 
-// export const metadata = {
-//     title: 'Smarket | Danh Mục '
-// };
+import useProduct from "@/hook/useProduct";
+import Slider from "./Slider";
+import { IImage } from "@/lib/interface";
 
 const settings = {
     dots: false,
@@ -67,39 +67,14 @@ const imageList = images.map((image,index)=>(
 
     </div>
 ))
-interface Variant {
-    id:string,
-    price:number,
-    discount:number,
-    count:number,
-    quantity:number,
-    color:string,
-    images:never
-}
+
 function Page({ params }: { params: { slug: string } }) {
+
     const {data:product} = useProduct(params.slug);
     console.log(product);
-
-    const [variant,setVariant] = useState(0);
-    const [selectVariant,setSelectVariant]  =useState<Variant>();
     
-    useEffect(()=>{
-        setSelectVariant(product?.variants[variant])
-    },[product,variant])
-
-    console.log(selectVariant);
+    const [variantId,setVariantId] = useState(0);
     
-    const slider = product?.variants[variant].images?.map((image:any)=>(
-        <div key={image.id} className='relative'>
-            <Image src={image.url} alt={image.alt} className="w-full h-full object-cover" width={400} height={400}/>
-            <div className="absolute inset-0 bg-black bg-opacity-20 z-[1]"/>
-    
-        </div>
-    ))
-        
-    const [nav1, setNav1] = useState<Slider>();
-    const [nav2, setNav2] = useState<Slider>();
-    const [color,setColor] = useState<string>(producttest.color);
     const [size,setSize] = useState<string>(producttest.size);
     const [count, setCount] = useState<number>(1);
 
@@ -111,46 +86,37 @@ function Page({ params }: { params: { slug: string } }) {
         setCount(prevCount => Math.max(prevCount - 1, 1));
     }
 
-    function changeColor(event: React.ChangeEvent<HTMLInputElement>){
-        setColor(event.target.value)
-    }
 
     function changeSize(event: React.ChangeEvent<HTMLInputElement>){
         setSize(event.target.value)
     }
+    const images : Array<IImage> =  product?.variants[variantId].images;
     return ( 
         <>
             <section>
                 <div className="max-w-7xl mx-4 md:mx-auto pt-10 pb-20">
                     <div className="grid grid-cols-12 gap-x-8">
                         <div className="col-span-7">
-                            <div className="grid grid-cols-5">
-                                <div className="flex items-center">
-                                {/* <Slider  {...settings} asNavFor={nav1} 
-                                // ref={(slider2) => setNav2(slider2)} 
-                                >
-                                    {slider}
-                                </Slider> */}
-                                </div>
-                                <div className="col-span-4">
-                                    
-                                    <Slider asNavFor={nav2} arrows={false} 
-                                    // ref={(slider1) => setNav1(slider1)}
-                                    >
-                                        {slider}
-                                    </Slider>
-                                </div>
-                            </div>
+                            <Slider key={variantId} images={images}/>
                         </div>
                         <div className="col-span-5">
                             <div className="flex flex-col justify-between h-full">
                             <div className="text-2xl font-semibold capitalize">{product?.name}</div>
                             <div className="flex gap-x-3 text-sm">
-                                <div className="flex items-center gap-x-2"><Rating value={producttest.rating}/> <span>({producttest.totalRating} đánh giá)</span></div>
+                                <div className="flex items-center gap-x-2"><Rating value={5}/> <span>({product?.variants[variantId].quantity})</span></div>
                                 <span>|</span>
-                                {producttest.inStock > 0 ? <div className="text-lime-600">Còn Hàng</div> : <div className="text-red-600">Hết Hàng</div>}
+                                {product?.variants[variantId].quantity > 0 ? <div className="text-lime-600">Còn Hàng</div> : <div className="text-red-600">Hết Hàng</div>}
                             </div>
-                            <div className="text-2xl">{producttest.price.toLocaleString()} VNĐ</div>
+                            <div className="text-2xl">{
+                                product?.variants[variantId].discount ?
+                                <div className="flex gap-x-2 items-center">
+                                     {product?.variants[variantId].discount.toLocaleString() } VNĐ
+                                     <span className="line-through text-sm text-gray-600">{product?.variants[variantId].price.toLocaleString() } VNĐ</span>
+                                </div>
+                                :
+                                product?.variants[variantId].price.toLocaleString() + ' VNĐ'
+                            } 
+                            </div>
                             <div className="text-sm text-gray-900 text-justify pb-8 border-b-2 border-gray-400">{product?.detail}</div>
                             <div className="flex gap-x-6 items-center">
                                 <span className="capitalize text-xl">
@@ -173,8 +139,8 @@ function Page({ params }: { params: { slug: string } }) {
                                 {product?.variants.map((variant:any,index:number)=>(
                                     <div className="flex items-center gap-x-2" key={variant.id}>
                                         <input id={variant.id} type="radio" value={variant.name} name="colored-radio" className="w-4 h-4" 
-                                        // checked={color === item} 
-                                        onChange={()=>{setVariant(index)}}
+                                        checked={variantId === index} 
+                                        onChange={()=>{setVariantId(index)}}
                                         />
                                         <label htmlFor={variant.id} className={`font-medium capitalize `}>{variant.color}</label>
                                     </div>
