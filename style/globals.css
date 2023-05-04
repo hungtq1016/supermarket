@@ -60,3 +60,9 @@ input[type="number"]::-webkit-inner-spin-button,
 .swiper-button-next, .swiper-button-prev{
     @apply text-rose-600
 }
+.swiper-slide-visible{
+    @apply border rounded-md
+}
+.swiper-slide-thumb-active{
+    @apply border-rose-600
+}
