@@ -14,13 +14,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <title>S-market</title>
       </head>
       <body>
-        <ProviderWrapper >
-          <Header />
+        {/* <ProviderWrapper >
+          
+        </ProviderWrapper> */}
+        <Header />
           <main>
             {children}
           </main>
           <Footer />
-        </ProviderWrapper>
       </body>
     </html>
   );

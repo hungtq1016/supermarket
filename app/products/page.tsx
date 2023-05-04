@@ -187,7 +187,7 @@ export default function Example() {
 
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <GridLayout isGrid={grid} data={products}/>
+                <GridLayout isGrid={grid} data={products?products:[]}/>
               </div>
             </div>
           </section>

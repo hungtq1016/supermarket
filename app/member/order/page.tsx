@@ -90,7 +90,7 @@ const timeline: Array<TimeLine> =  [
 
 function Page() {
   const searchParams = useSearchParams();
-  const filter = searchParams.get('filter');
+  const filter = searchParams?.get('filter') ;
 
 
   const filterQuery = () => {
