@@ -13,6 +13,7 @@ export async function GET(request: Request) {
             variants:{
                 select:{
                     price:true,
+                    discount:true,
                     count:true
                 }
             }          

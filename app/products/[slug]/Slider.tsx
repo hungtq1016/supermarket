@@ -4,12 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 
 // import required modules
-import { FreeMode, Navigation, Thumbs } from "swiper";
+import SwiperCore,{ FreeMode, Navigation, Thumbs } from "swiper";
 import { IImage } from "@/lib/interface";
 import Image from "next/image";
 
 export default function Slider({ images }: { images: Array<IImage> }) {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
   const sliders = images?.map((image) => {
     return (
       <SwiperSlide key={image.id} className="flex items-center justify-center">
@@ -26,7 +26,7 @@ export default function Slider({ images }: { images: Array<IImage> }) {
         {sliders}
       </Swiper>
       <Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={10} slidesPerView={4} freeMode={true} watchSlidesProgress={true} modules={[FreeMode, Navigation, Thumbs]}
-       className="" >
+       className="divide-x-2" >
         {sliders}
       </Swiper>
     </>

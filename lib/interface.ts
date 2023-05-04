@@ -24,6 +24,12 @@ export interface Term{
     icon:IconProp
 }
 
+export interface IGrid{
+    isGrid:boolean,
+    data:Array<any>
+}
+
+
 export interface SectionProps{
     title:string,
     about:string,
