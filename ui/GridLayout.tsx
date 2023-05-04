@@ -8,7 +8,7 @@ function GridLayout(props:IGrid) {
     const products = props.data;
     return ( 
         <section>
-                {products?
+                {products.length != 0?
                     <div className={props.isGrid ? 'grid grid-cols-3 gap-x-2':''}>
                         {
                             products.map( (product:any) => {

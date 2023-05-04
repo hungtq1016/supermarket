@@ -22,7 +22,7 @@ export default function Slider({ images }: { images: Array<IImage> }) {
     <div className='space-y-4'>
       <Swiper
         loop={true} spaceBetween={10} navigation={true} thumbs={{ swiper: thumbsSwiper }} modules={[FreeMode, Navigation, Thumbs]}
-        className="border" >
+        className="border rounded-md" >
         {sliders}
       </Swiper>
       <Swiper onSwiper={setThumbsSwiper} loop={true} spaceBetween={10} slidesPerView={4} freeMode={true} watchSlidesProgress={true} modules={[FreeMode, Navigation, Thumbs]}

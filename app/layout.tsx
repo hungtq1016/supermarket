@@ -5,6 +5,7 @@ import React from 'react';
 import Header from '@/ui/Header';
 import Footer from '@/ui/Footer';
 import ProviderWrapper from '@/ui/Auth/ProviderWrapper';
+import { SessionProvider } from 'next-auth/react';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
@@ -14,14 +15,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <title>S-market</title>
       </head>
       <body>
-        <ProviderWrapper >
+        {/* <ProviderWrapper >
         <Header />
           <main>
             {children}
           </main>
           <Footer />
-        </ProviderWrapper>
- 
+        </ProviderWrapper> */}
+        <SessionProvider refetchOnWindowFocus={false}>
+        <Header />
+          <main>
+            {children}
+          </main>
+          <Footer />
+                </SessionProvider>
       </body>
     </html>
   );
