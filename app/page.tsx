@@ -6,7 +6,7 @@ import ProductSection from '@/ui/ProductSection';
 import Banner from '@/ui/Top/Banner';
 
 export const metadata = {
-  title: 'Smarket | Trang Chủ'
+  title: 'Trang Chủ'
 };
 
 export default function Page() {

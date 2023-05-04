@@ -1,11 +1,16 @@
-"use client"
 
 import '../style/globals.css';
+
 import React from 'react';
-import Header from '@/ui/Header';
-import Footer from '@/ui/Footer';
 import ProviderWrapper from '@/ui/Auth/ProviderWrapper';
-import { SessionProvider } from 'next-auth/react';
+
+export const metadata = {
+  title: {
+    default: 'S-market',
+    template: '%s | S-market',
+  },
+  description: 'My ecommerce'
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 
@@ -15,20 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <title>S-market</title>
       </head>
       <body>
-        {/* <ProviderWrapper >
-        <Header />
-          <main>
+        <ProviderWrapper >
             {children}
-          </main>
-          <Footer />
-        </ProviderWrapper> */}
-        <SessionProvider refetchOnWindowFocus={false}>
-        <Header />
-          <main>
-            {children}
-          </main>
-          <Footer />
-                </SessionProvider>
+        </ProviderWrapper>
       </body>
     </html>
   );

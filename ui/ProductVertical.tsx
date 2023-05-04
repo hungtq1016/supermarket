@@ -1,4 +1,4 @@
-import { Product } from "@/lib/interface";
+'use client'
 import Rating from "@mui/material/Rating";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

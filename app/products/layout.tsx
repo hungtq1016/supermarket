@@ -1,7 +1,7 @@
 import { PageProps } from "@/lib/type";
 import AddressBar from "@/ui/AddressBar";
 
-function Layout({ children, params }: PageProps) {
+export default function Layout({ children, params }: PageProps) {
     return ( 
         <>
             <AddressBar/>
@@ -11,5 +11,3 @@ function Layout({ children, params }: PageProps) {
         </>
      );
 }
-
-export default Layout;

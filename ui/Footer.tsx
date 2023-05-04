@@ -5,6 +5,7 @@ import { ReactElement } from "react";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 library.add(fas)
 
 interface footerItem{
@@ -20,7 +21,7 @@ interface footerEntity{
 
 const items : Array<footerEntity> = [
     {
-        title:'Support',
+        title:'Hỗ Trợ',
         link:'/support',
         list:[
             {name: 'TP. Hồ Chí Minh',link:'https://goo.gl/maps/nbaZSFE2ZDTr9hqR7'},
@@ -29,24 +30,24 @@ const items : Array<footerEntity> = [
         ]
     },
     {
-        title:'Account',
-        link:'/account',
+        title:'Tài Khoản',
+        link:'/member',
         list:[
-            {name:'My Account',link:'/account/my-account'},
-            {name:'Login / Register',link:'/login'},
-            {name:'Cart',link:'/cart'},
-            {name:'Wishlist',link:'/wishlist'},
-            {name:'Shop',link:'/products'},
+            {name:'Cài Đặt',link:'/member/account'},
+            {name:'Đăng Nhập / Đăng Ký',link:'/auth'},
+            {name:'Giỏ Hàng',link:'/cart'},
+            {name:'Yêu Thích',link:'/member/wishlist'},
+            {name:'Mua Sắm',link:'/products'},
         ]
     },
     {
-        title:'Quick Link',
+        title:'Liên kết',
         link:'#',
         list:[
-            {name:'Privacy Policy',link:'/policy'},
-            {name:'Terms Of Use',link:'/term'},
-            {name:'FAQ',link:'/faq'},
-            {name:'Contact',link:'/contact'},
+            {name:'Chính Sách Bảo Mật',link:'/policy'},
+            {name:'Điều khoản sử dụng',link:'/term'},
+            {name:'Hỏi Đáo',link:'/faq'},
+            {name:'Liên Hệ',link:'/contact'},
         ]
     },
 
@@ -85,12 +86,12 @@ function Footer():ReactElement {
                     </div>
                     {footerList}
                     <div className='space-y-6'>
-                        <Link href='#' className='text-xl font-medium'>Download App</Link>
+                        <Link href='#' className='text-xl font-medium'>Tải App</Link>
                         <ul className="space-y-4">
                             <li>Giảm thêm 50,000 VNĐ khi dùng App</li>
                             <li className="space-y-2">
-                                <img src="/images/app-store.jpg" alt="app store" />
-                                <img src="/images/google-play.jpg" alt="google play" />
+                                <Image src="/images/app-store.jpg" alt="app store" width={100} height={30}/>
+                                <Image src="/images/google-play.jpg" alt="google play" width={100} height={30}/>
                             </li>
                             <li>
                                 <div className="flex gap-x-6">
