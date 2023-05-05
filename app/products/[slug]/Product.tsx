@@ -24,6 +24,10 @@ export default function Product({product}:any) {
     
     const [count, setCount] = useState<number>(1);
 
+    useEffect(()=>{
+        setCount(count > product.variants[variantId].quantity ? product.variants[variantId].quantity:count)
+    },[variantId])
+
     function increase() {
         (count < product.variants[variantId].quantity) && setCount(count + 1)
     }

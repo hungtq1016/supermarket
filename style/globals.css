@@ -66,3 +66,8 @@ input[type="number"]::-webkit-inner-spin-button,
 .swiper-slide-thumb-active{
     @apply border-rose-600
 }
+
+.breadcrumb-item{
+    @apply bg-gray-100 py-2 pl-7 relative before:absolute before:left-0 before:top-0 before:border-[20px] before:border-y-transparent before:border-r-0 before:border-l-white 
+    after:absolute after:left-full after:top-0 after:border-[20px] after:border-y-transparent after:border-r-0 after:border-l-gray-100
+}

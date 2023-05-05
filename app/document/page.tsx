@@ -1,3 +1,4 @@
+import AddressBar from "@/ui/AddressBar";
 import DisclosureItem from "@/ui/Document/DisclosureItem";
 const dataAPI = [
     {
@@ -77,13 +78,16 @@ const data = dataAPI.map((element,index)=>{
 
 export default async function Page() {
     return ( 
-        <div className="max-w-7xl mx-4 md:mx-auto">
-            <section className="py-20">
-                <div className="text-3xl font-semibold pb-5">Tài liệu API</div>
-                <div className="flex flex-col gap-y-3">
-                    {data}
-                </div>
-            </section>
-        </div>
+        <>
+            <AddressBar/>
+            <div className="max-w-7xl mx-4 md:mx-auto">
+                <section className="py-20">
+                    <div className="text-3xl font-semibold pb-5">Tài liệu API</div>
+                    <div className="flex flex-col gap-y-3">
+                        {data}
+                    </div>
+                </section>
+            </div>
+        </>
      );
 }
