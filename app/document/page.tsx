@@ -63,7 +63,10 @@ const dataAPI = [
         open:true
     }
 ]
-
+export const metadata = {
+    title: 'Tài Liệu API',
+}
+  
 const data = dataAPI.map((element,index)=>{
     return(
         <section key={index}>
@@ -72,7 +75,7 @@ const data = dataAPI.map((element,index)=>{
     )
 })
 
-function Page() {
+export default async function Page() {
     return ( 
         <div className="max-w-7xl mx-4 md:mx-auto">
             <section className="py-20">
@@ -84,5 +87,3 @@ function Page() {
         </div>
      );
 }
-
-export default Page;

@@ -1,4 +1,5 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
+import { TProduct } from "./type"
 
 export interface Product {
     name:string,
@@ -10,6 +11,9 @@ export interface Product {
     rating:number,
     totalRating:number
 }
+export interface ProductListProps {
+    products: TProduct[];
+  }
 
 export interface Category {
     name:string,
@@ -26,7 +30,7 @@ export interface Term{
 
 export interface IGrid{
     isGrid:boolean,
-    data:Array<any>
+    data:Array<TProduct>
 }
 
 

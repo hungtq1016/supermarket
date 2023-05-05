@@ -6,10 +6,9 @@ import ProductSection from '@/ui/ProductSection';
 import Banner from '@/ui/Top/Banner';
 
 export const metadata = {
-  title: 'Trang Chủ'
-};
-
-export default function Page() {
+  title: 'Trang Chủ | S-market',
+}
+export default async function Page() {
   var date = Date.now();
   return (
     <>

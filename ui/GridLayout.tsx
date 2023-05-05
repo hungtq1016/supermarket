@@ -12,10 +12,10 @@ export default function GridLayout(props: IGrid) {
                     {
                         products.map((product: any) => {
                             return (
-                                // props.isGrid ?
+                                props.isGrid ?
                                     <ProductVertical key={product.id} product={product} />
-                                    // :
-                                    // <ProductHorizontal key={product.id} product={product} />
+                                    :
+                                    <ProductHorizontal key={product.id} product={product} />
                             )
                         })
                     }
