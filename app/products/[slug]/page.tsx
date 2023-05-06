@@ -4,9 +4,7 @@ import { redirect } from "next/navigation";
 import Product from "./Product";
 
 export async function generateMetadata({ params}: { params: { slug: string }}) {
-    const productData : Promise<TProduct> = getProduct(params.slug)
-      
-    const product = await productData
+    const [product] = await getProduct(params.slug)
     if (product) {
         return {
             title: product.name,
@@ -16,14 +14,13 @@ export async function generateMetadata({ params}: { params: { slug: string }}) {
     }
     
   }
-
+  
 export default async function Page({ params }: { params: { slug: string } }) {
-    const productData : Promise<TProduct> = getProduct(params.slug)
+    const [product, child] = await getProduct(params.slug)
     
-    const product = await productData
     return ( 
         <> 
-            <Product product={product}/>
+            <Product product={product} child={child}/>
         </>
      );
 }

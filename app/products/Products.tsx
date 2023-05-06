@@ -2,11 +2,10 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronDown, faGrip, faList, faX, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faGrip, faList, faX } from '@fortawesome/free-solid-svg-icons'
 
 import GridLayout from '@/ui/GridLayout';
 import CategoriesList from '@/ui/CategoriesList';
-import { TProduct } from '@/lib/type'
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
@@ -107,8 +106,7 @@ export default function Products({products}:any) {
               </Transition>
             </Menu>
 
-            <button type="button" onClick={() => { setGrid(!grid) }
-            }
+            <button type="button" onClick={() => { setGrid(!grid) } }
               className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
               <span className="sr-only">View grid</span>
               {
