@@ -44,9 +44,9 @@ const items : Array<footerEntity> = [
         title:'Liên kết',
         link:'#',
         list:[
-            {name:'Chính Sách Bảo Mật',link:'/policy'},
-            {name:'Điều khoản sử dụng',link:'/term'},
-            {name:'Hỏi Đáo',link:'/faq'},
+            {name:'Chính Sách Bảo Mật',link:'/legal/privacy'},
+            {name:'Điều khoản sử dụng',link:'/legal/term'},
+            {name:'Câu hỏi thường gặp',link:'/legal/faq'},
             {name:'Liên Hệ',link:'/contact'},
         ]
     },
@@ -72,7 +72,7 @@ function Footer():ReactElement {
                     <div className='space-y-6'>
                         <Link href={'/'} className='text-xl font-medium'>S-market</Link>
                         <ul className="space-y-4">
-                            <li className="font-medium"><Link href={'/login'}>Đăng Ký</Link></li>
+                            <li className="font-medium"><Link href={'/auth/register'}>Đăng Ký</Link></li>
                             <li>Để được giảm 10% cho đơn hàng đầu tiên</li>
                             <li className="relative">
                                 <input type="email" className="bg-black border-gray-50 border-2 rounded w-full py-3 px-4" placeholder="Nhập email của bạn"/>

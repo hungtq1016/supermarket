@@ -1,131 +1,290 @@
 'use client'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  ReactEventHandler, useState } from 'react'
+import { RadioGroup } from '@headlessui/react';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {library } from "@fortawesome/fontawesome-svg-core";
 import {fas} from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react';
-import Link from 'next/link';
-
 library.add(fas)
-const inCart = [
-    {
-        product:{
-            name: 'Dao cạo râu đa năng',
-            image: '/images/dao-cao-rau.jpg',
-            slug: 'dao-cao-rau',
-            price: 500000,
-            discount: 279000,
-            rating: 4.8,
-            totalRating: 664,
-            inStock:10
-        },
-        inCart:2,
-        total:279000*2
-    },
-    {
-        product:{
-            name: 'đồng hồ thông minh apple watch 7',
-            image: '/images/apple-watch.jpg',
-            slug: 'apple-watch',
-            price: 710000,
-            discount: 500000,
-            rating: 4.3,
-            totalRating: 143,
-            inStock:5
-        },
-        inCart:3,
-        total:500000*3
-    }
+import { State }  from 'country-state-city';
+import { useRouter } from 'next/navigation';
+
+
+const products = [
+  {
+    id: 1,
+    title: 'Basic Tee',
+    href: '#',
+    price: '$32.00',
+    color: 'Black',
+    size: 'Large',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg',
+    imageAlt: "Front of men's Basic Tee in black.",
+    quantity:3
+  },
+  // More products...
+]
+const deliveryMethods = [
+  { id: 1, title: 'Bình Thường', turnaround: '3-5 ngày', price: '10.000 VNĐ' },
+  { id: 2, title: 'Nhanh', turnaround: '1-2 ngày', price: '50.000 VNĐ' },
+]
+const paymentMethods = [
+  { id: 'visa', title: 'Visa' },
+  { id: 'paypal', title: 'PayPal' },
+  { id: 'etransfer', title: 'Ngân Hàng' },
 ]
 
-function CartList(item:any){
-    const [count,setCount] = useState<number>(item.inCart)
-    const [total,setTotal] = useState<number>(item.inCart*item.product.discount)
-        function increase() {
-            (count < item.product.inStock) && (setCount(count + 1) ,setTotal((count+1)*item.product.discount))
-        }
-    
-        function decrease() {
-            (count > 0) ? (setCount(count - 1) ,setTotal((count-1)*item.product.discount))
-            : alert('xoa hang');
-        }
-    // setTimeout(() => {
-        
-    // }, 5000);
-    return (
-        <div className="grid grid-cols-4 px-10 items-center py-7 border border-gray-100 rounded-md relative group" >
-            <div className="flex gap-x-5 items-center">
-                <img src={item.product.image} alt={item.product.name} className='w-20 h-20 object-cover' />
-                <span>{item.product.name} </span>
-            </div>
-            <div className="text-center">{item.product.discount ? item.product.discount.toLocaleString() : item.product.price.toLocaleString()} VNĐ </div>
-            <div className="flex items-center justify-center">
-                <button onClick={decrease} className='w-10 h-10 flex items-center justify-center border rounded-l-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50'><FontAwesomeIcon icon={'minus'} className='w-4 h-4'/></button>
-                <input type="number" value={count} disabled className='w-10 border-y h-10 text-center'/>
-                <button onClick={increase} className='w-10 h-10 flex items-center justify-center border rounded-r-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50'><FontAwesomeIcon icon={'plus'} className='w-4 h-4'/></button>
 
-            </div>
-            <div className="text-right">{total.toLocaleString()} VNĐ</div>
-            <button className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'x'} className='w-4 h-4 text-red-600'/></button>
-        </div>
-    )
-        
-  
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
 }
 
-function Page() {
-    return ( 
-        <>
-            <section>
-                <div className="max-w-7xl mx-4 md:mx-auto py-10">
-                    <Link href='/' className="inline-block">
-                        <div className="border border-gray-400 rounded-md py-2 px-4 flex gap-x-2 items-center hover:bg-gray-100">
-                            <FontAwesomeIcon icon={'arrow-left-long'} className='w-4 h-4'/>
-                            <span>Trở Về</span>
-                        </div>
-                    </Link>
-                </div>
-            </section>
-            <section>
-                <div className="max-w-7xl mx-4 md:mx-auto pt-10 pb-20">
-                    <div className='space-y-3'>
-                        <div className="grid grid-cols-4 px-10 py-6">
-                            <div className="text-left font-medium">Sản Phẩm</div>
-                            <div className="text-center font-medium">Đơn Giá</div>
-                            <div className="text-center font-medium">Số Lượng</div>
-                            <div className="text-right font-medium">Thành Tiền</div>
-                        </div>
-                        {inCart.map((item,index)=>(<CartList key={index} {...item}/>))}
-                    </div>
-                </div>
-            </section>
-            <section>
-                <div className="max-w-7xl mx-4 md:mx-auto py-10">
-                    <div className="grid grid-cols-3">
-                        <form action="">
-                            <div className="flex flex-col items-end gap-y-3">
-                                <input type="text" placeholder='Gán Mã Giảm Giá Tại Đây' className='w-full border rounded-md py-2 px-4'/>
-                                <button type='submit' className='inline py-3 px-6 rounded-md bg-rose-600 text-gray-50 before:border-rose-600'>Sử Dụng</button>
-                            </div>
-                        </form>
-                        <div/>
-                        <div className='border border-gray-900 rounded-md p-5'>
-                            <div className='text-xl font-medium'>Tổng Quan</div>
-                            <div className='divide-y'>
-                                <div className='flex justify-between py-4'><span className='font-medium'>Tạm Tính:</span><span className='text-sm'>1,000,000 VNĐ</span></div>
-                                <div className='flex justify-between py-4'><span className='font-medium'>Vận Chuyển:</span><span className='text-sm'>100,000 VNĐ</span></div>
-                                <div className='flex justify-between py-4'><span className='font-medium'>Giảm Giá:</span><span className='text-sm'>- 80,000 VNĐ</span></div>
-                                <div className='flex justify-between py-4'><span className='font-medium'>Tổng:</span><span className='font-medium'>1,020,000 VNĐ</span></div>
-                            </div>
-                            <div className='flex justify-center mt-3'>
-                                <button className='w-full mx-6 py-2 bg-rose-600 text-gray-50 rounded-md font-medium'>Thanh Toán</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </>
-        
-     );
-}
+export default function Page() {
+    const cities = State.getStatesOfCountry('VN')
+    const router = useRouter()
 
-export default Page;
+    const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
+
+    function handleSubmit(){
+        router.push("/cart/confirm")
+
+    }
+  return (
+      <section className="pb-20 pt-10">
+          <div className="mx-auto max-w-2xl lg:max-w-none">
+              <h1 className="sr-only">Checkout</h1>
+
+              <form className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"  onSubmit={handleSubmit} >
+                  <div>
+                      <div className="mt-10 border-t border-gray-200 pt-10">
+                          <h2 className="text-lg font-medium text-gray-900">Thông Tin Giao Hàng</h2>
+
+                          <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                              <div>
+                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-900">
+                                      Họ
+                                  </label>
+                                  <div className="mt-1">
+                                      <input type="text" id="first-name" name="first-name" autoComplete="given-name" 
+                                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
+                                  </div>
+                              </div>
+
+                              <div>
+                                  <label htmlFor="last-name" className="block text-sm font-medium text-gray-900">
+                                      Tên
+                                  </label>
+                                  <div className="mt-1">
+                                      <input type="text" id="last-name" name="last-name" autoComplete="family-name" 
+                                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
+                                  </div>
+                              </div>
+
+                              <div className="sm:col-span-2">
+                                  <label htmlFor="city" className="block text-sm font-medium text-gray-900">
+                                      Tỉnh/TP
+                                  </label>
+                                  <div className="mt-1">
+                                      <select defaultValue={"Hồ Chí Minh"}
+                                      className=" block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ">
+                                          {
+                                            cities.map((city)=>{
+                                                return(
+                                                    <option key={city.isoCode} value={city.name}>{city.name}</option>
+                                                )
+                                            })
+                                          }
+                                      </select>
+                                  </div>
+                              </div>
+
+                              <div className="sm:col-span-2">
+                                  <label htmlFor="address" className="block text-sm font-medium text-gray-900">
+                                      Địa Chỉ
+                                  </label>
+                                  <div className="mt-1">
+                                      <input type="text" name="address" id="address" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
+                                  </div>
+                              </div>
+
+                              <div className="sm:col-span-2">
+                                  <label htmlFor="phone" className="block text-sm font-medium text-gray-900">
+                                      Số Điện Thoại
+                                  </label>
+                                  <div className="mt-1">
+                                      <input type="text" name="phone" id="phone" autoComplete="tel" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div className="mt-10 border-t border-gray-200 pt-10">
+                          <RadioGroup value={selectedDeliveryMethod} onChange={setSelectedDeliveryMethod}>
+                              <RadioGroup.Label className="text-lg font-medium text-gray-900">Phương Thức Giao Hàng</RadioGroup.Label>
+
+                              <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                                  {deliveryMethods.map((deliveryMethod) => (
+                                      <RadioGroup.Option
+                                          key={deliveryMethod.id}
+                                          value={deliveryMethod}
+                                          className={({ checked, active }) =>
+                                              classNames(
+                                                  checked ? 'border-transparent' : 'border-gray-300',
+                                                  active ? 'ring-2 ring-rose-500' : '',
+                                                  'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none'
+                                              )
+                                          }
+                                      >
+                                          {({ checked, active }) => (
+                                              <>
+                                                  <span className="flex flex-1">
+                                                      <span className="flex flex-col">
+                                                          <RadioGroup.Label as="span" className="block text-sm font-medium text-gray-900">
+                                                              {deliveryMethod.title}
+                                                          </RadioGroup.Label>
+                                                          <RadioGroup.Description
+                                                              as="span"
+                                                              className="mt-1 flex items-center text-sm text-gray-500"
+                                                          >
+                                                              {deliveryMethod.turnaround}
+                                                          </RadioGroup.Description>
+                                                          <RadioGroup.Description as="span" className="mt-6 text-sm font-medium text-gray-900">
+                                                              {deliveryMethod.price}
+                                                          </RadioGroup.Description>
+                                                      </span>
+                                                  </span>
+                                                  {checked ? (
+                                                      <FontAwesomeIcon icon={'check-circle'} className="h-5 w-5 text-rose-600" aria-hidden="true" />
+                                                  ) : null}
+                                                  <span
+                                                      className={classNames(
+                                                          active ? 'border' : 'border-2',
+                                                          checked ? 'border-rose-500' : 'border-transparent',
+                                                          'pointer-events-none absolute -inset-px rounded-lg'
+                                                      )}
+                                                      aria-hidden="true"
+                                                  />
+                                              </>
+                                          )}
+                                      </RadioGroup.Option>
+                                  ))}
+                              </div>
+                          </RadioGroup>
+                      </div>
+
+                      {/* Payment */}
+                      <div className="mt-10 border-t border-gray-200 pt-10">
+                          <h2 className="text-lg font-medium text-gray-900">Thanh Toán</h2>
+
+                          <fieldset className="mt-4">
+                              <legend className="sr-only">Chọn</legend>
+                              <div className="space-y-4 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
+                                  {paymentMethods.map((paymentMethod, paymentMethodIdx) => (
+                                      <div key={paymentMethod.id} className="flex items-center">
+                                          {paymentMethodIdx === 0 ? (
+                                              <input
+                                                  id={paymentMethod.id}
+                                                  name="payment-type"
+                                                  type="radio"
+                                                  defaultChecked
+                                                  className="h-4 w-4 border-gray-300 text-rose-600 focus:ring-rose-500"
+                                              />
+                                          ) : (
+                                              <input
+                                                  id={paymentMethod.id}
+                                                  name="payment-type"
+                                                  type="radio"
+                                                  className="h-4 w-4 border-gray-300 text-rose-600 focus:ring-rose-500"
+                                              />
+                                          )}
+
+                                          <label htmlFor={paymentMethod.id} className="ml-3 block text-sm font-medium text-gray-900">
+                                              {paymentMethod.title}
+                                          </label>
+                                      </div>
+                                  ))}
+                              </div>
+                          </fieldset>
+
+                      </div>
+                  </div>
+
+                  {/* Order summary */}
+                  <div className="mt-10 lg:mt-0">
+                      <h2 className="text-lg font-medium text-gray-900">Tổng Quan</h2>
+
+                      <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
+                          <h3 className="sr-only">Hàng Trong Giỏ</h3>
+                          <ul role="list" className="divide-y divide-gray-200">
+                              {products.map((product) => (
+                                  <li key={product.id} className="flex px-4 py-6 sm:px-6">
+                                      <div className="flex-shrink-0">
+                                          <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" />
+                                      </div>
+
+                                      <div className="ml-6 flex flex-1 flex-col">
+                                          <div className="flex">
+                                              <div className="min-w-0 flex-1">
+                                                  <h4 className="text-sm">
+                                                      <a href={product.href} className="font-medium text-gray-900 hover:text-gray-800">
+                                                          {product.title}
+                                                      </a>
+                                                  </h4>
+                                                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                                                  <p className="mt-1 text-sm text-gray-500">{product.size}</p>
+                                              </div>
+
+                                              <div className="ml-4 flow-root flex-shrink-0">
+                                                  <button
+                                                      type="button"
+                                                      className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-400 hover:text-gray-500"
+                                                  >
+                                                      <span className="sr-only">Remove</span>
+                                                      <FontAwesomeIcon icon={'trash'} className="h-5 w-5" aria-hidden="true" />
+                                                  </button>
+                                              </div>
+                                          </div>
+
+                                          <div className="flex flex-1 items-end justify-between pt-2">
+                                              <p className="mt-1 text-sm font-medium text-gray-900">{product.price}</p>
+
+                                              <div className="ml-4">
+                                                  <label htmlFor="quantity" className="sr-only">
+                                                      Quantity
+                                                  </label>
+                                                  <input type="text" name="quantity" id="quantity" value={product.quantity} disabled
+                                                  className='rounded-md w-10'/>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                              ))}
+                          </ul>
+                          <dl className="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
+                              <div className="flex items-center justify-between">
+                                  <dt className="text-sm">Tạm Tính</dt>
+                                  <dd className="text-sm font-medium text-gray-900">1.000.000 VNĐ</dd>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                  <dt className="text-sm">Phí Vận Chuyển</dt>
+                                  <dd className="text-sm font-medium text-gray-900">10.000 VNĐ</dd>
+                              </div>
+
+                              <div className="flex items-center justify-between border-t border-gray-200 pt-6">
+                                  <dt className="text-base font-medium">Tổng</dt>
+                                  <dd className="text-base font-medium text-gray-900">1.010.000 VNĐ</dd>
+                              </div>
+                          </dl>
+
+                          <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
+                              <button type="submit" className="w-full rounded-md border border-transparent bg-rose-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-gray-50" >
+                                  Xác Nhận
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </section>
+  )
+}
