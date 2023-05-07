@@ -15,6 +15,8 @@ model Product {
   image     Image?    @relation(fields: [imageId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   imageId   String?   @unique @db.ObjectId
   variants  Variant[]
+  categoryId String   @unique @db.ObjectId
+  category Category @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   parent    Product?  @relation("ParentChildren", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   parentId  String?   @db.ObjectId
   children  Product[] @relation("ParentChildren")
@@ -59,8 +61,12 @@ model Category {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   slug      String
+  products Product[]
   image     Image    @relation(fields: [imageId], references: [id])
   imageId   String   @unique @db.ObjectId
+  parent    Category?  @relation("ParentChildren", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentId  String?   @db.ObjectId
+  children  Category[] @relation("ParentChildren")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
