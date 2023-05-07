@@ -27,10 +27,16 @@ export type TImage = {
 }
 
 export type TVariant = {
-  id?:string
+  id:string,
   price: number,
   discount: number,
-  count: number
+  quantity: number,
+  color: string,
+  count: number,
+  images:Array<TImage>,
+  name?: string,
+  slug?: string,
+  detail?: string,
 }
 
 export type TProduct = {
@@ -38,6 +44,6 @@ export type TProduct = {
   name: string,
   slug: string,
   detail: string,
-  image: TImage
+  image: TImage,
   variants: Array<TVariant>
 }

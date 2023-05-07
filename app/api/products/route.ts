@@ -14,7 +14,10 @@ export async function GET(request: Request) {
                 select:{
                     price:true,
                     discount:true,
-                    count:true
+                    quantity:true,
+                    count:true,
+                    color: true,
+                    images: true,
                 }
             }          
         },
