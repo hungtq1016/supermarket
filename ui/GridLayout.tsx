@@ -1,3 +1,4 @@
+'use client'
 import ProductVertical from "@/ui/ProductVertical";
 import { IGrid } from '@/lib/interface'
 import ProductHorizontal from "@/ui/ProductHorizontal";

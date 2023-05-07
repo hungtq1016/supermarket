@@ -12,6 +12,7 @@ export async function GET(request: Request) {
             detail:true,
             variants:{
                 select:{
+                    id:true,
                     price:true,
                     discount:true,
                     quantity:true,

@@ -42,6 +42,7 @@ export default async function Page() {
   
   return (
     <>
+      {/* @ts-expect-error Async Server Component */}
       <Products products={variants}/>
     </>
   )

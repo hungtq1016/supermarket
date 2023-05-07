@@ -8,11 +8,11 @@ const sort =[
   { name: 'green', label: 'dsd'}
 ]
 
-export default async function Products({products}:any) {
+export default async function Category(props:any) {
     return (
         <section className="py-5">
             <div className="flex items-baseline justify-between border-b border-gray-200 pb-4">
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 capitalize">Tất Cả Sản Phẩm</h1>
+                <h1 className="text-4xl font-bold tracking-tight text-gray-900">{props.category.name}</h1>
                 <div className="flex items-center gap-x-3">
                     <Filter />
                     <ViewBy />
@@ -46,7 +46,7 @@ export default async function Products({products}:any) {
 
                     {/* Product grid */}
                     <div className="lg:col-span-3">
-                        <GridLayout isGrid={true} data={products} />
+                        <GridLayout isGrid={true} data={props.variants} />
                     </div>
                 </div>
             </section>
