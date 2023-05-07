@@ -15,10 +15,12 @@ export default async function Page() {
   const productsData : Promise<TProduct[]> = getProducts()
     
   const products = await productsData
+  
   const variants:Array<any> = []
   products.map((product)=>{
-
+    
     product.variants.map(variant => {
+      
       return variants.push(
         {
           price: variant.price,
@@ -40,8 +42,7 @@ export default async function Page() {
   
   return (
     <>
-      {/* <Products products={variants}/> */}
-      ?
+      <Products products={variants}/>
     </>
   )
 }

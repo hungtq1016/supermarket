@@ -15,7 +15,7 @@ function ProductVertical({product}:{product:any}) {
     return ( 
         <div className="relative space-y-1 group mb-4">
             <div className="relative border">
-                <Image src={product.image.url} alt={product.name} width={400} height={400} className='mx-auto'/>
+                <Image src={product?.images[0]?.url} alt={product.name} width={400} height={400} className='mx-auto'/>
                 <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 duration-700">
                     <button className="w-full py-2 bg-black text-gray-50">
                         Thêm vào giỏ
@@ -34,15 +34,15 @@ function ProductVertical({product}:{product:any}) {
                     </div>
                 </div>
             </div>
-            <div className="font-medium capitalize">{product.name}</div>
+            <div className="font-medium capitalize">{product.name +' - '+product.color}</div>
             <div className="font-medium space-x-3">
                 {
-                    product.variants[0].discount ?
+                    product.discount ?
                     <>
-                        <span className="text-rose-600">{product.variants[0].discount.toLocaleString()} VNĐ</span> 
-                        <span className="text-gray-600 line-through">{product.variants[0].price.toLocaleString()} VNĐ</span>
+                        <span className="text-rose-600">{product.discount.toLocaleString()} VNĐ</span> 
+                        <span className="text-gray-600 line-through">{product.price.toLocaleString()} VNĐ</span>
                     </>:
-                    <span className="text-rose-600">{product.variants[0].price.toLocaleString()} VNĐ</span> 
+                    <span className="text-rose-600">{product.price.toLocaleString()} VNĐ</span> 
                 }
             </div>
             <div className="flex items-center gap-x-2">

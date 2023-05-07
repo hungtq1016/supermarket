@@ -15,7 +15,7 @@ function ProductHorizontal({product}:{product:any}) {
     return ( 
         <div className="flex p-4 bg-gray-50 mb-2 gap-x-2 justify-between items-center">      
             <div className="flex gap-x-3">
-                <Image src={product.image.url} alt={product.name} width={100} height={100} className="border"/>
+                <Image src={product.images[0].url} alt={product.name} width={100} height={100} className="border"/>
                 <div className="flex-col flex max-w-sm justify-between">
                     <div>
                         <div className="font-medium capitalize">{product.name}</div>
@@ -28,12 +28,12 @@ function ProductHorizontal({product}:{product:any}) {
                 </div>
                 <div className="flex flex-col gap-y-2">
                     {
-                        product.variants[0].discount ?
+                        product.discount ?
                         <>
-                            <span className="text-rose-600 text-xl ">{product.variants[0].discount.toLocaleString()} VNĐ</span> 
-                            <span className="text-gray-600 line-through text-sm">{product.variants[0].price.toLocaleString()} VNĐ</span>
+                            <span className="text-rose-600 text-xl ">{product.discount.toLocaleString()} VNĐ</span> 
+                            <span className="text-gray-600 line-through text-sm">{product.price.toLocaleString()} VNĐ</span>
                         </>:
-                        <span className="text-rose-600 text-xl">{product.variants[0].price.toLocaleString()} VNĐ</span> 
+                        <span className="text-rose-600 text-xl">{product.price.toLocaleString()} VNĐ</span> 
                     }
                 </div>
             </div>
