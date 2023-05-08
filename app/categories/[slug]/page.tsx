@@ -26,7 +26,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const variants: Array<any> = []
   category?.products?.map((product: any) => {
 
-    product.variants.map((variant: any) => {
+    product?.variants?.map((variant: any) => {
       return variants.push(
         {
           id: variant.id,

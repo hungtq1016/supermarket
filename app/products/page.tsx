@@ -16,7 +16,7 @@ export default async function Page() {
   const variants:Array<any> = []
   products.map((product)=>{
     
-    product.variants.map(variant => {
+    product?.variants?.map(variant => {
       
       return variants.push(
         {
