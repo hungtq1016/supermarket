@@ -26,7 +26,7 @@ export default async function Page() {
           quantity: variant.quantity,
           count: variant.count,
           color: variant.color,
-          images: variant.images,
+          image: variant.images[0],
           name: product.name,
           detail: product.detail,
           slug: product.slug
@@ -35,6 +35,8 @@ export default async function Page() {
     }            
     )    
   })
+  console.log(variants);
+
   const paths=[
     {
       name:'Tất Cả Sản Phẩm',

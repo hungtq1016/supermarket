@@ -14,7 +14,7 @@ function ProductHorizontal({product}:{product:any}) {
     return ( 
         <div className="flex p-4 bg-gray-50 mb-2 gap-x-2 justify-between items-center">      
             <div className="flex gap-x-3">
-                <Image src={'/images/ps5-black-1.jpg'} alt={product.name} width={100} height={100} className="border"/>
+                <Image src={product.image.url} alt={product.name} width={100} height={100} className="border"/>
                 <div className="flex-col flex max-w-sm justify-between">
                     <div>
                         <div className="font-medium capitalize">{product.name}</div>
