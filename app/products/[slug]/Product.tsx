@@ -59,9 +59,8 @@ export default function Product(props:any) {
     const images : Array<IImage> =  product.variants[variantId].images;
     return ( 
         <>
-            <section>
-                <div className="max-w-7xl mx-4 md:mx-auto pt-10 pb-20">
-                    <div className="grid grid-cols-12 gap-x-8">
+            <section className="pb-20">
+            <div className="grid grid-cols-12 gap-x-8">
                         <div className="col-span-7">
                             <Slider key={variantId} images={images}/>
                         </div>
@@ -119,7 +118,6 @@ export default function Product(props:any) {
                             </div>
                         </div>    
                     </div>
-                </div>
             </section>
             <ProductSection title="Tương Tự" about="Các sản phẩm tương tự" isSlider={false} show={4}/>
         </>

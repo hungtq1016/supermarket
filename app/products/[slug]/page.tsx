@@ -1,6 +1,7 @@
 import getProduct from "@/lib/fetchData/getProduct";
 import { redirect } from "next/navigation";
 import Product from "./Product";
+import Breadcrumbs from "@/ui/Include/BreadCrumb";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const [product] = await getProduct(params.slug)
@@ -15,10 +16,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function Page({ params }: { params: { slug: string } }) {
     const [product, child] = await getProduct(params.slug)
-    
+    const paths=[
+        {
+          name:'Sản Phẩm',
+          slug:'/products'
+        },
+        {
+          name:product.name,
+          slug:'#'
+        }
+      ]
     return ( 
-        <> 
+        <section className="py-10"> 
+            <Breadcrumbs paths={paths}/>
             <Product product={product} child={child}/>
-        </>
+        </section>
      );
 }

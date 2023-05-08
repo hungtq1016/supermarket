@@ -1,8 +1,5 @@
+import { PageProps } from "@/lib/type";
 import Breadcrumbs from "@/ui/Include/BreadCrumb";
-import Payment from "./Payment";
-export const metadata ={
-    title:'Thanh Toán'
-}
 
 const paths = [
     {
@@ -10,15 +7,17 @@ const paths = [
         slug:'/cart'
     },
     {
-        name:'Thanh Toán',
+        name:'Hoàn Tất',
         slug:'#'
     }
 ]
-export default function Page() {
-    return(
-        <>
+function Layout({ children, params }: PageProps) {
+    return ( 
+        <>  
             <Breadcrumbs paths={paths}/>
-            <Payment/>
+            {children}
         </>
-    )
-};
+     );
+}
+
+export default Layout;

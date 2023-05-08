@@ -1,8 +1,6 @@
-'use client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {library } from "@fortawesome/fontawesome-svg-core";
 import {fas} from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -33,7 +31,9 @@ const wishlist = [
         inStock: 0
     }
 ]
-
+export const metadata = {
+    title: "Sản Phẩm Yêu Thích",
+  }
 function CartList(item:any){
 
     return (

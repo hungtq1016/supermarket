@@ -24,7 +24,7 @@ const faqs = [
 
 export default function Faq() {
   return (
-    <section className=" py-16 divide-y divide-gray-900/10">
+    <section className=" divide-y divide-gray-900/10">
       <h2 className="text-2xl font-bold leading-10 tracking-tight text-gray-900">Câu hỏi thường gặp</h2>
       <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
         {faqs.map((faq) => (

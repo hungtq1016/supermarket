@@ -1,11 +1,20 @@
-import AddressBar from "@/ui/AddressBar";
+import Breadcrumbs from "@/ui/Include/BreadCrumb";
 
-function Page() {
+export const metadata = {
+  title: 'Danh Sách Thể Loại',
+}
+const paths=[
+  {
+    name:'Danh Sách Thể Loại',
+    slug:'#'
+  }
+]
+export default async function Page() {
     return ( 
-       <>
+      <section className="py-10">
+        <Breadcrumbs paths={paths} />
         <div>Category list</div>
-       </>
+      </section>
      );
 }
 
-export default Page;

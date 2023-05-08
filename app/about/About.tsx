@@ -1,12 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCheck,faX} from '@fortawesome/free-solid-svg-icons'
-import AddressBar from '@/ui/Include/AddressBar'
+import Breadcrumbs from '@/ui/Include/BreadCrumb'
+const paths =[
+    {
+        name:'Về Chúng Tôi',
+        slug:'#'
+    }
+]
 export default function About() {
     return (
-        <>
-            <AddressBar />
-            <div className="max-w-7xl mx-4 md:mx-auto">
-                <section className="py-10 text-gray-900">
+        <section className='py-10'>
+            <Breadcrumbs paths={paths}/>
+            <section className="pb-10 text-gray-900">
                     <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Đôi chút về NextJS</h1>
                     <p className="mt-6 text-xl leading-8">
                         Next.js là một framework JavaScript cho phép bạn xây dựng các trang web tĩnh siêu nhanh và cực kỳ thân thiện với người dùng, cũng như các ứng dụng web sử dụng React. Nó được phát triển dưới dạng open-source bổ sung các khả năng tối ưu hóa như render phía máy chủ (SSR) và tạo trang web static. Next.js xây dựng dựa trên thư viện React, có nghĩa là các ứng dụng Next.js sử dụng core của React. Với việc SSR thì NextJS giới thiệu là sẽ cung cấp cho chúng ta một số thứ như hiệu năng tốt hơn so với ứng dujgn CSR; mang lại khả năng SEO tốt hơn mà CSR không có như là việc chia sẻ bài viết
@@ -87,8 +92,7 @@ export default function About() {
                         </figure>
                     </div>
                 </section>
-            </div>
-        </>
+        </section>
 
     )
 }

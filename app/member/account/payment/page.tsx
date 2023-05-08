@@ -1,5 +1,7 @@
 import Link from "next/link";
-
+export const metadata = {
+    title: "Chỉnh Sửa Phương Thức Thanh Toán",
+}
 function Page() {
     return ( 
         <form action="">

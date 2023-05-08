@@ -1,7 +1,7 @@
 export default function Term() {
   return (
     <section >
-      <div className="md:max-w-screen-sm text-center px-4 sm:px-6 lg:px-8 pt-24 pb-6 mx-auto">
+      <div className="md:max-w-screen-sm text-center px-4 sm:px-6 lg:px-8 mx-auto">
         <h1 className="text-2xl font-bold md:text-4xl dark:text-white">Điều Khoản</h1>
       </div>
 

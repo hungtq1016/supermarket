@@ -6,7 +6,7 @@ import ProviderWrapper from '@/ui/Auth/ProviderWrapper';
 
 export const metadata = {
   title: {
-    default: '%s | S-market',
+    default: 'S-market',
     template: '%s | S-market',
   },
   description: 'My ecommerce'
@@ -16,9 +16,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html>
-      <head>
-        <title>S-market</title>
-      </head>
       <body>
         <ProviderWrapper >
             {children}

@@ -1,10 +1,12 @@
 import Link from "next/link";
-
+export const metadata = {
+    title: "Chỉnh Sửa Địa Chỉ Giao Hàng",
+}
 function Page() {
     return ( 
         <form action="">
             <div className="px-20">
-                <div className="text-xl font-medium text-rose-600">Chỉnh Sửa Địa Chỉ</div>
+                <div className="text-xl font-medium text-rose-600">Chỉnh Sửa Địa Chỉ Giao Hàng</div>
                 <div className="grid grid-cols-2 gap-6 mt-4">
                     <div className="flex flex-col gap-y-2">
                         <label htmlFor="name">Họ và Tên</label>

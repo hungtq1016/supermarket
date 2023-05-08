@@ -1,5 +1,5 @@
-import AddressBar from "@/ui/Include/AddressBar";
 import DisclosureItem from "@/ui/Document/DisclosureItem";
+import Breadcrumbs from "@/ui/Include/BreadCrumb";
 const dataAPI = [
     {
         title: "Product",
@@ -75,11 +75,16 @@ const data = dataAPI.map((element,index)=>{
         </section>
     )
 })
-
+const paths =[
+    {
+        name:'Tài Liệu',
+        slug:'#'
+    }
+]
 export default async function Page() {
     return ( 
         <>
-            <AddressBar/>
+            <Breadcrumbs paths={paths}/>
             <div className="max-w-7xl mx-4 md:mx-auto">
                 <section className="py-20">
                     <div className="text-3xl font-semibold pb-5">Tài liệu API</div>

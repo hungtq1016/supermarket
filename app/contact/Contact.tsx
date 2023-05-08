@@ -1,22 +1,20 @@
 'use client'
 import { useState } from 'react'
-import { Switch } from '@headlessui/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faChevronDown} from '@fortawesome/free-solid-svg-icons'
-import AddressBar from "@/ui/Include/AddressBar";
+import Breadcrumbs from '@/ui/Include/BreadCrumb'
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
-}
+const paths =[
+    {
+        name:'Liên Hệ',
+        slug:'#'
+    }
+]
 
 export default function Contact() {
-  const [agreed, setAgreed] = useState(false)
 
     return (
-        <>
-            <AddressBar />
-            <div className=" max-w-7xl mx-auto">
-                <section className='pt-10 pb-20'>
+        <section className='py-10'>
+            <Breadcrumbs paths={paths}/>
+            <section className='pb-10'>
                     <div className="mx-auto max-w-2xl text-center">
                         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Liên Hệ</h2>
                         <p className="mt-2 text-lg leading-8 text-gray-600">
@@ -81,8 +79,7 @@ export default function Contact() {
                         </div>
                     </form>
                 </section>
-            </div>
-        </>
+        </section>
 
     )
 }

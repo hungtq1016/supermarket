@@ -69,7 +69,7 @@ function DropDown(nav:any){
     )
 }
 
-function MemberNavbar() {
+export default function MemberNavigator() {
     return ( 
         <>
             {navbar.map((navItem,index)=>(
@@ -78,5 +78,3 @@ function MemberNavbar() {
         </>
      );
 }
-
-export default MemberNavbar;
