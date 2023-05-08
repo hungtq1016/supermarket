@@ -22,7 +22,7 @@ interface footerEntity{
 const items : Array<footerEntity> = [
     {
         title:'Hỗ Trợ',
-        link:'/support',
+        link:'/contact',
         list:[
             {name: 'TP. Hồ Chí Minh',link:'https://goo.gl/maps/nbaZSFE2ZDTr9hqR7'},
             {name:'hungtq1016@gmail.com',link:'mailto:hungtq1016@gmail.com'},
