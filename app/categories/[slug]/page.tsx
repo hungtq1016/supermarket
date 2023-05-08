@@ -21,11 +21,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function Page({ params }: { params: { slug: string } }) {
 
   const categoryData: Promise<any> = getCategory(params.slug)
-
   const category = await categoryData
-  const variants: Array<any> = []
-  category?.products?.map((product: any) => {
 
+  const variants: Array<any> = []
+  
+  category?.products?.map((product: any) => {
     product?.variants?.map((variant: any) => {
       return variants.push(
         {
@@ -44,14 +44,14 @@ export default async function Page({ params }: { params: { slug: string } }) {
     }
     )
   })
-  const paths=[
+  const paths = [
     {
-      name:'Thể Loại',
-      slug:'/categories'
+      name: 'Thể Loại',
+      slug: '/categories'
     },
     {
-      name:category.name,
-      slug:'#'
+      name: category.name,
+      slug: '#'
     }
   ]
   return (

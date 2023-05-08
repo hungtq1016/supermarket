@@ -12,15 +12,15 @@ export default async function Page() {
   const productsData : Promise<any[]> = getProducts()
     
   const products = await productsData
+  console.log(products);
   
-  const variants:Array<any> = []
-  products?.map((product:any)=>{
-    
+  const variants: Array<any> = []
+
+  products?.map((product: any) => {
     product?.variants?.map((variant: any) => {
-      
       return variants.push(
         {
-          id:variant.id,
+          id: variant.id,
           price: variant.price,
           discount: variant.discount,
           quantity: variant.quantity,
@@ -32,8 +32,8 @@ export default async function Page() {
           slug: product.slug
         }
       )
-    }            
-    )    
+    }
+    )
   })
   console.log(variants);
 
