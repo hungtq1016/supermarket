@@ -22,7 +22,7 @@ function ProductHorizontal({product}:{product:any}) {
                             <Rating value={5} readOnly size='small' />
                             <span>(5)</span>
                         </div>
-                    </div>
+                    </div> 
                     <div className="truncate text-sm text-gray-600">{product.detail}</div>
                 </div>
                 <div className="flex flex-col gap-y-2">
