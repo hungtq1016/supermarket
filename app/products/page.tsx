@@ -17,6 +17,7 @@ export default async function Page() {
   products.map((product)=>{
     
     product?.variants?.map(variant => {
+      console.log(variant);
       
       return variants.push(
         {
@@ -26,7 +27,7 @@ export default async function Page() {
           quantity: variant.quantity,
           count: variant.count,
           color: variant.color,
-          image: variant.images.shift(),
+          images: variant.images,
           name: product.name,
           detail: product.detail,
           slug: product.slug
