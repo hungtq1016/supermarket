@@ -9,7 +9,7 @@ export default async function getProduct(slug:string) {
         throw new Error("Kết nối thất bại");
     }  
 
-    const childData = await fetch(`${URL}/api/products/children/${product.id}`);
+    const childData = await fetch(`${URL}/api/products/children/${product.parentId}`);
     const child = await childData.json();
     
     if (!childData.ok) {
