@@ -26,7 +26,7 @@ export default async function Page() {
           quantity: variant.quantity,
           count: variant.count,
           color: variant.color,
-          images: variant.images,
+          image: variant.images.shift(),
           name: product.name,
           detail: product.detail,
           slug: product.slug

@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const category = await categoryData
 
   const variants: Array<any> = []
-  
+
   category?.products?.map((product: any) => {
     product?.variants?.map((variant: any) => {
       return variants.push(
@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           quantity: variant.quantity,
           count: variant.count,
           color: variant.color,
-          images: variant.images,
+          image: variant.images.shift(),
           name: product.name,
           detail: product.detail,
           slug: product.slug

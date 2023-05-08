@@ -15,7 +15,7 @@ function ProductVertical({product}:{product:any}) {
     return ( 
         <div className="relative space-y-1 group mb-4">
             <div className="relative border">
-                <Image src={'/images/ps5-1.jpg'} alt={product.name} width={400} height={400} className='mx-auto'/>
+                <Image src={product.image.url} alt={product.name} width={400} height={400} className='mx-auto'/>
                 <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 duration-700">
                     <button className="w-full py-2 bg-black text-gray-50">
                         Thêm vào giỏ
