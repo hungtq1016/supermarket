@@ -1,4 +1,3 @@
-import { Product } from "@/lib/interface";
 import Rating from "@mui/material/Rating";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -35,6 +34,13 @@ function ProductHorizontal({product}:{product:any}) {
                         </>:
                         <span className="text-rose-600 text-xl">{product.price.toLocaleString()} VNĐ</span> 
                     }
+                    {product.discount &&
+                        <div className="">
+                            <span className="bg-rose-600 py-1 px-3 rounded-md text-gray-50 text-xs">
+                                -{calculateDiscount(product.price, product.discount)}%
+                            </span>
+                        </div>
+                    }
                 </div>
             </div>
             <div className="space-y-3">
@@ -51,16 +57,7 @@ function ProductHorizontal({product}:{product:any}) {
                         Chi tiết
                     </Link>
                 </div>
-            </div>
-           
-            {   product.discount && 
-                <div className="absolute top-2 left-2">
-                    <div className="bg-rose-600 py-1 px-3 rounded-md text-gray-50 text-xs">
-                        -{calculateDiscount(product.price,product.discount)}%
-                    </div>
-                </div>
-            }
-           
+            </div>  
         </div>
     );
 }

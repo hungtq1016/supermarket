@@ -1,9 +1,5 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faX} from '@fortawesome/free-solid-svg-icons';
-
-import GridLayout from '@/ui/GridLayout';
-import CategoriesList from '@/ui/inc/CategoriesList';
-import { TProduct, TVariant } from '@/lib/type';
+import CategoriesList from '@/ui/Include/CategoriesList';
+import { TProduct } from '@/lib/type';
 import getProducts from '@/lib/fetchData/getProducts';
 import Products from './Products';
 
@@ -23,6 +19,7 @@ export default async function Page() {
       
       return variants.push(
         {
+          id:variant.id,
           price: variant.price,
           discount: variant.discount,
           quantity: variant.quantity,
@@ -35,15 +32,16 @@ export default async function Page() {
         }
       )
     }            
-    )
-    console.log(variants);
-    
+    )    
   })
   
   return (
-    <>
-      {/* @ts-expect-error Async Server Component */}
-      <Products products={variants}/>
-    </>
+    <section className='py-10'>
+      <div className='grid grid-cols-5'>
+        {/* @ts-expect-error Async Server Component */}
+        <CategoriesList />
+        <Products products={variants}/>
+      </div>
+    </section>
   )
 }

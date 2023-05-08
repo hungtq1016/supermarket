@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from "react";
 
-import ProductSection from "@/ui/ProductSection";
+import ProductSection from "@/ui/Product/ProductSection";
 
 import Link from "next/link";
 

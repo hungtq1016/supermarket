@@ -1,5 +1,5 @@
 import { PageProps } from "@/lib/type";
-import AddressBar from "@/ui/AddressBar";
+import AddressBar from "@/ui/Include/AddressBar";
 
 export default function Layout({ children, params }: PageProps) {
     return ( 

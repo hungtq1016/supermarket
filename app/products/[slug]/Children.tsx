@@ -1,6 +1,4 @@
 'use client'
-
-import useChildren from "@/hook/useChildren";
 import Image from "next/image";
 import Link from "next/link";
 

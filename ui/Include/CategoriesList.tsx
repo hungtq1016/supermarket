@@ -9,7 +9,7 @@ export default async function CategoriesList() {
     const categories = await categoriesData
     
     return ( 
-        <section className="space-y-4">
+        <nav className="space-y-4">
             {
                 categories.map((category)=>(
                     <div className="relative group" key={category.id}>
@@ -31,6 +31,6 @@ export default async function CategoriesList() {
                     </div>
                 ))
             }
-        </section>
+        </nav>
      );
 }
