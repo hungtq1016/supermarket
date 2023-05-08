@@ -35,6 +35,7 @@ export default async function Page() {
     }            
     )    
   })
+  console.log(variants);
 
   const paths=[
     {
