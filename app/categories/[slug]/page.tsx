@@ -27,8 +27,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
   category?.products?.map((product: any) => {
 
     product?.variants?.map((variant: any) => {
-      console.log(variant);
-
       return variants.push(
         {
           id: variant.id,
@@ -46,7 +44,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
     }
     )
   })
-
   const paths=[
     {
       name:'Thể Loại',

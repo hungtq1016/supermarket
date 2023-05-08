@@ -17,7 +17,6 @@ export default async function Page() {
   products?.map((product:any)=>{
     
     product?.variants?.map((variant: any) => {
-      console.log(variant);
       
       return variants.push(
         {
@@ -36,6 +35,7 @@ export default async function Page() {
     }            
     )    
   })
+  console.log(variants);
 
   const paths=[
     {
