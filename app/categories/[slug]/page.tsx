@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   category?.products?.map((product: any) => {
 
     product.variants.map((variant: any) => {
-
+      let image = variant.images.shift()
       return variants.push(
         {
           id: variant.id,
@@ -36,7 +36,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
           quantity: variant.quantity,
           count: variant.count,
           color: variant.color,
-          images: variant.images,
+          image: image,
           name: product.name,
           detail: product.detail,
           slug: product.slug
