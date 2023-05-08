@@ -3,7 +3,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
-import AccountDropdown from './AccountDropdown';
+import AccountDropdown from '../Auth/AccountDropdown';
 import { useSession } from "next-auth/react";
 import slugify from 'slugify';
 library.add(fas)

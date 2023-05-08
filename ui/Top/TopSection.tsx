@@ -1,5 +1,5 @@
 
-import CategoriesList from "../CategoriesList";
+import CategoriesList from "../Include/CategoriesList";
 import Carousel from "./Carousel";
 
 export default async function TopSection(){

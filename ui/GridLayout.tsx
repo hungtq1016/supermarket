@@ -1,7 +1,7 @@
 'use client'
-import ProductVertical from "@/ui/ProductVertical";
+import ProductVertical from "@/ui/Product/ProductVertical";
 import { IGrid } from '@/lib/interface'
-import ProductHorizontal from "@/ui/ProductHorizontal";
+import ProductHorizontal from "@/ui/Product/ProductHorizontal";
 
 export default function GridLayout(props: IGrid) {
     const products = props.data;

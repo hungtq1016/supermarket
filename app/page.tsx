@@ -1,8 +1,8 @@
 import Categories from '@/ui/Top/Categories';
 import Discount from '@/ui/Top/Discount';
 import Review from '@/ui/Top/Review';
-import Term from '@/ui/Term';
-import ProductSection from '@/ui/ProductSection';
+import Term from '@/ui/Top/Term';
+import ProductSection from '@/ui/Product/ProductSection';
 import TopSection from '@/ui/Top/TopSection';
 
 export const metadata = {

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Timer from "@/ui/Timer";
+import Timer from "@/ui/inc/Timer";
 import Link from "next/link";
 const imageData = {
     url:'/images/discount.jpg',

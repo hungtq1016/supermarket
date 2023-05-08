@@ -1,6 +1,6 @@
 
 import GridLayout from '@/ui/GridLayout';
-import CategoriesList from '@/ui/CategoriesList';
+import CategoriesList from '@/ui/inc/CategoriesList';
 import ViewBy from '@/ui/Product/ViewBy';
 import Filter from '@/ui/Product/Filter';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

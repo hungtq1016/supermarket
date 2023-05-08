@@ -1,7 +1,6 @@
 import getCategory from "@/lib/fetchData/getCategory";
 import { redirect } from "next/navigation";
 import Category from "./Category";
-import getCategories from "@/lib/fetchData/getCategories";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const categoryData : Promise<any> = getCategory(params.slug)

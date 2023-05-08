@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCheck,faX} from '@fortawesome/free-solid-svg-icons'
-import AddressBar from '@/ui/AddressBar'
+import AddressBar from '@/ui/Include/AddressBar'
 export default function About() {
     return (
         <>
