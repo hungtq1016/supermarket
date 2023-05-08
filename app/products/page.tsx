@@ -9,14 +9,14 @@ export const metadata = {
 }
 
 export default async function Page() {
-  const productsData : Promise<TProduct[]> = getProducts()
+  const productsData : Promise<any[]> = getProducts()
     
   const products = await productsData
   
   const variants:Array<any> = []
-  products.map((product)=>{
+  products?.map((product:any)=>{
     
-    product?.variants?.map(variant => {
+    product?.variants?.map((variant: any) => {
       console.log(variant);
       
       return variants.push(
@@ -36,7 +36,6 @@ export default async function Page() {
     }            
     )    
   })
-  console.log(variants);
 
   const paths=[
     {
