@@ -24,12 +24,6 @@ const ReviewList = (props:any)=>{
                                         <p className="font-medium text-gray-900">{review.user.name}</p>
                                         <Rating value={review.rating} readOnly={true} />
                                     </div>
-                                    {/* <time
-                                    dateTime={review.datetime}
-                                    className="ml-4 border-l border-gray-200 pl-4 text-gray-500 lg:ml-0 lg:mt-2 lg:border-0 lg:pl-0"
-                                >
-                                    {review.date}
-                                </time> */}
                                     <time dateTime={review.createdAt}>{formatDistance(date, new Date(), { addSuffix: true,locale: vi })}</time>
 
                                 </div>
@@ -73,6 +67,7 @@ export default function Comment(props:any) {
     const [comments,setComments] = useState([]);
     const [loading,setLoading] = useState<boolean>(true);
     useEffect(()=>{
+        setLoading(true)
         axios.get(`/api/products/comments/${props.variantId}`).then(response=>{
             setComments(response.data)
             setLoading(false)
