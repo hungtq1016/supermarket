@@ -22,19 +22,6 @@ export async function GET(request:Request,{ params }: { params: { slug: string }
                     quantity:true,
                     count:true,
                     color:true,
-                    comments:{
-                        select:{
-                            id:true,
-                            comment:true,
-                            rating:true,
-                            createdAt:true,
-                            user:{
-                                select:{
-                                    name:true,
-                                }
-                            }
-                        }
-                    },
                     images:{
                         select:{
                             id:true,

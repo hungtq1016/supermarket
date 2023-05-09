@@ -3,10 +3,13 @@ import { Rating } from '@mui/material'
 import { parseISO, formatDistance } from 'date-fns';
 import { vi } from 'date-fns/locale'
 import Pagination from './Pagination';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Loading from '@/app/loading';
 
 const ReviewList = (props:any)=>{
-    const comments = props?.comments
-
+    const comments = props.comments
+ 
     return(
         <div className='col-span-2'>              
             <h2 className="text-xl font-medium text-gray-900">Đánh Giá</h2>
@@ -66,13 +69,26 @@ const WriteComment = ()=>{
 }
 
 export default function Comment(props:any) {
- const comments = props?.comments
+//  const comments = props?.comments
+    const [comments,setComments] = useState([]);
+    const [loading,setLoading] = useState<boolean>(true);
+    useEffect(()=>{
+        axios.get(`/api/products/comments/${props.variantId}`).then(response=>{
+            setComments(response.data)
+            setLoading(false)
+        })
+    },[props.variantId])
+    
   return (
       <section className='pt-10 pb-5'>
           <div className="space-y-3">
               <div className="grid grid-cols-3 gap-x-4">
-                    {comments.length != 0 ? <ReviewList comments={comments}/> :
-                    <div className='col-span-2 text-lg text-gray-600 '>Chưa có bình luận ... </div>}
+                  {loading ? 
+                        <div className='col-span-2 h-40 flex justify-center items-center'><Loading /> </div>
+                        : 
+                        comments.length != 0 ?
+                        <ReviewList comments={comments} /> :
+                        <div className='col-span-2 text-lg text-gray-600 '>Chưa có bình luận ... </div>}
                   <WriteComment/>
               </div>
           </div>

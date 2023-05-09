@@ -1,8 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
 
-import ProductSection from "@/ui/Product/ProductSection";
-
 import Link from "next/link";
 import Image from "next/image";
 
@@ -133,7 +131,7 @@ export default function Product(props:any) {
                     </div>
                 </div>
             </section>
-            <Comment comments={product.variants[variantId].comments}/>
+            <Comment variantId={product.variants[variantId].id}/>
         </>
      );
 }
