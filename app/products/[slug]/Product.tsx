@@ -14,11 +14,11 @@ library.add(fas)
 
 import Slider from "./Slider";
 import { IImage } from "@/lib/interface";
+import Comment from "./Comment";
 
 export default function Product(props:any) {
     const product = props.product
     const children = props.child
-    console.log(children);
     
     const [variantId,setVariantId] = useState(0);
     
@@ -37,7 +37,7 @@ export default function Product(props:any) {
     }
     function Variants() {
         return (
-            <section className="py-2">
+            <section className="py-10">
                 <div className="flex gap-x-6 items-center">
                     <span className="capitalize text-xl">
                         Màu:
@@ -49,7 +49,7 @@ export default function Product(props:any) {
                                     checked={variantId == index}
                                     onChange={() => { setVariantId(index) }}
                                 />
-                                <label htmlFor={variant.id} className={`font-medium capitalize `}>{variant.color}</label>
+                                <label htmlFor={variant.id} className={`font-medium capitalize `}>{variant.color.name}</label>
                             </div>
                         ))}
                     </div>
@@ -61,7 +61,7 @@ export default function Product(props:any) {
     const images : Array<IImage> =  product.variants[variantId].images;
     return ( 
         <>
-            <section className="pb-20">
+            <section className="pb-5">
                 <div className="grid grid-cols-12 gap-x-8">
                     <div className="col-span-7">
                         <Slider key={variantId} images={images} />
@@ -133,7 +133,7 @@ export default function Product(props:any) {
                     </div>
                 </div>
             </section>
-            <ProductSection title="Tương Tự" about="Các sản phẩm tương tự" isSlider={false} show={4} />
+            <Comment comments={product.variants[variantId].comments}/>
         </>
      );
 }
