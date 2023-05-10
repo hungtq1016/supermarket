@@ -12,7 +12,6 @@ export default async function Page() {
   const productsData : Promise<any[]> = getProducts()
     
   const products = await productsData
-  console.log(products);
   
   const variants: Array<any> = []
 
@@ -35,7 +34,6 @@ export default async function Page() {
     }
     )
   })
-  console.log(variants);
 
   const paths=[
     {
