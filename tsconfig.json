@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "prisma/users.js", "app/api/users/route.ts", "app/products/[slug]/page.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "prisma/users.js", "src/app/api/users/route.ts", "src/app/products/[slug]/page.jsx"],
   "exclude": ["node_modules"]
 }

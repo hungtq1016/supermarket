@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tab from './Tab';
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Loading from "@/app/loading";
+import Loading from "@/src/app/loading";
 
 library.add(fas)
 

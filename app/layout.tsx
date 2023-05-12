@@ -3,7 +3,7 @@ import '../style/globals.css';
 
 import React from 'react';
 import ProviderWrapper from '@/ui/Auth/ProviderWrapper';
-
+import Providers from './store/provider'
 export const metadata = {
   title: {
     default: 'S-market',
@@ -18,7 +18,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html>
       <body>
         <ProviderWrapper >
-            {children}
+            <Providers>
+              {children}    
+            </Providers>
         </ProviderWrapper>
       </body>
     </html>

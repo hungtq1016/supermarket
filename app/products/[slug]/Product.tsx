@@ -10,9 +10,12 @@ import {library } from "@fortawesome/fontawesome-svg-core";
 import {fas} from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
+import { increment } from '../../store/cartSlice'
+
 import Slider from "./Slider";
-import { IImage } from "@/lib/interface";
+import { ICartItem, IImage } from "@/lib/interface";
 import Comment from "./Comment";
+import { useAppDispatch } from "@/app/store/store";
 
 export default function Product(props:any) {
     const product = props.product
@@ -57,6 +60,19 @@ export default function Product(props:any) {
     }
 
     const images : Array<IImage> =  product.variants[variantId].images;
+    const stateProduct : ICartItem = {
+        product:{
+            id: product.variants[variantId].id,
+            name: product.name,
+            price: product.variants[variantId].price,
+            discount: product.variants[variantId].discount,
+            image: product.variants[variantId].images[0].url,
+            color: product.variants[variantId].color.name,
+            quantity: product.variants[variantId].quantity
+        },
+        inCart:1
+    }
+    const dispatch = useAppDispatch()
     return ( 
         <>
             <section className="pb-5">
@@ -104,7 +120,9 @@ export default function Product(props:any) {
                                         className='w-20 border-x-0 border-gray-600 text-center text-xl font-medium focus:ring-0 focus:outline-none' />
                                     <button onClick={increase} className='w-10 flex items-center justify-center border border-gray-600 rounded-r-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50' disabled={!(product.variants[variantId].quantity > 0)}><FontAwesomeIcon icon={'plus'} /></button>
                                 </div>
-                                <button className="px-6 py-2 bg-rose-600 rounded-md capitalize text-gray-50 font-medium hover:bg-rose-700 disabled:bg-gray-400" disabled={!(product.variants[variantId].quantity > 0)}>mua hàng</button>
+                                <button onClick={() => dispatch(increment(stateProduct))}
+                                className="px-6 py-2 bg-rose-600 rounded-md capitalize text-gray-50 font-medium hover:bg-rose-700 disabled:bg-gray-400" 
+                                disabled={!(product.variants[variantId].quantity > 0)}>mua hàng</button>
                                 <button className='px-4 flex items-center justify-center border rounded-md duration-500 bg-red-600 text-gray-50 hover:bg-red-700'><FontAwesomeIcon icon={'heart'} width={16} height={16} /></button>
                             </div>
                             <div className="border-2 border-gray-400 rounded-md divide-y-2 divide-gray-400">
@@ -121,7 +139,7 @@ export default function Product(props:any) {
                                     <div >
                                         <FontAwesomeIcon icon={'check'} className='w-10 h-10' />
                                     </div>
-                                    <div>
+                                    <div> 
                                         <div className="font-medium">Miễn Phí trả đổi</div>
                                         <div className="text-xs font-medium">Hoàn tiền sau 30 ngày <Link href={'/about'} className='font-normal underline'>Thông Tin</Link></div>
                                     </div>

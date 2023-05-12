@@ -5,53 +5,22 @@ import {fas} from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAppSelector } from '../store/store';
 
 library.add(fas)
-const inCart = [
-    {
-        product:{
-            name: 'Dao cạo râu đa năng',
-            image: '/images/dao-cao-rau.jpg',
-            slug: 'dao-cao-rau',
-            price: 500000,
-            discount: 279000,
-            rating: 4.8,
-            totalRating: 664,
-            inStock:10
-        },
-        inCart:2,
-        total:279000*2
-    },
-    {
-        product:{
-            name: 'đồng hồ thông minh apple watch 7',
-            image: '/images/apple-watch.jpg',
-            slug: 'apple-watch',
-            price: 710000,
-            discount: 500000,
-            rating: 4.3,
-            totalRating: 143,
-            inStock:5
-        },
-        inCart:3,
-        total:500000*3
-    }
-]
 
 function CartList(item:any){
+    const price = item.product.discount ? item.product.discount : item.product.price
     const [count,setCount] = useState<number>(item.inCart)
-    const [total,setTotal] = useState<number>(item.inCart*item.product.discount)
+    const [total,setTotal] = useState<number>(item.inCart*price)
         function increase() {
-            (count < item.product.inStock) && (setCount(count + 1) ,setTotal((count+1)*item.product.discount))
+            (count < item.product.inCart) && (setCount(count + 1) ,setTotal((count+1)*item.product.discount))
         }
     
         function decrease() {
             (count > 0) ? (setCount(count - 1) ,setTotal((count-1)*item.product.discount))
             : alert('xoa hang');
         }
-    // setTimeout(() => {
-        
-    // }, 5000);
     return (
         <div className="grid grid-cols-4 px-10 items-center py-7 border border-gray-100 rounded-md relative group" >
             <div className="flex gap-x-5 items-center">
@@ -74,6 +43,10 @@ function CartList(item:any){
 }
 
 export default function Cart() {
+    const cartItems = useAppSelector(
+        (state) => state.cart.cartItems
+    )
+    
     return ( 
         <>
             <Link href='/' className="inline-block">
@@ -84,15 +57,19 @@ export default function Cart() {
             </Link>
             <section>
                 <div className="max-w-7xl mx-4 md:mx-auto pt-10 pb-20">
-                    <div className='space-y-3'>
-                        <div className="grid grid-cols-4 px-10 py-6">
-                            <div className="text-left font-medium">Sản Phẩm</div>
-                            <div className="text-center font-medium">Đơn Giá</div>
-                            <div className="text-center font-medium">Số Lượng</div>
-                            <div className="text-right font-medium">Thành Tiền</div>
+                    {cartItems.length == 0 ?
+                        <div>Giỏ Hàng Trống</div> :
+                        <div className='space-y-3'>
+                            <div className="grid grid-cols-4 px-10 py-6">
+                                <div className="text-left font-medium">Sản Phẩm</div>
+                                <div className="text-center font-medium">Đơn Giá</div>
+                                <div className="text-center font-medium">Số Lượng</div>
+                                <div className="text-right font-medium">Thành Tiền</div>
+                            </div>
+                            {cartItems.map((item, index) => (<CartList key={index} {...item} />))}
                         </div>
-                        {inCart.map((item,index)=>(<CartList key={index} {...item}/>))}
-                    </div>
+                    }
+                    
                 </div>
             </section>
             <section>

@@ -5,7 +5,7 @@ import { vi } from 'date-fns/locale'
 import Pagination from './Pagination';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Loading from '@/app/loading';
+// import Loading from '@/src/app/loading';
 
 const ReviewList = (props:any)=>{
     const comments = props.comments
@@ -79,7 +79,7 @@ export default function Comment(props:any) {
           <div className="space-y-3">
               <div className="grid grid-cols-3 gap-x-4">
                   {loading ? 
-                        <div className='col-span-2 h-40 flex justify-center items-center'><Loading /> </div>
+                        <div className='col-span-2'>Loading...</div>
                         : 
                         comments.length != 0 ?
                         <ReviewList comments={comments} /> :

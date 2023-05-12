@@ -1,5 +1,5 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
-import { TProduct } from "./type"
+import { TProduct, TVariant } from "./type"
 
 export interface Product {
     name:string,
@@ -80,4 +80,9 @@ export interface IImage {
     id:string,
     url:string,
     alt:string
+}
+
+export interface ICartItem{
+    product:any
+    inCart:number
 }
