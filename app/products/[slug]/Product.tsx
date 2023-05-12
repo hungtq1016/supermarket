@@ -70,7 +70,7 @@ export default function Product(props:any) {
             color: product.variants[variantId].color.name,
             quantity: product.variants[variantId].quantity
         },
-        inCart:1
+        inCart:count
     }
     const dispatch = useAppDispatch()
     return ( 

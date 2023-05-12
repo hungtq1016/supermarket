@@ -14,11 +14,11 @@ export const cartSlice = createSlice({
         increment:(state,action:PayloadAction<ICartItem>)=>{
             const item = state.cartItems.find(item => item.product.id == action.payload.product.id)
 
-            item ? item.inCart++ : 
+            item ? item.inCart += action.payload.inCart: 
 
             state.cartItems.push({
                 product: action.payload.product,
-                inCart:1,
+                inCart:action.payload.inCart,
             })
         }
     }
