@@ -2,25 +2,33 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {library } from "@fortawesome/fontawesome-svg-core";
 import {fas} from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { useAppSelector } from '../store/store';
+import { useAppSelector,useAppDispatch } from '@/app/store';
+
+import { increment,decrement,clearById ,clearAll} from '@/app/store/cartSlice'
+import { ICartItem } from '@/lib/interface';
 
 library.add(fas)
 
 function CartList(item:any){
-    const price = item.product.discount ? item.product.discount : item.product.price
-    const [count,setCount] = useState<number>(item.inCart)
-    const [total,setTotal] = useState<number>(item.inCart*price)
+    const total =  item.product.discount ? item.inCart*item.product.discount:item.inCart*item.product.price
+
+    const dispatch = useAppDispatch()
+    
         function increase() {
-            (count < item.product.inCart) && (setCount(count + 1) ,setTotal((count+1)*item.product.discount))
+            const stateProduct:ICartItem = {
+                product:item.product,
+                inCart:1,
+            }
+            dispatch(increment(stateProduct))
         }
     
         function decrease() {
-            (count > 0) ? (setCount(count - 1) ,setTotal((count-1)*item.product.discount))
-            : alert('xoa hang');
+            dispatch(decrement(item.product.id))
         }
+        
     return (
         <div className="grid grid-cols-4 px-10 items-center py-7 border border-gray-100 rounded-md relative group" >
             <div className="flex gap-x-5 items-center">
@@ -30,12 +38,13 @@ function CartList(item:any){
             <div className="text-center">{item.product.discount ? item.product.discount.toLocaleString() : item.product.price.toLocaleString()} VNĐ </div>
             <div className="flex items-center justify-center">
                 <button onClick={decrease} className='w-10 h-10 flex items-center justify-center border rounded-l-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50'><FontAwesomeIcon icon={'minus'} className='w-4 h-4'/></button>
-                <input type="number" value={count} disabled className='w-10 border-y h-10 text-center'/>
+                <input type="number" value={item.inCart} disabled className='w-10 border-y h-10 text-center'/>
                 <button onClick={increase} className='w-10 h-10 flex items-center justify-center border rounded-r-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50'><FontAwesomeIcon icon={'plus'} className='w-4 h-4'/></button>
 
             </div>
             <div className="text-right">{total.toLocaleString()} VNĐ</div>
-            <button className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'x'} className='w-4 h-4 text-red-600'/></button>
+            <button onClick={()=>{dispatch(clearById(item.product.id))}}
+            className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'x'} className='w-4 h-4 text-red-600'/></button>
         </div>
     )
         
@@ -46,7 +55,7 @@ export default function Cart() {
     const cartItems = useAppSelector(
         (state) => state.cart.cartItems
     )
-    
+    const dispatch = useAppDispatch()
     return ( 
         <>
             <Link href='/' className="inline-block">
@@ -59,15 +68,21 @@ export default function Cart() {
                 <div className="max-w-7xl mx-4 md:mx-auto pt-10 pb-20">
                     {cartItems.length == 0 ?
                         <div>Giỏ Hàng Trống</div> :
-                        <div className='space-y-3'>
-                            <div className="grid grid-cols-4 px-10 py-6">
-                                <div className="text-left font-medium">Sản Phẩm</div>
-                                <div className="text-center font-medium">Đơn Giá</div>
-                                <div className="text-center font-medium">Số Lượng</div>
-                                <div className="text-right font-medium">Thành Tiền</div>
+                        <>
+                            <div className='space-y-3'>
+                                <div className="grid grid-cols-4 px-10 py-6">
+                                    <div className="text-left font-medium">Sản Phẩm</div>
+                                    <div className="text-center font-medium">Đơn Giá</div>
+                                    <div className="text-center font-medium">Số Lượng</div>
+                                    <div className="text-right font-medium">Thành Tiền</div>
+                                </div>
+                                {cartItems.map((item, index) => (<CartList key={index} {...item} index={index} />))}
                             </div>
-                            {cartItems.map((item, index) => (<CartList key={index} {...item} />))}
-                        </div>
+                            <div className="flex justify-end mt-3">
+                                <button onClick={()=>{dispatch(clearAll())}}
+                                className='inline py-3 px-6 rounded-md bg-rose-600 text-gray-50 before:border-rose-600'>Xóa Hết</button>
+                            </div>
+                        </>
                     }
                     
                 </div>

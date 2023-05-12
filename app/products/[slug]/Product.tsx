@@ -10,12 +10,12 @@ import {library } from "@fortawesome/fontawesome-svg-core";
 import {fas} from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 
-import { increment } from '../../store/cartSlice'
+import { increment } from '@/app/store/cartSlice'
 
 import Slider from "./Slider";
 import { ICartItem, IImage } from "@/lib/interface";
 import Comment from "./Comment";
-import { useAppDispatch } from "@/app/store/store";
+import { useAppDispatch } from "@/app/store";
 
 export default function Product(props:any) {
     const product = props.product
@@ -70,7 +70,7 @@ export default function Product(props:any) {
             color: product.variants[variantId].color.name,
             quantity: product.variants[variantId].quantity
         },
-        inCart:count
+        inCart:count,
     }
     const dispatch = useAppDispatch()
     return ( 

@@ -4,6 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {fas} from '@fortawesome/free-solid-svg-icons'
 import {library } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";
+import { useAppDispatch } from '@/app/store';
+import { increment} from '@/app/store/cartSlice'
+import { ICartItem } from "@/lib/interface";
 
 library.add(fas)
 const calculateDiscount = (price:number,discount:number):number=>{
@@ -11,6 +14,20 @@ const calculateDiscount = (price:number,discount:number):number=>{
 }
 
 function ProductHorizontal({product}:{product:any}) {
+    const dispatch = useAppDispatch()
+    const stateProduct : ICartItem = {
+        product:{
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            discount: product.discount,
+            image: product.image.url,
+            color: product.color,
+            quantity: product.quantity
+        },
+        inCart:1,
+    }
+
     return ( 
         <div className="flex p-4 bg-gray-50 mb-2 gap-x-2 justify-between items-center">      
             <div className="flex gap-x-3">
@@ -48,7 +65,8 @@ function ProductHorizontal({product}:{product:any}) {
                     <button className="flex-1 bg-red-100 p-1 rounded-sm">
                             <FontAwesomeIcon icon={'heart'} className='w-4 h-4 text-red-600' />
                     </button>
-                    <button className="flex-1 bg-gray-200 p-1 rounded-sm">
+                    <button onClick={() => dispatch(increment(stateProduct))}
+                    className="flex-1 bg-gray-200 p-1 rounded-sm">
                             <FontAwesomeIcon icon={'shopping-cart'} className='w-4 h-4 text-gray-600' />
                     </button>
                 </div>

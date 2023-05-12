@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {fas} from '@fortawesome/free-solid-svg-icons'
 import {library } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";
+import { useAppDispatch } from '@/app/store';
+import { increment} from '@/app/store/cartSlice'
+import { ICartItem } from "@/lib/interface";
 
 library.add(fas)
 const calculateDiscount = (price:number,discount:number):number=>{
@@ -12,12 +15,28 @@ const calculateDiscount = (price:number,discount:number):number=>{
 }
 
 function ProductVertical({product}:{product:any}) {
+
+    const dispatch = useAppDispatch()
+    const stateProduct : ICartItem = {
+        product:{
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            discount: product.discount,
+            image: product.image.url,
+            color: product.color,
+            quantity: product.quantity
+        },
+        inCart:1,
+    }
+
     return ( 
         <div className="relative space-y-1 group mb-4">
             <div className="relative border">
                 <Image src={product.image.url} alt={product.name} width={400} height={400} className='mx-auto'/>
                 <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 duration-700">
-                    <button className="w-full py-2 bg-black text-gray-50">
+                    <button onClick={() => dispatch(increment(stateProduct))}
+                    className="w-full py-2 bg-black text-gray-50">
                         Thêm vào giỏ
                     </button>
                 </div>
