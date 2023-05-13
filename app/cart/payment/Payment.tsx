@@ -1,5 +1,5 @@
 'use client'
-import {  ReactEventHandler, useState } from 'react'
+import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,25 +8,14 @@ import {fas} from '@fortawesome/free-solid-svg-icons'
 library.add(fas)
 import { State }  from 'country-state-city';
 import { useRouter } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/app/store';
+import { totalPriceSelector,clearById } from '@/app/store/cartSlice';
+import Link from 'next/link';
+import Image from 'next/image';
 
-
-const products = [
-  {
-    id: 1,
-    title: 'Basic Tee',
-    href: '#',
-    price: '$32.00',
-    color: 'Black',
-    size: 'Large',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    quantity:3
-  },
-  // More products...
-]
 const deliveryMethods = [
-  { id: 1, title: 'Bình Thường', turnaround: '3-5 ngày', price: '10.000 VNĐ' },
-  { id: 2, title: 'Nhanh', turnaround: '1-2 ngày', price: '50.000 VNĐ' },
+  { id: 1, title: 'Bình Thường', turnaround: '3-5 ngày', price: 10000 },
+  { id: 2, title: 'Nhanh', turnaround: '1-2 ngày', price: 50000},
 ]
 const paymentMethods = [
   { id: 'visa', title: 'Visa' },
@@ -45,6 +34,9 @@ export default function Payment() {
 
     const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
 
+    const dispatch = useAppDispatch()
+    const cartItems = useAppSelector( (state) => state.cart.cartItems )
+    const totalPrice = useAppSelector(totalPriceSelector)
   return (
       <section className="pb-10">
           <div className="mx-auto max-w-2xl lg:max-w-none">
@@ -142,7 +134,7 @@ export default function Payment() {
                                                               {deliveryMethod.turnaround}
                                                           </RadioGroup.Description>
                                                           <RadioGroup.Description as="span" className="mt-6 text-sm font-medium text-gray-900">
-                                                              {deliveryMethod.price}
+                                                              {deliveryMethod.price.toLocaleString()} VNĐ
                                                           </RadioGroup.Description>
                                                       </span>
                                                   </span>
@@ -209,28 +201,27 @@ export default function Payment() {
                       <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
                           <h3 className="sr-only">Hàng Trong Giỏ</h3>
                           <ul role="list" className="divide-y divide-gray-200">
-                              {products.map((product) => (
-                                  <li key={product.id} className="flex px-4 py-6 sm:px-6">
+                              {cartItems.map((item) => (
+                                  <li key={item.product.id} className="flex px-4 py-6 sm:px-6">
                                       <div className="flex-shrink-0">
-                                          <img src={product.imageSrc} alt={product.imageAlt} className="w-20 rounded-md" />
+                                          <Image src={item.product.image} alt={item.product.name} className="rounded-md" width={80} height={80}/>
                                       </div>
 
                                       <div className="ml-6 flex flex-1 flex-col">
                                           <div className="flex">
                                               <div className="min-w-0 flex-1">
                                                   <h4 className="text-sm">
-                                                      <a href={product.href} className="font-medium text-gray-900 hover:text-gray-800">
-                                                          {product.title}
-                                                      </a>
+                                                      <Link href={'/products/'+item.product.slug} className="font-medium text-gray-900 hover:text-gray-800">
+                                                          {item.product.name}
+                                                      </Link>
                                                   </h4>
-                                                  <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                                                  <p className="mt-1 text-sm text-gray-500">{product.size}</p>
+                                                  <p className="mt-1 text-sm text-gray-500">{item.product.color}</p>
                                               </div>
 
                                               <div className="ml-4 flow-root flex-shrink-0">
-                                                  <button
+                                                  <button onClick={()=>{dispatch(clearById(item.product.id))}}
                                                       type="button"
-                                                      className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-400 hover:text-gray-500"
+                                                      className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-600 hover:text-red-600"
                                                   >
                                                       <span className="sr-only">Remove</span>
                                                       <FontAwesomeIcon icon={'trash'} className="h-5 w-5" aria-hidden="true" />
@@ -239,13 +230,13 @@ export default function Payment() {
                                           </div>
 
                                           <div className="flex flex-1 items-end justify-between pt-2">
-                                              <p className="mt-1 text-sm font-medium text-gray-900">{product.price}</p>
+                                              <p className="mt-1 text-sm font-medium text-gray-900">{item.product.price.toLocaleString()} VNĐ</p>
 
                                               <div className="ml-4">
                                                   <label htmlFor="quantity" className="sr-only">
                                                       Quantity
                                                   </label>
-                                                  <input type="text" name="quantity" id="quantity" value={product.quantity} disabled
+                                                  <input type="text" name="quantity" id="quantity" value={item.inCart} disabled
                                                   className='rounded-md w-10'/>
                                               </div>
                                           </div>
@@ -256,16 +247,16 @@ export default function Payment() {
                           <dl className="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
                               <div className="flex items-center justify-between">
                                   <dt className="text-sm">Tạm Tính</dt>
-                                  <dd className="text-sm font-medium text-gray-900">1.000.000 VNĐ</dd>
+                                  <dd className="text-sm font-medium text-gray-900">{totalPrice.toLocaleString()} VNĐ</dd>
                               </div>
                               <div className="flex items-center justify-between">
                                   <dt className="text-sm">Phí Vận Chuyển</dt>
-                                  <dd className="text-sm font-medium text-gray-900">10.000 VNĐ</dd>
+                                  <dd className="text-sm font-medium text-gray-900">{totalPrice >0 ? selectedDeliveryMethod.price.toLocaleString(): 0} VNĐ</dd>
                               </div>
 
                               <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                                   <dt className="text-base font-medium">Tổng</dt>
-                                  <dd className="text-base font-medium text-gray-900">1.010.000 VNĐ</dd>
+                                  <dd className="text-base font-medium text-gray-900">{totalPrice >0 ? (selectedDeliveryMethod.price + totalPrice).toLocaleString(): 0} VNĐ</dd>
                               </div>
                           </dl>
 

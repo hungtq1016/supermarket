@@ -19,6 +19,7 @@ function ProductHorizontal({product}:{product:any}) {
         product:{
             id: product.id,
             name: product.name,
+            slug: product.slug,
             price: product.price,
             discount: product.discount,
             image: product.image.url,
@@ -34,10 +35,10 @@ function ProductHorizontal({product}:{product:any}) {
                 <Image src={product.image.url} alt={product.name} width={100} height={100} className="border"/>
                 <div className="flex-col flex max-w-sm justify-between">
                     <div>
-                        <div className="font-medium capitalize">{product.name}</div>
+                        <div className="font-medium capitalize">{product.name} - {product.color}</div>
                         <div className="flex items-center gap-x-2">
                             <Rating value={5} readOnly size='small' />
-                            <span>(5)</span>
+                            <span>({product.quantity})</span>
                         </div>
                     </div> 
                     <div className="truncate text-sm text-gray-600">{product.detail}</div>

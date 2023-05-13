@@ -64,6 +64,7 @@ export default function Product(props:any) {
         product:{
             id: product.variants[variantId].id,
             name: product.name,
+            slug:product.slug,
             price: product.variants[variantId].price,
             discount: product.variants[variantId].discount,
             image: product.variants[variantId].images[0].url,

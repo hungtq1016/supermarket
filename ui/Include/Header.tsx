@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
 import AccountDropdown from '../Auth/AccountDropdown';
 import { useSession } from "next-auth/react";
-import slugify from 'slugify';
+import CartIcon from "./CartIcon";
 library.add(fas)
 
 interface navEntity{
@@ -72,16 +72,14 @@ function Header():ReactElement {
                             </div>
                             <div className="flex gap-x-4 items-center">
                                 <Link href={'/member/wishlist'}>
-                                    <FontAwesomeIcon icon='heart' className="w-5 h-5 text-gray-900"/>
+                                    <FontAwesomeIcon icon='heart' className="w-7 h-7 text-gray-900"/>
                                 </Link>
-                                <Link href={'/cart'}>
-                                    <FontAwesomeIcon icon='shopping-cart' className="w-5 h-5 text-gray-900"/>
-                                </Link>
+                                <CartIcon/>
                                 {   status == "authenticated" ? 
                                     <AccountDropdown/>
                                     :
                                     <Link href={'/auth'}>
-                                        <FontAwesomeIcon icon='user' className="w-5 h-5 text-gray-900"/>
+                                        <FontAwesomeIcon icon='user' className="w-7 h-7 text-gray-900"/>
                                     </Link>
                                 }
                             </div>

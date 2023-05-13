@@ -1,13 +1,15 @@
 'use client'
 
 import { ICartItem } from '@/lib/interface';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '.';
 export interface ICartState{
     cartItems : Array<ICartItem>
 }
 // const carts:ICartItem[] = JSON.parse(localStorage.getItem('carts') || '[]');
+const carts:ICartItem[] = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('carts') || '[]') : [];
 
-const initialState: ICartState = {cartItems:[]};
+const initialState: ICartState = {cartItems:carts};
 
 export const cartSlice = createSlice({
     name: "cart",
@@ -22,7 +24,9 @@ export const cartSlice = createSlice({
                 product: action.payload.product,
                 inCart:action.payload.inCart,
             })
-            // localStorage.setItem('carts', JSON.stringify(state.cartItems));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('carts', JSON.stringify(state.cartItems))
+            }
         },
         decrement:(state,action:PayloadAction<string>)=>{
             const item = state.cartItems.find(item => item.product.id == action.payload)
@@ -34,21 +38,37 @@ export const cartSlice = createSlice({
                         return item.product.id !== action.payload
                     })
             }
-            // localStorage.setItem('carts', JSON.stringify(state.cartItems));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('carts', JSON.stringify(state.cartItems))
+            }
         },
         clearById:(state,action:PayloadAction<string>)=>{
             state.cartItems = state.cartItems.filter((item)=>{
                 return item.product.id !== action.payload
             })
-            // localStorage.setItem('carts', JSON.stringify(state.cartItems));
-
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('carts', JSON.stringify(state.cartItems))
+            }
         },
         clearAll:(state)=>{
             state.cartItems = []
-            // localStorage.setItem('carts', JSON.stringify(state.cartItems));
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('carts', JSON.stringify(state.cartItems))
+            }
         }
     }
 })
+const cartItems = (state:RootState)=>state.cart.cartItems;
+
+export const totalQuantitySelector = createSelector([cartItems],(cartItems)=>
+cartItems.reduce((total:number,curr:ICartItem)=> (total+= curr.inCart),0)
+)
+
+export const totalPriceSelector = createSelector([cartItems],(cartItems)=>
+cartItems.reduce((total:number,curr:ICartItem)=> (total+= curr.product.discount?curr.inCart*curr.product.discount :curr.inCart*curr.product.price),0)
+)
+
+export const totalItemsSelector = createSelector([cartItems],(cartItems)=> cartItems.length )
 
 export const {increment,decrement,clearById,clearAll} = cartSlice.actions;
 export default cartSlice.reducer;

@@ -1,16 +1,12 @@
 'use client'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {library } from "@fortawesome/fontawesome-svg-core";
-import {fas} from '@fortawesome/free-solid-svg-icons'
 
 import Link from 'next/link';
 import Image from 'next/image';
+
 import { useAppSelector,useAppDispatch } from '@/app/store';
-
-import { increment,decrement,clearById ,clearAll} from '@/app/store/cartSlice'
+import { increment,decrement,clearById ,clearAll, totalPriceSelector} from '@/app/store/cartSlice'
 import { ICartItem } from '@/lib/interface';
-
-library.add(fas)
 
 function CartList(item:any){
     const total =  item.product.discount ? item.inCart*item.product.discount:item.inCart*item.product.price
@@ -30,10 +26,13 @@ function CartList(item:any){
         }
         
     return (
-        <div className="grid grid-cols-4 px-10 items-center py-7 border border-gray-100 rounded-md relative group" >
+        <div className="grid grid-cols-4 px-10 items-center py-7 border border-gray-100 hover:border-gray-600 rounded-md relative group" >
             <div className="flex gap-x-5 items-center">
                 <Image src={item.product.image} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
-                <span>{item.product.name} </span>
+                <div className='space-y-1'>
+                    <div className='text-sm font-bold text-gray-900'>{item.product.name}</div>
+                    <div className='text-xs text-gray-600'>{item.product.color}</div>
+                </div>
             </div>
             <div className="text-center">{item.product.discount ? item.product.discount.toLocaleString() : item.product.price.toLocaleString()} VNĐ </div>
             <div className="flex items-center justify-center">
@@ -44,7 +43,7 @@ function CartList(item:any){
             </div>
             <div className="text-right">{total.toLocaleString()} VNĐ</div>
             <button onClick={()=>{dispatch(clearById(item.product.id))}}
-            className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'x'} className='w-4 h-4 text-red-600'/></button>
+            className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'trash'} className='w-4 h-4 text-gray-600 hover:text-red-600'/></button>
         </div>
     )
         
@@ -52,10 +51,10 @@ function CartList(item:any){
 }
 
 export default function Cart() {
-    const cartItems = useAppSelector(
-        (state) => state.cart.cartItems
-    )
     const dispatch = useAppDispatch()
+
+    const cartItems = useAppSelector( (state) => state.cart.cartItems )
+    const totalPrice = useAppSelector(totalPriceSelector)
     return ( 
         <>
             <Link href='/' className="inline-block">
@@ -100,10 +99,9 @@ export default function Cart() {
                         <div className='border border-gray-900 rounded-md p-5'>
                             <div className='text-xl font-medium'>Tổng Quan</div>
                             <div className='divide-y'>
-                                <div className='flex justify-between py-4'><span className='font-medium'>Tạm Tính:</span><span className='text-sm'>1,000,000 VNĐ</span></div>
-                                <div className='flex justify-between py-4'><span className='font-medium'>Vận Chuyển:</span><span className='text-sm'>100,000 VNĐ</span></div>
-                                <div className='flex justify-between py-4'><span className='font-medium'>Giảm Giá:</span><span className='text-sm'>- 80,000 VNĐ</span></div>
-                                <div className='flex justify-between py-4'><span className='font-medium'>Tổng:</span><span className='font-medium'>1,020,000 VNĐ</span></div>
+                                <div className='flex justify-between py-4'><span className='font-medium'>Tạm Tính:</span><span className='text-sm'>{totalPrice.toLocaleString()} VNĐ</span></div>
+                                <div className='flex justify-between py-4'><span className='font-medium'>Giảm Giá:</span><span className='text-sm'>- 0 VNĐ</span></div>
+                                <div className='flex justify-between py-4'><span className='font-medium'>Tổng:</span><span className='font-medium'>{totalPrice.toLocaleString()} VNĐ</span></div>
                             </div>
                             <div className='flex justify-center mt-3'>
                                 <Link href={'/cart/payment'} className='w-full mx-6 py-2 text-center bg-rose-600 text-gray-50 rounded-md font-medium'>Thanh Toán</Link>
