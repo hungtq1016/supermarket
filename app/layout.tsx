@@ -9,6 +9,9 @@ export const metadata = {
     default: 'S-market',
     template: '%s | S-market',
   },
+  icons: {
+    icon: { url: '/favicon.ico', type: 'image/ico' },
+    },
   description: 'My ecommerce'
 }
 

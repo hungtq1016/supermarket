@@ -32,8 +32,8 @@ function Header():ReactElement {
                 <div className="max-w-7xl mx-4 md:mx-auto">
                     <div className="flex justify-between items-center py-3">
                         <div className="text-sm space-x-2">
-                            <span className="text-gray-200">Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!</span>
-                            <a href="#" className="font-bold text-gray-50">ShopNow</a>
+                            <span className="text-gray-200">Giảm giá mùa hè cho tất cả các thiết bị điện tử và chuyển phát nhanh miễn phí - GIẢM GIÁ 50%!</span>
+                            <Link href={'/products'} className="font-bold text-gray-50">Xem Ngay</Link>
                         </div>
     
                         <div className="relative">

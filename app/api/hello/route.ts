@@ -1,6 +1,9 @@
-export async function POST(request: Request) {
-  const { user_id } = await request.json()
-  console.log(user_id)
+import prisma from '@/lib/prismadb';
+import { NextResponse } from 'next/server';
 
-  return new Response('Success');
+export async function GET(request:Request,{ params }: { params: { slug: string } }) {
+   
+    const { searchParams } = new URL(request.url);
+    const test = searchParams.get('test');
+    return  NextResponse.json(test);
 }
