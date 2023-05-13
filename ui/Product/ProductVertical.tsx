@@ -14,20 +14,24 @@ const calculateDiscount = (price:number,discount:number):number=>{
     return 100-Math.round((discount/price) * 100) ;
 }
 
-function ProductVertical({product}:{product:any}) {
-
+function ProductVertical(props:any) {
+    const data = props.product
+    const product = {
+        id:data.product.id,
+        name:data.product.name,
+        slug:data.product.slug,
+        detail:data.product.detail,
+        price: data.price,
+        discount: data.discount,
+        quantity:data.quantity,
+        count:data.count,
+        color:data.color.name,
+        image:data.images[0]
+    }
     const dispatch = useAppDispatch()
+    
     const stateProduct : ICartItem = {
-        product:{
-            id: product.id,
-            name: product.name,
-            slug: product.slug,
-            price: product.price,
-            discount: product.discount,
-            image: product.image.url,
-            color: product.color,
-            quantity: product.quantity
-        },
+        product:product,
         inCart:1,
     }
 

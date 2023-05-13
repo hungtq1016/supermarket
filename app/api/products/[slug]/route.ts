@@ -34,5 +34,16 @@ export async function GET(request:Request,{ params }: { params: { slug: string }
             }
         },
     })
-    return  NextResponse.json(product);
+    const children :any = await prisma.product.findMany({
+        where: {
+            parentId:product.parentId
+        },
+        select:{
+            id:true,
+            name:true,
+            slug:true,
+            image:true
+        },
+    })
+    return  NextResponse.json({product,children});
 }

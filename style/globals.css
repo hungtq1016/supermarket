@@ -15,18 +15,17 @@
 .section-title{
     @apply font-semibold py-3 text-rose-600 pl-9 capitalize relative before:content-[''] before:absolute before:inset-y-0 before:left-0  before:bg-rose-600 before:w-5 before:rounded-md
 }
-
-
-.slick-slide{
-    @apply px-2
+.product-section .swiper-button-prev,.swiper-button-next{
+    @apply text-rose-600 -translate-y-[150%]
 }
-
-/* .slick-slide > div{
-    @apply pb-4
-} */
-
-.slick-slider.slick-initialized{
-    @apply relative
+.swiper-button-next, .swiper-button-prev{
+    @apply text-rose-600
+}
+.swiper-slide-visible{
+    @apply border rounded-md
+}
+.swiper-slide-thumb-active{
+    @apply border-rose-600
 }
 
 .span-pos .pos-0{
@@ -57,17 +56,3 @@ input[type="number"]::-webkit-inner-spin-button,
     @apply !border-2 !bg-rose-600
 }
 
-.swiper-button-next, .swiper-button-prev{
-    @apply text-rose-600
-}
-.swiper-slide-visible{
-    @apply border rounded-md
-}
-.swiper-slide-thumb-active{
-    @apply border-rose-600
-}
-
-.breadcrumb-item{
-    @apply bg-gray-100 py-2 pl-7 relative before:absolute before:left-0 before:top-0 before:border-[20px] before:border-y-transparent before:border-r-0 before:border-l-white 
-    after:absolute after:left-full after:top-0 after:border-[20px] after:border-y-transparent after:border-r-0 after:border-l-gray-100
-}

@@ -2,14 +2,14 @@ import getProduct from "@/lib/fetchData/getProduct";
 import { redirect } from "next/navigation";
 import Product from "./Product";
 import Breadcrumbs from "@/ui/Include/BreadCrumb";
-import Comment from "./Comment";
 import ProductSection from "@/ui/Product/ProductSection";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-    const [product] = await getProduct(params.slug)
-    if (product) {
+    const productData: Promise<any> = getProduct(params.slug)
+    const data = await productData
+    if (data) {
         return {
-            title: product.name,
+            title: data.product.name,
         };
     } else {
         redirect('/')
@@ -17,22 +17,25 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-    const [product, child] = await getProduct(params.slug)
+    const productData: Promise<any> = getProduct(params.slug)
+    const data = await productData
+
     const paths=[
         {
           name:'Sản Phẩm',
           slug:'/products'
         },
         {
-          name:product.name,
+          name:data.product.name,
           slug:'#'
         }
       ]
     return ( 
         <section className="py-10"> 
             <Breadcrumbs paths={paths}/>
-            <Product product={product} child={child}/>
-            <ProductSection title="Tương Tự" about="Các sản phẩm tương tự" isSlider={false} show={4} />
+            <Product product={data.product} child={data.children}/>
+            {/* @ts-expect-error Async Server Component */}
+            <ProductSection title="Tương Tự" about="Các sản phẩm tương tự" isSlider={false} query={'method=sale'} />
         </section>
      );
 }

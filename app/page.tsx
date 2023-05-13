@@ -15,12 +15,16 @@ export default async function Page() {
     <>
       {/* @ts-expect-error Async Server Component */}
       <TopSection/>
-      <ProductSection title="Giảm Giá Bất Ngờ" about="Flash Sales" isSlider={true} show={6} timer={true} countTime={date} btnBottom={true}/>
+      {/* @ts-expect-error Async Server Component */}
+      <ProductSection title="Giảm Giá Bất Ngờ" about="Flash Sales" isSlider={true} query={'method=sale&limit=12'} timer={true} countTime={date} btnBottom={true}/>
       <Categories/>
-      <ProductSection title="Tháng Này" about="Nổi bật" isSlider={false} show={4} btnTop={true}/>
+      {/* @ts-expect-error Async Server Component */}
+      <ProductSection title="Tháng Này" about="Nổi bật" isSlider={false} query={'method=sale'} btnTop={true}/>
       <Discount/>
-      <ProductSection title="Khám Phá" about="Sản phẩm nổi bật" isSlider={true} show={10} btnBottom={true} rows={2}/>
-      <Review/>
+      {/* @ts-expect-error Async Server Component */}
+      <ProductSection title="Khám Phá" about="Sản phẩm nổi bật" isSlider={true} query={'method=sale&limit=12'} btnBottom={true} rows={2}/>
+      {/* @ts-expect-error Async Server Component */}
+      <Review  query={'method=sale'} />
       <Term/>
     </>
   );

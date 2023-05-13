@@ -21,30 +21,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function Page({ params }: { params: { slug: string } }) {
 
   const categoryData: Promise<any> = getCategory(params.slug)
-  const category = await categoryData
-
-  const variants: Array<any> = []
-
-  category?.products?.map((product: any) => {
-    product?.variants?.map((variant: any) => {
-      return variants.push(
-        {
-          id: variant.id,
-          price: variant.price,
-          discount: variant.discount,
-          quantity: variant.quantity,
-          count: variant.count,
-          color: variant.color.name,
-          image: variant.images.shift(),
-          name: product.name,
-          detail: product.detail,
-          slug: product.slug
-        }
-      )
-    }
-    )
-  })
-  console.log(variants);
+  const data = await categoryData
   
   const paths = [
     {
@@ -52,7 +29,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       slug: '/categories'
     },
     {
-      name: category.name,
+      name: data.category.name,
       slug: '#'
     }
   ]
@@ -63,9 +40,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <div className='grid grid-cols-5 pt-10'>
         {/* @ts-expect-error Async Server Component */}
         <Navigator />
-        {/* <Category category={category} products={variants} /> */}
-        <GridLayout title={category.name} products={variants}/>
-
+        <GridLayout title={data.category.name} products={data.products}/>
       </div>
     </section>
   )

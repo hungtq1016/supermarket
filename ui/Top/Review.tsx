@@ -1,37 +1,11 @@
-import { Product } from "@/lib/interface";
+import getProductsByFilter from "@/lib/fetchData/getProductsByFilter";
 import Image from "next/image";
 import Link from "next/link";
 
-type  product = Omit<Product,"price"|"rating"|"totalRating">;
-
-const products : Array<product> = [
-    {
-        name:'Apple watch 6',
-        slug:'san-pham',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi exercitationem modi beatae nemo suscipit optio fugit alias fugiat, fuga, reprehenderit, unde blanditiis quas esse nihil et? Facere velit tempora praesentium!',
-        image:'/images/apple-watch.jpg'
-    },
-    {
-        name:'Vỏ đựng Airpod',
-        slug:'san-pham',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi exercitationem modi beatae nemo suscipit optio fugit alias fugiat, fuga, reprehenderit, unde blanditiis quas esse nihil et? Facere velit tempora praesentium!',
-        image:'/images/case-airpod.jpg'
-    },
-    {
-        name:'Dao cạo râu',
-        slug:'san-pham',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi exercitationem modi beatae nemo suscipit optio fugit alias fugiat, fuga, reprehenderit, unde blanditiis quas esse nihil et? Facere velit tempora praesentium!',
-        image:'/images/dao-cao-rau.jpg'
-    },
-    {
-        name:'Loa Bluetooth',
-        slug:'san-pham',
-        desc:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi exercitationem modi beatae nemo suscipit optio fugit alias fugiat, fuga, reprehenderit, unde blanditiis quas esse nihil et? Facere velit tempora praesentium!',
-        image:'/images/loa-bluetooth.jpg'
-    },
-]
-
-function Review() {
+export default async function Review(props:any) {
+       
+  const productsData: Promise<any> = getProductsByFilter(props.query)
+  const products = await productsData
     return ( 
         <section>
             <div className="max-w-7xl mx-4 md:mx-auto py-20">
@@ -42,13 +16,13 @@ function Review() {
                     <span className="text-4xl font-semibold capitalize">Hàng mới</span>
                 </div>
                 <div className="grid grid-cols-4 grid-rows-2 span-pos gap-8 max-h-[640px] mt-10">
-                    {products.map((product,index)=>(
+                    {products.map((product:any,index:number)=>(
                         <div className={`pos-${index} relative`} key={index}>
-                            <img src={product.image} alt={product.name} className='w-full !h-full object-cover' width={500} height={500}/>
+                            <Image src={product.images[0].url} alt={product.images[0].alt} className='w-full !h-full object-cover' width={500} height={500}/>
                                 <div className="absolute inset-x-0 bottom-6 px-4 text-gray-50 z-[2] space-y-2">
-                                    <div className="text-2xl font-semibold">{product.name}</div>
-                                    <div className="truncate text-sm text-gray-200">{product.desc}</div>
-                                    <Link href={`/product/${product.slug}`} className='font-medium inline-block underline'>
+                                    <div className="text-l font-semibold">{product.product.name}</div>
+                                    <div className="truncate text-xs text-gray-200">{product.product.detail}</div>
+                                    <Link href={`/product/${product.slug}`} className='font-medium inline-block underline text-sm'>
                                         Xem Thêm
                                     </Link>
                                 </div>
@@ -60,5 +34,3 @@ function Review() {
         </section>
      );
 }
-
-export default Review;

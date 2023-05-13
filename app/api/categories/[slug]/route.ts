@@ -7,37 +7,40 @@ export async function GET(request:Request,{ params }: { params: { slug: string }
         where: {
             slug:params.slug
         },
-        select:{
-            id:true,
-            name:true,
-            slug:true,  
-            image:true,
-            children:true,
-            products:{
+    })
+
+    const products:any = await prisma.variant.findMany({
+        where:{
+            product:{
+                categoryId:category.id
+            },
+            quantity:{
+                gt:0
+            }
+        },
+        include: {
+            product: {
                 select:{
                     id:true,
                     name:true,
-                    slug:true,  
-                    image:true,
+                    slug:true,
                     detail:true,
-                    variants:{
-                        select:{
-                            id:true,
-                            price:true,
-                            discount:true,
-                            quantity:true,
-                            count:true,
-                            color: true,
-                            images: true,
-                        }
-                    }          
-                },
+                    parentId:true,
+                    categoryId:true
+                }
             },
-            
-        },
-        
+            color:{
+                select:{
+                    id:true,
+                    name:true
+                }
+            }  ,
+            images:{
+                take:1
+            }
+        }
     })
   
-    return  NextResponse.json(category);
+    return  NextResponse.json({category,products});
 }
 

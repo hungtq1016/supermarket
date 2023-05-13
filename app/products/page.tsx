@@ -13,28 +13,6 @@ export default async function Page() {
     
   const products = await productsData
   
-  const variants: Array<any> = []
-
-  products?.map((product: any) => {
-    product?.variants?.map((variant: any) => {
-      return variants.push(
-        {
-          id: variant.id,
-          price: variant.price,
-          discount: variant.discount,
-          quantity: variant.quantity,
-          count: variant.count,
-          color: variant.color.name,
-          image: variant.images.shift(),
-          name: product.name,
-          detail: product.detail,
-          slug: product.slug
-        }
-      )
-    }
-    )
-  })
-
   const paths=[
     {
       name:'Tất Cả Sản Phẩm',
@@ -47,7 +25,7 @@ export default async function Page() {
       <div className='grid grid-cols-5'>
         {/* @ts-expect-error Async Server Component */}
         <Navigator />
-        <GridLayout title={'Tất Cả Sản Phẩm'} products={variants}/>
+        <GridLayout title={'Tất Cả Sản Phẩm'} products={products}/>
       </div>
     </section>
   )

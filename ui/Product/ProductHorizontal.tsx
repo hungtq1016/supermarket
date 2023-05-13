@@ -1,3 +1,4 @@
+'use client'
 import Rating from "@mui/material/Rating";
 import Image from "next/image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,7 +14,22 @@ const calculateDiscount = (price:number,discount:number):number=>{
     return 100-Math.round((discount/price) * 100) ;
 }
 
-function ProductHorizontal({product}:{product:any}) {
+function ProductHorizontal(props:any) {
+
+    const data = props.product
+    const product = {
+        id:data.product.id,
+        name:data.product.name,
+        slug:data.product.slug,
+        detail:data.product.detail,
+        price: data.price,
+        discount: data.discount,
+        quantity:data.quantity,
+        count:data.count,
+        color:data.color.name,
+        image:data.images[0]
+    }
+
     const dispatch = useAppDispatch()
     const stateProduct : ICartItem = {
         product:{

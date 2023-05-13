@@ -1,0 +1,22 @@
+'use client'
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation,A11y,Pagination } from "swiper";
+import ProductVertical from "./ProductVertical";
+
+export default function ProductSwiper(props:any) {
+    const products =  props.products
+    const rows = props.rows
+    return(
+        <>
+            <Swiper slidesPerView={4} spaceBetween={8} modules={[Navigation,A11y,Pagination]} loop={true} navigation={true} className="product-section">
+                {products?.map((product:any,index:number)=>{
+                    return(
+                        <SwiperSlide key={index}>
+                            <ProductVertical product={product}/>
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>
+        </>
+    )
+};

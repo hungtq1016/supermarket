@@ -12,6 +12,11 @@ export async function GET(request: Request) {
     switch (method) {
         case 'sale':
             products = await prisma.variant.findMany({
+                where:{
+                    quantity:{
+                        gt:0
+                    }
+                },
                 take:limitNumber,
                 include: {
                     product: {
@@ -24,8 +29,15 @@ export async function GET(request: Request) {
                             categoryId:true
                         }
                     },
-                    color:true  ,
-                    images:true
+                    color:{
+                        select:{
+                            id:true,
+                            name:true
+                        }
+                    }  ,
+                    images:{
+                        take:1
+                    }
                 },
                 orderBy:{
                     discount:'desc'
@@ -34,29 +46,32 @@ export async function GET(request: Request) {
             break;
     
         default:
-            products =  await prisma.product.findMany({
-                select:{
-                    id:true,
-                    name:true,
-                    slug:true,  
-                    image:true,
-                    detail:true,
-                    variants:{
+            products = await prisma.variant.findMany({
+                where:{
+                    quantity:{
+                        gt:0
+                    }
+                },
+                include: {
+                    product: {
                         select:{
                             id:true,
-                            price:true,
-                            discount:true,
-                            quantity:true,
-                            count:true,
-                            color: {
-                                select:{
-                                    id:true,
-                                    name:true,
-                                }
-                            },
-                            images: true,
+                            name:true,
+                            slug:true,
+                            detail:true,
+                            parentId:true,
+                            categoryId:true
                         }
-                    }     
+                    },
+                    color:{
+                        select:{
+                            id:true,
+                            name:true
+                        }
+                    }  ,
+                    images:{
+                        take:1
+                    }
                 }
             })
             break;
