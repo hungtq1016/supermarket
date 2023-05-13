@@ -44,6 +44,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
     }
     )
   })
+  console.log(variants);
+  
   const paths = [
     {
       name: 'Thể Loại',

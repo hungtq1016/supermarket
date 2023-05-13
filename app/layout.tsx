@@ -10,7 +10,7 @@ export const metadata = {
     template: '%s | S-market',
   },
   icons: {
-    icon: { url: '/favicon.ico', type: 'image/ico' },
+    icon: { url: '/favicon.png', type: 'image/png' },
     },
   description: 'My ecommerce'
 }

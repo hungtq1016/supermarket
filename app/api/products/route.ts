@@ -14,7 +14,18 @@ export async function GET(request: Request) {
             products = await prisma.variant.findMany({
                 take:limitNumber,
                 include: {
-                    product: true,
+                    product: {
+                        select:{
+                            id:true,
+                            name:true,
+                            slug:true,
+                            detail:true,
+                            parentId:true,
+                            categoryId:true
+                        }
+                    },
+                    color:true  ,
+                    images:true
                 },
                 orderBy:{
                     discount:'desc'
