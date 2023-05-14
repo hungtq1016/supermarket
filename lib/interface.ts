@@ -34,7 +34,7 @@ export interface IProductCard {
     quantity: number,
     count: number,
     color: IColor,
-    image: IImage
+    images: IImage[]
 }
 
 export interface IColor {

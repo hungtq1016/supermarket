@@ -26,7 +26,7 @@ function ProductHorizontal({product}:{product:IVariant}) {
         quantity:product?.quantity,
         count:product?.count,
         color:product?.color,
-        image:product?.images[0] ?? {url:'#'}
+        images:product?.images
     }
 
     const dispatch = useAppDispatch()
@@ -39,7 +39,7 @@ function ProductHorizontal({product}:{product:IVariant}) {
     return ( 
         <div className="flex p-4 bg-gray-50 mb-2 gap-x-2 justify-between items-center">      
             <div className="flex gap-x-3">
-                <Image src={productCard.image.url} alt={productCard.name} width={100} height={100} className="border"/>
+                <Image src={productCard.images[0].url} alt={productCard.name} width={100} height={100} className="border"/>
                 <div className="flex-col flex max-w-sm justify-between">
                     <div>
                         <div className="font-medium capitalize">{productCard.name} - {productCard.color.name}</div>
