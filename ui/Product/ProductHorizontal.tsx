@@ -35,11 +35,11 @@ function ProductHorizontal({product}:{product:IVariant}) {
         product:productCard,
         inCart:1,
     }
-
+    const image = (productCard.images ?? [])[0]
     return ( 
         <div className="flex p-4 bg-gray-50 mb-2 gap-x-2 justify-between items-center">      
             <div className="flex gap-x-3">
-                <Image src={productCard.images[0].url} alt={productCard.name} width={100} height={100} className="border"/>
+                <Image src={image.url} alt={productCard.name} width={100} height={100} className="border"/>
                 <div className="flex-col flex max-w-sm justify-between">
                     <div>
                         <div className="font-medium capitalize">{productCard.name} - {productCard.color.name}</div>
