@@ -10,7 +10,7 @@ import { ICartItem } from '@/lib/interface';
 
 function CartList(item:any){
     const total =  item.product.discount ? item.inCart*item.product.discount:item.inCart*item.product.price
-
+    
     const dispatch = useAppDispatch()
     
         function increase() {
@@ -28,7 +28,7 @@ function CartList(item:any){
     return (
         <div className="grid grid-cols-4 px-10 items-center py-7 border border-gray-100 hover:border-gray-600 rounded-md relative group" >
             <div className="flex gap-x-5 items-center">
-                <Image src={item.product.image} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
+                <Image src={item.product.image.url} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
                 <div className='space-y-1'>
                     <div className='text-sm font-bold text-gray-900'>{item.product.name}</div>
                     <div className='text-xs text-gray-600'>{item.product.color}</div>
