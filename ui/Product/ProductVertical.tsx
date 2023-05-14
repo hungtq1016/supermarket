@@ -64,10 +64,10 @@ function ProductVertical({product}:{product:IVariant}) {
                 {
                     productCard?.discount ?
                     <>
-                        <span className="text-rose-600">{productCard?.discount.toLocaleString()} VNĐ</span> 
-                        <span className="text-gray-600 line-through">{productCard?.price.toLocaleString()} VNĐ</span>
+                        <span className="text-rose-600">{productCard?.discount?.toLocaleString()} VNĐ</span> 
+                        <span className="text-gray-600 line-through">{productCard?.price?.toLocaleString()} VNĐ</span>
                     </>:
-                    <span className="text-rose-600">{productCard?.price.toLocaleString()} VNĐ</span> 
+                    <span className="text-rose-600">{productCard?.price?.toLocaleString()} VNĐ</span> 
                 }
             </div>
             <div className="flex items-center gap-x-2">

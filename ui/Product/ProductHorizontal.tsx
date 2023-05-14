@@ -54,10 +54,10 @@ function ProductHorizontal({product}:{product:IVariant}) {
                     {
                         productCard?.discount ?
                         <>
-                            <span className="text-rose-600 text-xl ">{productCard?.discount.toLocaleString()} VNĐ</span> 
-                            <span className="text-gray-600 line-through text-sm">{productCard?.price.toLocaleString()} VNĐ</span>
+                            <span className="text-rose-600 text-xl ">{productCard?.discount?.toLocaleString()} VNĐ</span> 
+                            <span className="text-gray-600 line-through text-sm">{productCard?.price?.toLocaleString()} VNĐ</span>
                         </>:
-                        <span className="text-rose-600 text-xl">{productCard?.price.toLocaleString()} VNĐ</span> 
+                        <span className="text-rose-600 text-xl">{productCard?.price?.toLocaleString()} VNĐ</span> 
                     }
                     {productCard?.discount &&
                         <div className="">
