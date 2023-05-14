@@ -71,7 +71,7 @@ export default function Product(props:any) {
             quantity: product?.variants[variantId]?.quantity,
             count:product?.variants[variantId]?.count,
             image: product?.variants[variantId]?.images[0],
-            color: product?.variants[variantId]?.color.name,
+            color: product?.variants[variantId]?.color?.name,
         },
         
         inCart:count,
