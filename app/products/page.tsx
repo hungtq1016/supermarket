@@ -1,4 +1,3 @@
-import { TProduct } from '@/lib/type';
 import getProducts from '@/lib/fetchData/getProducts';
 import Breadcrumbs from '@/ui/Include/BreadCrumb';
 import GridLayout from '@/ui/GridLayout';

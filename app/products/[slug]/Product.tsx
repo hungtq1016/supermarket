@@ -65,12 +65,15 @@ export default function Product(props:any) {
             id: product.variants[variantId].id,
             name: product.name,
             slug:product.slug,
+            detail:product.detail,
             price: product.variants[variantId].price,
             discount: product.variants[variantId].discount,
-            image: product.variants[variantId].images[0].url,
+            quantity: product.variants[variantId].quantity,
+            count:product.variants[variantId].count,
+            image: product.variants[variantId].images[0],
             color: product.variants[variantId].color.name,
-            quantity: product.variants[variantId].quantity
         },
+        
         inCart:count,
     }
     const dispatch = useAppDispatch()

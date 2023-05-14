@@ -62,7 +62,7 @@ const WriteComment = ()=>{
     )
 }
 
-export default function Comment(props:any) {
+export default  function Comment(props:any) {
 //  const comments = props?.comments
     const [comments,setComments] = useState([]);
     const [loading,setLoading] = useState<boolean>(true);
