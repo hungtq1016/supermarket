@@ -26,7 +26,7 @@ function ProductHorizontal({product}:{product:IVariant}) {
         quantity:product?.quantity,
         count:product?.count,
         color:product?.color,
-        image:product?.images[0]
+        image:product?.images[0] ?? {url:'#'}
     }
 
     const dispatch = useAppDispatch()
