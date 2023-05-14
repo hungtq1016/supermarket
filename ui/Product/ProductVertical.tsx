@@ -59,7 +59,7 @@ function ProductVertical({product}:{product:IVariant}) {
                     </div>
                 </div>
             </div>
-            <div className="font-medium capitalize">{productCard?.name +' - '+productCard?.color.name}</div>
+            <div className="font-medium capitalize">{productCard?.name +' - '+productCard?.color?.name}</div>
             <div className="font-medium space-x-3">
                 {
                     productCard?.discount ?

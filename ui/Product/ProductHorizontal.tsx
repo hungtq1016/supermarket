@@ -42,7 +42,7 @@ function ProductHorizontal({product}:{product:IVariant}) {
                 <Image src={image?.url} alt={productCard?.name} width={100} height={100} className="border"/>
                 <div className="flex-col flex max-w-sm justify-between">
                     <div>
-                        <div className="font-medium capitalize">{productCard?.name} - {productCard?.color.name}</div>
+                        <div className="font-medium capitalize">{productCard?.name} - {productCard?.color?.name}</div>
                         <div className="flex items-center gap-x-2">
                             <Rating value={5} readOnly size='small' />
                             <span>({productCard?.quantity})</span>
