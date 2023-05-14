@@ -17,16 +17,16 @@ const calculateDiscount = (price:number,discount:number):number=>{
 function ProductHorizontal({product}:{product:IVariant}) {
 
     const productCard:IProductCard =  {
-        id:product.id,
-        name:product.product.name,
-        slug:product.product.slug,
-        detail:product.product.detail,
-        price: product.price,
-        discount: product.discount,
-        quantity:product.quantity,
-        count:product.count,
-        color:product.color,
-        image:product.images[0]
+        id:product?.id,
+        name:product?.product?.name,
+        slug:product?.product?.slug,
+        detail:product?.product?.detail,
+        price: product?.price,
+        discount: product?.discount,
+        quantity:product?.quantity,
+        count:product?.count,
+        color:product?.color,
+        image:product?.images[0]
     }
 
     const dispatch = useAppDispatch()
