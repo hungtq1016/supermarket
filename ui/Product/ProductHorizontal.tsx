@@ -35,34 +35,34 @@ function ProductHorizontal({product}:{product:IVariant}) {
         product:productCard,
         inCart:1,
     }
-    const image = (productCard.images ?? [])[0]
+    const image = (productCard?.images ?? [])[0]
     return ( 
         <div className="flex p-4 bg-gray-50 mb-2 gap-x-2 justify-between items-center">      
             <div className="flex gap-x-3">
-                <Image src={image?.url} alt={productCard.name} width={100} height={100} className="border"/>
+                <Image src={image?.url} alt={productCard?.name} width={100} height={100} className="border"/>
                 <div className="flex-col flex max-w-sm justify-between">
                     <div>
-                        <div className="font-medium capitalize">{productCard.name} - {productCard.color.name}</div>
+                        <div className="font-medium capitalize">{productCard?.name} - {productCard?.color.name}</div>
                         <div className="flex items-center gap-x-2">
                             <Rating value={5} readOnly size='small' />
-                            <span>({productCard.quantity})</span>
+                            <span>({productCard?.quantity})</span>
                         </div>
                     </div> 
-                    <div className="truncate text-sm text-gray-600">{productCard.detail}</div>
+                    <div className="truncate text-sm text-gray-600">{productCard?.detail}</div>
                 </div>
                 <div className="flex flex-col gap-y-2">
                     {
-                        productCard.discount ?
+                        productCard?.discount ?
                         <>
-                            <span className="text-rose-600 text-xl ">{productCard.discount.toLocaleString()} VNĐ</span> 
-                            <span className="text-gray-600 line-through text-sm">{productCard.price.toLocaleString()} VNĐ</span>
+                            <span className="text-rose-600 text-xl ">{productCard?.discount.toLocaleString()} VNĐ</span> 
+                            <span className="text-gray-600 line-through text-sm">{productCard?.price.toLocaleString()} VNĐ</span>
                         </>:
-                        <span className="text-rose-600 text-xl">{productCard.price.toLocaleString()} VNĐ</span> 
+                        <span className="text-rose-600 text-xl">{productCard?.price.toLocaleString()} VNĐ</span> 
                     }
-                    {productCard.discount &&
+                    {productCard?.discount &&
                         <div className="">
                             <span className="bg-rose-600 py-1 px-3 rounded-md text-gray-50 text-xs">
-                                -{calculateDiscount(productCard.price, productCard.discount)}%
+                                -{calculateDiscount(productCard?.price, productCard?.discount)}%
                             </span>
                         </div>
                     }
@@ -79,7 +79,7 @@ function ProductHorizontal({product}:{product:IVariant}) {
                     </button>
                 </div>
                 <div className=" ">
-                    <Link href={`products/${productCard.slug}`} className="px-6 py-1 border-gray-600 border rounded-md hover:border-rose-600 hover:text-rose-600 duration-300">
+                    <Link href={`products/${productCard?.slug}`} className="px-6 py-1 border-gray-600 border rounded-md hover:border-rose-600 hover:text-rose-600 duration-300">
                         Chi tiết
                     </Link>
                 </div>
