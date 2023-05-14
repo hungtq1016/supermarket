@@ -27,7 +27,7 @@ function ProductVertical(props:any) {
         discount: data?.discount,
         quantity:data?.quantity,
         count:data?.count,
-        color:data?.color.name,
+        color:data?.color?.name,
         image:data?.images[0]
     }
     const dispatch = useAppDispatch()
