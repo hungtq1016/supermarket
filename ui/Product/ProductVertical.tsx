@@ -39,7 +39,7 @@ function ProductVertical({product}:{product:IVariant}) {
     return ( 
         <div className="relative space-y-1 group mb-4">
             <div className="relative border">
-                <Image src={image.url} alt={productCard.name} width={400} height={400} className='mx-auto'/>
+                <Image src={image?.url} alt={productCard.name} width={400} height={400} className='mx-auto'/>
                 <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 duration-700">
                     <button onClick={() => dispatch(increment(stateProduct))}
                     className="w-full py-2 bg-black text-gray-50">
