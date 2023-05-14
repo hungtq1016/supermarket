@@ -59,7 +59,7 @@ export default function Product(props:any) {
         )
     }
 
-    const images : Array<IImage> =  product?.variants[variantId].images;
+    const images : Array<IImage> =  product?.variants[variantId]?.images;
     const stateProduct : ICartItem = {
         product:{
             id: product?.variants[variantId]?.id,

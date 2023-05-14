@@ -1,16 +1,15 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link';
 import Timer from '../Include/Timer';
 import getProductsByFilter from '@/lib/fetchData/getProductsByFilter';
 import ProductSwiper from './ProductSwiper';
 import ProductVertical from './ProductVertical';
+import { IVariant } from '@/lib/interface';
 
 export default async function ProductSection(props:any) {
     
-  const productsData: Promise<any> = getProductsByFilter(props.query)
+  const productsData: Promise<Array<IVariant>> = getProductsByFilter(props.query)
   const products = await productsData
-  const rows = props.rows
-  const rowsData = rows == undefined ? 1 : rows
+
     return ( 
         <section>
             <div className="max-w-7xl mx-4 md:mx-auto border-b-2 border-gray-100 py-20">
@@ -26,7 +25,7 @@ export default async function ProductSection(props:any) {
                 <div className="mt-10">
                     {   
                         props.isSlider ?
-                        <ProductSwiper products={products} rows={rowsData}/> :
+                        <ProductSwiper products={products} /> :
                         <div className="grid grid-cols-4 gap-x-2">
                             {products.map((product:any,index:number)=>{
                                 return(

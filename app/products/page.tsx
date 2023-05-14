@@ -2,13 +2,14 @@ import getProducts from '@/lib/fetchData/getProducts';
 import Breadcrumbs from '@/ui/Include/BreadCrumb';
 import GridLayout from '@/ui/GridLayout';
 import Navigator from '@/ui/Include/Navigator';
+import { IVariant } from '@/lib/interface';
 
 export const metadata = {
   title: 'Tất Cả Sản Phẩm',
 }
 
 export default async function Page() {
-  const productsData : Promise<any[]> = getProducts()
+  const productsData : Promise<Array<IVariant>> = getProducts()
     
   const products = await productsData
   

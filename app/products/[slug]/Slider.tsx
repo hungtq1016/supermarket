@@ -13,7 +13,7 @@ export default function Slider({ images }: { images: Array<IImage> }) {
   const sliders = images?.map((image) => {
     return (
       <SwiperSlide key={image.id} className="flex items-center justify-center p-3">
-        <Image src={image.url} alt={image.alt} width={500} height={500} className="rounded-md"/>
+        <Image src={image.url} alt={image.alt == undefined ? '#' : image.alt} width={500} height={500} className="rounded-md"/>
       </SwiperSlide>
     );
   })

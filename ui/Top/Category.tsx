@@ -1,11 +1,11 @@
-import { Category } from "@/lib/interface";
+import { ICategoryList } from "@/lib/interface";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";
 library.add(fas)
 
-function Category({category}:{category:Category}) {
+function Category({category}:{category:ICategoryList}) {
     return ( 
         <Link href={`/category${category.slug}`}>
             <div className="flex flex-col gap-y-2 items-center border rounded-md hover:bg-rose-600 p-6 group">

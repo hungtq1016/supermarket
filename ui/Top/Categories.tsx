@@ -1,12 +1,10 @@
 "use client";
-
-
-import {Category} from '@/lib/interface'
+import {ICategoryList} from '@/lib/interface'
 import CategoryCard from "./Category";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 
-const categories : Array<Category> = [
+const categories : Array<ICategoryList> = [
     {
         name:'Điện Thoại',
         icon: 'mobile',
@@ -59,7 +57,7 @@ function Categories() {
                 <div className="mt-10">
                     <>
                         <Swiper slidesPerView={6} spaceBetween={8} modules={[Pagination]} loop={true}  className="">
-                            {categories?.map((category: any, index: number) => {
+                            {categories?.map((category, index: number) => {
                                 return (
                                     <SwiperSlide key={index}>
                                         <CategoryCard key={index} category={category} />

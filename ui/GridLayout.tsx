@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from "react"
 import ProductVertical from '@/ui/Product/ProductVertical';
 import ProductHorizontal from '@/ui/Product/ProductHorizontal';
+import { IGridProp } from '@/lib/interface';
 
 const sort =[
   { name: 'green', label: 'dsd'}
@@ -29,7 +30,7 @@ const colors = [
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
-export default function GridLayout(props:any) {
+export default function GridLayout(props:IGridProp) {
     const products = props.products
     const title = props.title
     const [grid, setGrid] = useState<boolean>(true)
@@ -139,7 +140,7 @@ export default function GridLayout(props:any) {
                     </h2>
                     <section>
                         <div className={grid ? 'grid grid-cols-3 gap-x-2' : ''}>
-                            {products.map((product: any) => {
+                            {products.map((product) => {
                                 return (
                                     grid ?
                                         <ProductVertical key={product.id} product={product} />

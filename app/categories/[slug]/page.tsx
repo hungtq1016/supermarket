@@ -3,15 +3,19 @@ import { redirect } from "next/navigation";
 import Breadcrumbs from "@/ui/Include/BreadCrumb";
 import GridLayout from "@/ui/GridLayout";
 import Navigator from "@/ui/Include/Navigator";
-
+import { ICategory, IVariant } from "@/lib/interface";
+interface IDataFetch {
+  category:ICategory,
+  products:Array<IVariant>
+}
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const categoryData : Promise<any> = getCategory(params.slug)
+  const dataFetch : Promise<IDataFetch> = getCategory(params.slug)
     
-  const category = await categoryData
-
-  if (category) {
+  const data = await dataFetch
+  
+  if (data) {
       return {
-          title: category.name,
+          title: data.category.name,
       };
   } else {
       redirect('/')
@@ -20,8 +24,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
-  const categoryData: Promise<any> = getCategory(params.slug)
-  const data = await categoryData
+  const dataFetch: Promise<IDataFetch> = getCategory(params.slug)
+  const data = await dataFetch
   
   const paths = [
     {
