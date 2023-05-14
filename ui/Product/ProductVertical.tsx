@@ -18,18 +18,18 @@ function ProductVertical(props:any) {
     const data = props.product
     
     
-    const product = data ?  {
-        id:data.product.id,
-        name:data.product.name,
-        slug:data.product.slug,
-        detail:data.product.detail,
-        price: data.price,
-        discount: data.discount,
-        quantity:data.quantity,
-        count:data.count,
-        color:data.color.name,
-        image:data.images[0]
-    } :{}
+    const product =  {
+        id:data?.product?.id,
+        name:data?.product?.name,
+        slug:data?.product?.slug,
+        detail:data?.product?.detail,
+        price: data?.price,
+        discount: data?.discount,
+        quantity:data?.quantity,
+        count:data?.count,
+        color:data?.color.name,
+        image:data?.images[0]
+    }
     const dispatch = useAppDispatch()
     
     const stateProduct : ICartItem = {
