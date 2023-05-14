@@ -62,16 +62,16 @@ export default function Product(props:any) {
     const images : Array<IImage> =  product?.variants[variantId].images;
     const stateProduct : ICartItem = {
         product:{
-            id: product?.variants[variantId].id,
+            id: product?.variants[variantId]?.id,
             name: product?.name,
             slug:product?.slug,
             detail:product?.detail,
-            price: product?.variants[variantId].price,
-            discount: product?.variants[variantId].discount,
-            quantity: product?.variants[variantId].quantity,
-            count:product?.variants[variantId].count,
-            image: product?.variants[variantId].images[0],
-            color: product?.variants[variantId].color.name,
+            price: product?.variants[variantId]?.price,
+            discount: product?.variants[variantId]?.discount,
+            quantity: product?.variants[variantId]?.quantity,
+            count:product?.variants[variantId]?.count,
+            image: product?.variants[variantId]?.images[0],
+            color: product?.variants[variantId]?.color.name,
         },
         
         inCart:count,
