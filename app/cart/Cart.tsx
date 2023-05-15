@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { useAppSelector,useAppDispatch } from '@/app/store';
 import { increment,decrement,clearById ,clearAll, totalPriceSelector} from '@/app/store/cartSlice'
-import { ICartItem, IProductCard } from '@/lib/interface';
+import { ICartItem } from '@/lib/interface';
 
 function CartList({item}:{item:ICartItem}){
     const total =  item.product.discount ? item.inCart*item.product.discount:item.inCart*item.product.price
@@ -26,22 +26,22 @@ function CartList({item}:{item:ICartItem}){
         }
         
     return (
-        <div className="flex md:grid grid-cols-4 md:px-10 gap-x-3 items-center py-7 border border-gray-100 hover:border-gray-600 rounded-md relative group" >
-            <div className="flex gap-x-5 items-center">
+        <div className="flex md:grid grid-cols-4 md:px-10 gap-x-3 items-center py-7 lg:border border-gray-100 hover:border-gray-600 rounded-md relative group" >
+            <div className="flex gap-x-1 lg:gap-x-5  items-center min-w-[240px]">
                 <Image src={item.product.images[0].url} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
                 <div className='space-y-1'>
                     <div className='text-sm font-bold text-gray-900'>{item.product.name}</div>
                     <div className='text-xs text-gray-600'>{item.product.color.name}</div>
                 </div>
             </div>
-            <div className="text-center">{item.product.discount ? item.product.discount.toLocaleString() : item.product.price.toLocaleString()} VNĐ </div>
+            <div className="text-center text-sm md:text-base min-w-[140px]">{item.product.discount ? item.product.discount.toLocaleString() : item.product.price.toLocaleString()} VNĐ </div>
             <div className="flex items-center justify-center">
-                <button onClick={decrease} className='w-10 h-10 flex items-center justify-center border rounded-l-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50'><FontAwesomeIcon icon={'minus'} className='w-4 h-4'/></button>
-                <input type="number" value={item.inCart} disabled className='w-10 border-y h-10 text-center'/>
-                <button onClick={increase} className='w-10 h-10 flex items-center justify-center border rounded-r-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50'><FontAwesomeIcon icon={'plus'} className='w-4 h-4'/></button>
+                <button onClick={decrease} className='w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center border rounded-l-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50'><FontAwesomeIcon icon={'minus'} className='w-4 h-4'/></button>
+                <input type="number" value={item.inCart} disabled className='w-10 p-0 h-8 lg:h-10 border-y text-center'/>
+                <button onClick={increase} className='w-8 h-8 lg:w-10 lg:h-10 flex items-center justify-center border rounded-r-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50'><FontAwesomeIcon icon={'plus'} className='w-4 h-4'/></button>
 
             </div>
-            <div className="text-right">{total.toLocaleString()} VNĐ</div>
+            <div className="text-right min-w-[140px]">{total.toLocaleString()} VNĐ</div>
             <button onClick={()=>{dispatch(clearById(item.product.id))}}
             className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'trash'} className='w-4 h-4 text-gray-600 hover:text-red-600'/></button>
         </div>
@@ -68,12 +68,12 @@ export default function Cart() {
                     {cartItems.length == 0 ?
                         <div>Giỏ Hàng Trống</div> :
                         <>
-                            <div className='space-y-3'>
-                                <div className="flex md:grid grid-cols-4 px-10 py-6">
-                                    <div className="text-left font-medium">Sản Phẩm</div>
-                                    <div className="text-center font-medium">Đơn Giá</div>
-                                    <div className="text-center font-medium">Số Lượng</div>
-                                    <div className="text-right font-medium">Thành Tiền</div>
+                            <div className='space-y-3 overflow-x-auto'>
+                                <div className="flex md:grid grid-cols-4 gap-x-3 lg:px-10 l:py-6">
+                                    <div className="text-left font-medium min-w-[240px]">Sản Phẩm</div>
+                                    <div className="text-center font-medium min-w-[140px]">Đơn Giá</div>
+                                    <div className="text-center font-medium min-w-[110px]">Số Lượng</div>
+                                    <div className="text-right font-medium min-w-[140px]">Thành Tiền</div>
                                 </div>
                                 {cartItems.map((item, index) => (<CartList key={index} item={item} />))}
                             </div>
@@ -96,7 +96,7 @@ export default function Cart() {
                             </div>
                         </form>
                         <div/>
-                        <div className='border border-gray-900 rounded-md p-5'>
+                        <div className='border border-gray-900 rounded-md p-5 mt-5 md:mt-0'>
                             <div className='text-xl font-medium'>Tổng Quan</div>
                             <div className='divide-y'>
                                 <div className='flex justify-between py-4'><span className='font-medium'>Tạm Tính:</span><span className='text-sm'>{totalPrice.toLocaleString()} VNĐ</span></div>

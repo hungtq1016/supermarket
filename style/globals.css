@@ -10,8 +10,6 @@
     @apply py-4 px-12 rounded-md relative capitalize before:absolute before:inset-0 before:bg-transparent before:rounded-md  before:border-4 hover:before:translate-x-3 hover:before:-translate-y-3 before:-z-[1] before:duration-500
 }
 
-
-
 .section-title{
     @apply font-semibold py-3 text-rose-600 pl-9 capitalize relative before:content-[''] before:absolute before:inset-y-0 before:left-0  before:bg-rose-600 before:w-5 before:rounded-md
 }

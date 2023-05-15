@@ -204,7 +204,7 @@ export default function Payment() {
                               {cartItems.map((item) => (
                                   <li key={item.product.id} className="flex px-4 py-6 sm:px-6">
                                       <div className="flex-shrink-0">
-                                          <Image src={item.product.image.url} alt={item.product.name} className="rounded-md" width={80} height={80}/>
+                                          <Image src={item.product.images[0].url} alt={item.product.name} className="rounded-md" width={80} height={80}/>
                                       </div>
 
                                       <div className="ml-6 flex flex-1 flex-col">
@@ -215,7 +215,7 @@ export default function Payment() {
                                                           {item.product.name}
                                                       </Link>
                                                   </h4>
-                                                  <p className="mt-1 text-sm text-gray-500">{item.product.color}</p>
+                                                  <p className="mt-1 text-sm text-gray-500">{item.product.color.name}</p>
                                               </div>
 
                                               <div className="ml-4 flow-root flex-shrink-0">
