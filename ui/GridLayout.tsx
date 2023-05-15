@@ -38,9 +38,9 @@ export default function GridLayout(props:IGridProp) {
     return (
         <div className='col-span-4'>
             <section>
-                <div className="flex items-baseline justify-between border-b border-gray-200 pb-4">
-                    <h1 className="text-4xl font-bold tracking-tight text-gray-900 capitalize">{title}</h1>
-                    <div className="flex items-center gap-x-3">
+                <div className="md:flex items-baseline justify-between border-b border-gray-200 pb-4">
+                    <h1 className="text-xl md:text-2xl lg:text-4xl font-bold tracking-tight text-gray-900 capitalize">{title}</h1>
+                    <div className="flex mt-4 md:mt-0 gap-3 justify-end items-center">
                         <Menu as="div" className="relative inline-block text-left">
                             <div>
                                 <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
@@ -106,7 +106,7 @@ export default function GridLayout(props:IGridProp) {
                             </Transition>
                         </Menu>
                         <button type="button" onClick={() => { setGrid(!grid) }}
-                            className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
+                            className=" text-gray-600 hover:text-gray-700 flex items-center justify-center">
                             <span className="sr-only">View grid</span>
                             {
                                 grid ?
@@ -139,7 +139,7 @@ export default function GridLayout(props:IGridProp) {
                         Products
                     </h2>
                     <section>
-                        <div className={grid ? 'grid grid-cols-3 gap-x-2' : ''}>
+                        <div className={grid ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-2' : ''}>
                             {products.map((product) => {
                                 return (
                                     grid ?

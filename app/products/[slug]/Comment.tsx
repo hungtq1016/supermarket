@@ -77,7 +77,7 @@ export default  function Comment(props:any) {
   return (
       <section className='pt-10 pb-5'>
           <div className="space-y-3">
-              <div className="grid grid-cols-3 gap-x-4">
+              <div className="md:grid grid-cols-3 gap-x-4">
                   {loading ? 
                         <div className='col-span-2'>Loading...</div>
                         : 

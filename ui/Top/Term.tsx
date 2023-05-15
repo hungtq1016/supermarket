@@ -36,7 +36,7 @@ function Term() {
     return ( 
         <section>
             <div className="max-w-6xl mx-4 md:mx-auto pt-10 pb-20">
-                <div className="grid grid-cols-3">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-5">
                     {termList}
                 </div>
             </div>

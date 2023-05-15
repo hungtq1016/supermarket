@@ -11,7 +11,7 @@ const paths=[
 ]
 export default async function Page() {
     return ( 
-      <section className="py-10">
+      <section className="py-5 lg:py-10">
         <Breadcrumbs paths={paths} />
         <div>Category list</div>
       </section>

@@ -6,9 +6,9 @@ import Image from 'next/image';
 
 import { useAppSelector,useAppDispatch } from '@/app/store';
 import { increment,decrement,clearById ,clearAll, totalPriceSelector} from '@/app/store/cartSlice'
-import { ICartItem } from '@/lib/interface';
+import { ICartItem, IProductCard } from '@/lib/interface';
 
-function CartList(item:any){
+function CartList({item}:{item:ICartItem}){
     const total =  item.product.discount ? item.inCart*item.product.discount:item.inCart*item.product.price
     
     const dispatch = useAppDispatch()
@@ -26,12 +26,12 @@ function CartList(item:any){
         }
         
     return (
-        <div className="grid grid-cols-4 px-10 items-center py-7 border border-gray-100 hover:border-gray-600 rounded-md relative group" >
+        <div className="flex md:grid grid-cols-4 md:px-10 gap-x-3 items-center py-7 border border-gray-100 hover:border-gray-600 rounded-md relative group" >
             <div className="flex gap-x-5 items-center">
-                <Image src={item.product.image.url} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
+                <Image src={item.product.images[0].url} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
                 <div className='space-y-1'>
                     <div className='text-sm font-bold text-gray-900'>{item.product.name}</div>
-                    <div className='text-xs text-gray-600'>{item.product.color}</div>
+                    <div className='text-xs text-gray-600'>{item.product.color.name}</div>
                 </div>
             </div>
             <div className="text-center">{item.product.discount ? item.product.discount.toLocaleString() : item.product.price.toLocaleString()} VNĐ </div>
@@ -64,18 +64,18 @@ export default function Cart() {
                 </div>
             </Link>
             <section>
-                <div className="max-w-7xl mx-4 md:mx-auto pt-10 pb-20">
+                <div className="py-5 md:pt-10 md:pb-20 overflow-x-auto">
                     {cartItems.length == 0 ?
                         <div>Giỏ Hàng Trống</div> :
                         <>
                             <div className='space-y-3'>
-                                <div className="grid grid-cols-4 px-10 py-6">
+                                <div className="flex md:grid grid-cols-4 px-10 py-6">
                                     <div className="text-left font-medium">Sản Phẩm</div>
                                     <div className="text-center font-medium">Đơn Giá</div>
                                     <div className="text-center font-medium">Số Lượng</div>
                                     <div className="text-right font-medium">Thành Tiền</div>
                                 </div>
-                                {cartItems.map((item, index) => (<CartList key={index} {...item} index={index} />))}
+                                {cartItems.map((item, index) => (<CartList key={index} item={item} />))}
                             </div>
                             <div className="flex justify-end mt-3">
                                 <button onClick={()=>{dispatch(clearAll())}}
@@ -88,7 +88,7 @@ export default function Cart() {
             </section>
             <section>
                 <div className="max-w-7xl mx-4 md:mx-auto py-10">
-                    <div className="grid grid-cols-3">
+                    <div className="md:grid grid-cols-3">
                         <form action="">
                             <div className="flex flex-col items-end gap-y-3">
                                 <input type="text" placeholder='Gán Mã Giảm Giá Tại Đây' className='w-full border rounded-md py-2 px-4'/>

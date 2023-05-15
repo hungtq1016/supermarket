@@ -68,7 +68,7 @@ function Footer():ReactElement {
     return ( 
         <footer className="bg-black pt-20 pb-6 text-gray-50">
             <div className="max-w-7xl mx-4 md:mx-auto">
-                <div className="flex justify-between">
+                <div className="flex justify-between flex-wrap">
                     <div className='space-y-6'>
                         <Link href={'/'} className='text-xl font-medium'>S-market</Link>
                         <ul className="space-y-4">

@@ -39,9 +39,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   ]
   return (
 
-    <section className='py-10'>
+    <section className='py-4 lg:py-10'>
         <Breadcrumbs paths={paths}/>
-      <div className='grid grid-cols-5 pt-10'>
+      <div className='md:grid grid-cols-5 md:pt-10'>
         {/* @ts-expect-error Async Server Component */}
         <Navigator />
         <GridLayout title={data.category.name} products={data.products}/>

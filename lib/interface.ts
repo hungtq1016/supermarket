@@ -106,6 +106,6 @@ export interface IImage {
 }
 
 export interface ICartItem {
-    product: any
+    product: IProductCard
     inCart: number
 }

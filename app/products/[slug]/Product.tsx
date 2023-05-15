@@ -80,11 +80,11 @@ export default function Product(props:any) {
     return ( 
         <>
             <section className="pb-5">
-                <div className="grid grid-cols-12 gap-x-8">
+                <div className="lg:grid grid-cols-12 gap-x-8">
                     <div className="col-span-7">
                         <Slider key={variantId} images={images} />
                     </div>
-                    <div className="col-span-5">
+                    <div className="col-span-5 mt-8 xl:mt-0">
                         <div className="flex flex-col justify-between h-full">
                             <div className="text-2xl font-semibold capitalize">{product?.name}</div>
                             <div className="flex gap-x-3 text-sm">
@@ -105,7 +105,7 @@ export default function Product(props:any) {
                             <div className="text-sm text-gray-900 text-justify pb-8 border-b-2 border-gray-400">{product?.detail}</div>
                             <section className="py-2">
                                 <div className="text-xl font-medium">Phiên bản khác</div>
-                                <div className="grid grid-cols-2 gap-x-1 mt-1">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-1 gap-y-2 mt-1">
                                     {children.map((child: any) => (
                                         <Link href={`/products/${child.slug}`} key={child.id}>
                                             <div className={`p-1 flex gap-x-1 border rounded-lg items-center hover:border-rose-600 duration-200 ${child.id == product?.id && `border-rose-600`}`} >
@@ -117,19 +117,19 @@ export default function Product(props:any) {
                                 </div>
                             </section>
                             <Variants />
-                            <div className="flex gap-x-4">
-                                <div className="flex">
+                            <div className="flex gap-x-4 flex-wrap gap-y-3">
+                                <div className="flex flex-none sm:flex-auto w-full sm:w-auto justify-center">
                                     <button onClick={decrease} className='w-10 flex items-center justify-center border border-gray-600 rounded-l-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50' disabled={!(product?.variants[variantId].quantity > 0)}><FontAwesomeIcon icon={'minus'} /></button>
                                     <input type="number" value={count}
                                         className='w-20 border-x-0 border-gray-600 text-center text-xl font-medium focus:ring-0 focus:outline-none' />
                                     <button onClick={increase} className='w-10 flex items-center justify-center border border-gray-600 rounded-r-md duration-500 text-gray-900 hover:text-gray-50 hover:bg-rose-600 disabled:bg-gray-400 disabled:text-gray-50' disabled={!(product?.variants[variantId].quantity > 0)}><FontAwesomeIcon icon={'plus'} /></button>
                                 </div>
                                 <button onClick={() => dispatch(increment(stateProduct))}
-                                className="px-6 py-2 bg-rose-600 rounded-md capitalize text-gray-50 font-medium hover:bg-rose-700 disabled:bg-gray-400" 
+                                className="flex-1 sm:flex-auto sm:order-none order-last px-6 py-2 bg-rose-600 rounded-md capitalize text-gray-50 font-medium hover:bg-rose-700 disabled:bg-gray-400" 
                                 disabled={!(product?.variants[variantId].quantity > 0)}>mua hàng</button>
-                                <button className='px-4 flex items-center justify-center border rounded-md duration-500 bg-red-600 text-gray-50 hover:bg-red-700'><FontAwesomeIcon icon={'heart'} width={16} height={16} /></button>
+                                <button className='flex-1 sm:flex-auto px-4 flex items-center justify-center border rounded-md duration-500 bg-red-600 text-gray-50 hover:bg-red-700'><FontAwesomeIcon icon={'heart'} width={16} height={16} /></button>
                             </div>
-                            <div className="border-2 border-gray-400 rounded-md divide-y-2 divide-gray-400">
+                            <div className="border-2 border-gray-400 rounded-md divide-y-2 divide-gray-400 mt-8 xl:mt-0">
                                 <div className="flex items-center gap-x-4 p-3">
                                     <div>
                                         <FontAwesomeIcon icon={'shipping-fast'} className='w-10 h-10' />

@@ -56,7 +56,29 @@ function Categories() {
                 </div>
                 <div className="mt-10">
                     <>
-                        <Swiper slidesPerView={6} spaceBetween={8} modules={[Pagination]} loop={true}  className="">
+                        <Swiper breakpoints={{
+                            // when window width is >= 426
+                            426: {
+                                width: 426,
+                                slidesPerView: 2,
+                            },
+                            // when window width is >= 768
+                            768: {
+                                width: 768,
+                                slidesPerView: 4,
+                            },
+                            1024: {
+                                width: 1024,
+                                slidesPerView: 5,
+                                spaceBetween:8 
+
+                            },
+                            1280: {
+                                width: 1280,
+                                slidesPerView: 6,
+                                spaceBetween:8 
+                            },
+                        }} slidesPerView={2} spaceBetween={4} modules={[Pagination]} loop={true}  className="">
                             {categories?.map((category, index: number) => {
                                 return (
                                     <SwiperSlide key={index}>

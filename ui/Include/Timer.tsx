@@ -21,39 +21,39 @@ function Timer({duration}:{duration:number}) {
         let hours = total_hours % 24;
 
         return(
-            <div className="flex gap-x-4 items-end">
+            <div className="flex gap-x-2 md:gap-x-4 items-end">
                 <div className="flex flex-col items-center">
                     <span className='text-sm font-medium'>
                         Ngày
                     </span>
-                    <time className='font-bold text-3xl'>
+                    <time className='font-bold text-lg md:text-3xl'>
                         {days}
                     </time>
                 </div>
-                <span className='text-rose-600 text-3xl'>:</span>
+                <span className='text-rose-600 text-lg md:text-3xl'>:</span>
                 <div className="flex flex-col items-center">
                     <span className='text-sm font-medium'>
                         Giờ
                     </span>
-                    <time className='font-bold text-3xl'>
+                    <time className='font-bold text-lg md:text-3xl'>
                         {hours}
                     </time>
                 </div>
-                <span className='text-rose-600 text-3xl'>:</span>
+                <span className='text-rose-600 text-lg md:text-3xl'>:</span>
                 <div className="flex flex-col items-center">
                     <span className='text-sm font-medium'>
                         Phút
                     </span>
-                    <time className='font-bold text-3xl'>
+                    <time className='font-bold text-lg md:text-3xl'>
                         {minutes}
                     </time>
                 </div>
-                <span className='text-rose-600 text-3xl'>:</span>
+                <span className='text-rose-600 text-lg md:text-3xl'>:</span>
                 <div className="flex flex-col items-center">
                     <span className='text-sm font-medium'>
                         Giây
                     </span>
-                    <time className='font-bold text-3xl'>
+                    <time className='font-bold text-lg md:text-3xl'>
                         {seconds}
                     </time>
                 </div>

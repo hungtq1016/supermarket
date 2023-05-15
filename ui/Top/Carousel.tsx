@@ -15,7 +15,7 @@ const carousels = [
 ]
 export default function Carousel() {
     return (
-        <div className="col-span-4">
+        <div className="col-span-4 mt-4 md:mt-0">
           <Swiper pagination={{ dynamicBullets: true, }} modules={[Pagination]} className="mySwiper" >
              {
                 carousels.map((carousel,index)=>{
