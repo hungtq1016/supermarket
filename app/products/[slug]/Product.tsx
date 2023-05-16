@@ -6,16 +6,14 @@ import Image from "next/image";
 
 import { Rating } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {library } from "@fortawesome/fontawesome-svg-core";
-import {fas} from '@fortawesome/free-solid-svg-icons'
-library.add(fas)
 
 import { increment } from '@/app/store/cartSlice'
+import { useAppDispatch } from "@/app/store";
 
 import Slider from "./Slider";
-import { ICartItem, IImage } from "@/lib/interface";
 import Comment from "./Comment";
-import { useAppDispatch } from "@/app/store";
+
+import { ICartItem, IImage } from "@/lib/interface";
 
 export default function Product(props:any) {
     const product = props.product

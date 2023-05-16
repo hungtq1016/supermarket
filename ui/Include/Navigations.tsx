@@ -14,7 +14,7 @@ function NavigationList({navigations,opacity}:{navigations:INavigation[],opacity
                 const isActive = pathname?.startsWith('/categories/' + navigation.slug);
                 return (
                     <div className="relative group" key={navigation.id}>
-                        <div className={`flex items-center justify-between hover:bg-slate-900 md:hover:bg-white md:p-2${isActive ? 'bg-slate-900 ' : ''} rounded-md md:bg-white p-2 md:p-0 md:mx-0`}>
+                        <div className={`flex items-center justify-between hover:bg-slate-900 md:hover:bg-white md:p-2 ${isActive ? 'bg-slate-900 ' : ''} rounded-md md:bg-white p-2 md:p-0 md:mx-0`}>
                             <Link className={`hover:text-rose-600 text-lg ${isActive ? 'text-rose-600 ' : 'text-gray-100 md:text-gray-900'}`}
                                 href={`/categories/${navigation.slug}`}>{navigation.name}</Link>
                             {navigation.children.length != 0 && <FontAwesomeIcon icon={'angle-right'} className='mr-2 w-5 h-5 text-gray-100 md:text-gray-900' />}

@@ -28,7 +28,6 @@ function ProductVertical({product}:{product:IVariant}) {
         color:product?.color,
         images:product?.images
     }
-    console.log(product);
 
     const dispatch = useAppDispatch()
     

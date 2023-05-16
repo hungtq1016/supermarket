@@ -79,7 +79,7 @@ const queryClient = makeQueryClient();
               queryClient<any>(
                   ["comments", props.variantId].join("-"),
                   () =>
-                      fetch(`http://localhost:3000/api/products/comments/${props.variantId}`).then(
+                      fetch(`${process.env.URL_API}/api/products/comments/${props.variantId}`).then(
                           (res) => res.json()
                       )
               )
