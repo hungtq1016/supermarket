@@ -26,7 +26,8 @@ function ProductHorizontal({product}:{product:IVariant}) {
         color:product?.color,
         images:product?.images
     }
-
+    console.log(product);
+    
     const dispatch = useAppDispatch()
 
     const stateProduct : ICartItem = {
