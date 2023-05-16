@@ -95,6 +95,7 @@ export async function GET(request: Request) {
             },
             images: {
               take: 1,
+              
             },
           },
           orderBy: {

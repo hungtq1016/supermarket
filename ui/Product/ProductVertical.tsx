@@ -34,12 +34,13 @@ function ProductVertical({product}:{product:IVariant}) {
         product:productCard,
         inCart:1,
     }
-    const image = (productCard.images ?? [])[0]
 
     return ( 
-        <div className="relative space-y-1 group mb-4">
+        <>
+            {productCard &&
+            <div className="relative space-y-1 group mb-4">
             <div className="relative border">
-                <Image src={image.url} alt={productCard.name} width={400} height={400} className='mx-auto'/>
+                <Image src={productCard.images[0].url} alt={productCard.name} width={400} height={400} className='mx-auto'/>
                 <div className="absolute inset-x-0 bottom-0 opacity-0 group-hover:opacity-100 duration-700">
                     <button onClick={() => dispatch(increment(stateProduct))}
                     className="w-full py-2 bg-black text-gray-50">
@@ -83,6 +84,9 @@ function ProductVertical({product}:{product:IVariant}) {
             }
            
         </div>
+            }
+        </>
+        
     );
 }
 
