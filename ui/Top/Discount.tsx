@@ -9,7 +9,7 @@ const imageData = {
     product:{
         name:'Loa bluetooth Cao cấp',
         desc:'Tăng cường trải nghiệm cho bạn',
-        expired:"Apr 1, 2023 0:0:0",
+        expired:"Jun 1, 2023 0:0:0",
         slug:'loa-jbl',
     }
 }

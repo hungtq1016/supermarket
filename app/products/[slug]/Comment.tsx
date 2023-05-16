@@ -3,9 +3,7 @@ import { Rating } from '@mui/material'
 import { parseISO, formatDistance } from 'date-fns';
 import { vi } from 'date-fns/locale'
 import Pagination from './Pagination';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-// import Loading from '@/src/app/loading';
+import { use} from 'react';
 
 const ReviewList = (props:any)=>{
     const comments = props.comments
@@ -61,26 +59,38 @@ const WriteComment = ()=>{
         </form>
     )
 }
+function makeQueryClient() {
+    const fetchMap = new Map<string, Promise<any>>();
+    return function queryClient<QueryResult>(
+        name: string,
+        query: () => Promise<QueryResult>
+    ): Promise<QueryResult> {
+        if (!fetchMap.has(name)) {
+            fetchMap.set(name, query());
+        }
+        return fetchMap.get(name)!;
+    };
+}
+const queryClient = makeQueryClient();
 
-export default  function Comment(props:any) {
-//  const comments = props?.comments
-    const [comments,setComments] = useState([]);
-    const [loading,setLoading] = useState<boolean>(true);
-    useEffect(()=>{
-        setLoading(true)
-        axios.get(`/api/products/comments/${props.variantId}`).then(response=>{
-            setComments(response.data)
-            setLoading(false)
-        })
-    },[props.variantId])
+  export default  function Comment(props:any) {
+      const comments = props.variantId
+          ? use(
+              queryClient<any>(
+                  ["comments", props.variantId].join("-"),
+                  () =>
+                      fetch(`http://localhost:3000/api/products/comments/${props.variantId}`).then(
+                          (res) => res.json()
+                      )
+              )
+          )
+          : null;
     
   return (
       <section className='pt-10 pb-5'>
           <div className="space-y-3">
               <div className="md:grid grid-cols-3 gap-x-4">
-                  {loading ? 
-                        <div className='col-span-2'>Loading...</div>
-                        : 
+                  {
                         comments.length != 0 ?
                         <ReviewList comments={comments} /> :
                         <div className='col-span-2 text-lg text-gray-600 '>Chưa có bình luận ... </div>}
