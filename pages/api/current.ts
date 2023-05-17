@@ -13,11 +13,12 @@ const serverAuth = async (req:NextApiRequest)=>{
         where:{
             email: session.user.email
         },
-        select:{
-            id:true,
-            name:true,
-            email:true,
-            address:true,
+        include:{
+            _count:{
+                select:{
+                    wishlist:true
+                }
+            }
         }
     });
 
