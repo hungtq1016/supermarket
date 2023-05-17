@@ -24,11 +24,11 @@ function CartList({item}:{item:ICartItem}){
         function decrease() {
             dispatch(decrement(item.product.id))
         }
-        
+    const image = (item.product.images || [])[0];
     return (
         <div className="flex md:grid grid-cols-4 md:px-10 gap-x-3 items-center py-7 lg:border border-gray-100 hover:border-gray-600 rounded-md relative group" >
             <div className="flex gap-x-1 lg:gap-x-5  items-center min-w-[240px]">
-                <Image src={item.product.images[0].url} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
+                <Image src={image.url} alt={item.product.name} className='w-20 h-20 object-cover'  width={80} height={80}/>
                 <div className='space-y-1'>
                     <div className='text-sm font-bold text-gray-900'>{item.product.name}</div>
                     <div className='text-xs text-gray-600'>{item.product.color.name}</div>

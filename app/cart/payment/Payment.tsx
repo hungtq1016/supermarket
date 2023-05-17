@@ -201,48 +201,53 @@ export default function Payment() {
                       <div className="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
                           <h3 className="sr-only">Hàng Trong Giỏ</h3>
                           <ul role="list" className="divide-y divide-gray-200">
-                              {cartItems.map((item) => (
-                                  <li key={item.product.id} className="flex px-4 py-6 sm:px-6">
-                                      <div className="flex-shrink-0">
-                                          <Image src={item.product.images[0].url} alt={item.product.name} className="rounded-md" width={80} height={80}/>
-                                      </div>
-
-                                      <div className="ml-6 flex flex-1 flex-col">
-                                          <div className="flex">
-                                              <div className="min-w-0 flex-1">
-                                                  <h4 className="text-sm">
-                                                      <Link href={'/products/'+item.product.slug} className="font-medium text-gray-900 hover:text-gray-800">
-                                                          {item.product.name}
-                                                      </Link>
-                                                  </h4>
-                                                  <p className="mt-1 text-sm text-gray-500">{item.product.color.name}</p>
-                                              </div>
-
-                                              <div className="ml-4 flow-root flex-shrink-0">
-                                                  <button onClick={()=>{dispatch(clearById(item.product.id))}}
-                                                      type="button"
-                                                      className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-600 hover:text-red-600"
-                                                  >
-                                                      <span className="sr-only">Remove</span>
-                                                      <FontAwesomeIcon icon={'trash'} className="h-5 w-5" aria-hidden="true" />
-                                                  </button>
-                                              </div>
+                              {cartItems.map((item) => 
+                              {
+                                const image = (item.product.images || [])[0];
+                                return (
+                                      <li key={item.product.id} className="flex px-4 py-6 sm:px-6">
+                                          <div className="flex-shrink-0">
+                                              <Image src={image.url} alt={item.product.name} className="rounded-md" width={80} height={80} />
                                           </div>
 
-                                          <div className="flex flex-1 items-end justify-between pt-2">
-                                              <p className="mt-1 text-sm font-medium text-gray-900">{item.product.price.toLocaleString()} VNĐ</p>
+                                          <div className="ml-6 flex flex-1 flex-col">
+                                              <div className="flex">
+                                                  <div className="min-w-0 flex-1">
+                                                      <h4 className="text-sm">
+                                                          <Link href={'/products/' + item.product.slug} className="font-medium text-gray-900 hover:text-gray-800">
+                                                              {item.product.name}
+                                                          </Link>
+                                                      </h4>
+                                                      <p className="mt-1 text-sm text-gray-500">{item.product.color.name}</p>
+                                                  </div>
 
-                                              <div className="ml-4">
-                                                  <label htmlFor="quantity" className="sr-only">
-                                                      Quantity
-                                                  </label>
-                                                  <input type="text" name="quantity" id="quantity" value={item.inCart} disabled
-                                                  className='rounded-md w-10'/>
+                                                  <div className="ml-4 flow-root flex-shrink-0">
+                                                      <button onClick={() => { dispatch(clearById(item.product.id)) }}
+                                                          type="button"
+                                                          className="-m-2.5 flex items-center justify-center bg-white p-2.5 text-gray-600 hover:text-red-600"
+                                                      >
+                                                          <span className="sr-only">Remove</span>
+                                                          <FontAwesomeIcon icon={'trash'} className="h-5 w-5" aria-hidden="true" />
+                                                      </button>
+                                                  </div>
+                                              </div>
+
+                                              <div className="flex flex-1 items-end justify-between pt-2">
+                                                  <p className="mt-1 text-sm font-medium text-gray-900">{item.product.price.toLocaleString()} VNĐ</p>
+
+                                                  <div className="ml-4">
+                                                      <label htmlFor="quantity" className="sr-only">
+                                                          Quantity
+                                                      </label>
+                                                      <input type="text" name="quantity" id="quantity" value={item.inCart} disabled
+                                                          className='rounded-md w-10' />
+                                                  </div>
                                               </div>
                                           </div>
-                                      </div>
-                                  </li>
-                              ))}
+                                      </li>
+                                  )
+                              }
+                              )}
                           </ul>
                           <dl className="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
                               <div className="flex items-center justify-between">
