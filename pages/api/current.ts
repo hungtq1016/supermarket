@@ -1,5 +1,32 @@
 import { NextApiRequest,NextApiResponse } from 'next'
-import serverAuth from '@/lib/serverAuth';
+import { getSession } from 'next-auth/react'
+import prisma from '@/lib/prismadb';
+
+const serverAuth = async (req:NextApiRequest)=>{
+    const session = await getSession({req});
+    
+    if (!session?.user?.email) {
+        throw new Error('Chưa Đăng Nhập');
+    }
+
+    const currentUser = await prisma.user.findUnique({
+        where:{
+            email: session.user.email
+        },
+        select:{
+            id:true,
+            name:true,
+            email:true,
+            address:true,
+        }
+    });
+
+    if (!currentUser) {
+        throw new Error('Chưa Đăng Nhập');
+    }
+
+    return {currentUser}
+}
 
 export default async function handler(req:NextApiRequest,res:NextApiResponse){
     if(req.method !== 'GET'){
