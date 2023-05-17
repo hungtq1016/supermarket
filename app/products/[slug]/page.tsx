@@ -19,7 +19,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function Page({ params }: { params: { slug: string } }) {
     const productData: Promise<any> = getProduct(params.slug)
     const data = await productData
-    console.log(data);
     
     const paths=[
         {
