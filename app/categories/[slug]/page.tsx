@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   
   const paths = [
     {
-      name: 'Thể Loại',
+      name: 'Danh Mục',
       slug: '/categories'
     },
     {
@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
     <section className='py-4 lg:py-10'>
         <Breadcrumbs paths={paths}/>
-      <div className='md:grid grid-cols-5 md:pt-10'>
+      <div className='md:grid grid-cols-5 md:pt-10 gap-x-2'>
         {/* @ts-expect-error Async Server Component */}
         <Navigator />
         <GridLayout title={data.category.name} products={data.products}/>

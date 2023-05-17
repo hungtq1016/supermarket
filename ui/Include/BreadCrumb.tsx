@@ -1,7 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faChevronRight} from '@fortawesome/free-solid-svg-icons'
 
 export default function  Breadcrumbs (props:any) {
   const paths = props.paths
@@ -18,7 +16,7 @@ export default function  Breadcrumbs (props:any) {
         {paths.map((path:any,index:number) => {
                 return (
                   <React.Fragment key={path.name}>
-                    <FontAwesomeIcon icon={faChevronRight} className='w-4 h-4'/>
+                    <span className='font-medium text-black'> | </span>
                     <div key={path.name} className="capitalize">
                         { 
                           index==paths.length -1 ? 

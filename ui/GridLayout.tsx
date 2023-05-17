@@ -8,7 +8,7 @@ import ProductHorizontal from '@/ui/Product/ProductHorizontal';
 import { IGridProp } from '@/lib/interface';
 
 const sort =[
-  { name: 'green', label: 'dsd'}
+  { name: 'Tím', label: 'dsd'}
 ]
 
 const sortOptions = [
@@ -38,7 +38,7 @@ export default function GridLayout(props:IGridProp) {
     return (
         <div className='col-span-4'>
             <section>
-                <div className="md:flex items-baseline justify-between border-b border-gray-200 pb-4">
+                <div className="flex items-baseline justify-between border-b border-gray-200 pb-4">
                     <h1 className="text-xl md:text-2xl lg:text-4xl font-bold tracking-tight text-gray-900 capitalize">{title}</h1>
                     <div className="flex mt-4 md:mt-0 gap-3 justify-end items-center">
                         <Menu as="div" className="relative inline-block text-left">

@@ -22,7 +22,7 @@ export default async function Page() {
   return (
     <section className='py-5 lg:py-10'>
       <Breadcrumbs paths={paths}/>
-      <div className='md:grid grid-cols-5'>
+      <div className='md:grid grid-cols-5 gap-x-2'>
         {/* @ts-expect-error Async Server Component */}
         <Navigator />
         <GridLayout title={'Tất Cả Sản Phẩm'} products={products}/>

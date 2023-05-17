@@ -1,11 +1,11 @@
 import Breadcrumbs from "@/ui/Include/BreadCrumb";
 
 export const metadata = {
-  title: 'Danh Sách Thể Loại',
+  title: 'Tất Cả Danh Mục',
 }
 const paths=[
   {
-    name:'Danh Sách Thể Loại',
+    name:'Tất Cả Danh Mục',
     slug:'#'
   }
 ]
