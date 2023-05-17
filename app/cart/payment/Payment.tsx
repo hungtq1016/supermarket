@@ -3,15 +3,14 @@ import { useState } from 'react'
 import { RadioGroup } from '@headlessui/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {library } from "@fortawesome/fontawesome-svg-core";
-import {fas} from '@fortawesome/free-solid-svg-icons'
-library.add(fas)
+
 import { State }  from 'country-state-city';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/app/store';
 import { totalPriceSelector,clearById } from '@/app/store/cartSlice';
 import Link from 'next/link';
 import Image from 'next/image';
+import useMember from '@/hook/useMember';
 
 const deliveryMethods = [
   { id: 1, title: 'Bình Thường', turnaround: '3-5 ngày', price: 10000 },
@@ -31,6 +30,7 @@ function classNames(...classes: any[]) {
 export default function Payment() {
     const cities = State.getStatesOfCountry('VN')
     const router = useRouter()
+    const {data:user} = useMember();
 
     const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
 
@@ -44,33 +44,31 @@ export default function Payment() {
                   <div>
                     <h2 className="text-lg font-medium text-gray-900">Thông Tin Giao Hàng</h2>
                       <div className="mt-6 border-t border-gray-200">
-                          <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+                          <div className="mt-4 grid gap-y-4">
                               <div>
-                                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-900">
-                                      Họ
+                                  <label htmlFor="name" className="block text-sm font-medium text-gray-900">
+                                      Họ và Tên
                                   </label>
                                   <div className="mt-1">
-                                      <input type="text" id="first-name" name="first-name" autoComplete="given-name" 
+                                      <input type="text" id="name" name="name" autoComplete="family-name" value={user?.name}
                                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
                                   </div>
                               </div>
-
                               <div>
-                                  <label htmlFor="last-name" className="block text-sm font-medium text-gray-900">
-                                      Tên
+                                  <label htmlFor="email" className="block text-sm font-medium text-gray-900">
+                                      Email
                                   </label>
                                   <div className="mt-1">
-                                      <input type="text" id="last-name" name="last-name" autoComplete="family-name" 
+                                      <input type="email" id="email" name="email" autoComplete="email" value={user?.email}
                                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
                                   </div>
                               </div>
-
-                              <div className="sm:col-span-2">
+                              <div>
                                   <label htmlFor="city" className="block text-sm font-medium text-gray-900">
                                       Tỉnh/TP
                                   </label>
                                   <div className="mt-1">
-                                      <select defaultValue={"Hồ Chí Minh"}
+                                      <select defaultValue={user?.address}
                                       className=" block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ">
                                           {
                                             cities.map((city)=>{
@@ -83,7 +81,7 @@ export default function Payment() {
                                   </div>
                               </div>
 
-                              <div className="sm:col-span-2">
+                              <div>
                                   <label htmlFor="address" className="block text-sm font-medium text-gray-900">
                                       Địa Chỉ
                                   </label>
@@ -92,7 +90,7 @@ export default function Payment() {
                                   </div>
                               </div>
 
-                              <div className="sm:col-span-2">
+                              <div>
                                   <label htmlFor="phone" className="block text-sm font-medium text-gray-900">
                                       Số Điện Thoại
                                   </label>
