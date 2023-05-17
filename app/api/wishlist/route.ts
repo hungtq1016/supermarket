@@ -14,13 +14,13 @@ export async function POST(request:Request) {
 
 }
 
-export async function DELETE() {
+export async function DELETE(request:Request) {
    
-    // const data = await prisma.wishlist.delete({
-    //    where:{
-    //     id:'64647dd2945a750b93c7567e'
-    //    }
-    //   })
+    const data = await prisma.wishlist.delete({
+       where:{
+        id:'64647dd2945a750b93c7567e'
+       }
+      })
 
       return  NextResponse.json({status:201,message:'Thành công'});
 
