@@ -69,11 +69,11 @@ export interface Term {
     icon: IconProp
 }
 
-export interface Nav {
+export interface INavigation {
     title: string,
     slug: string,
     icon?: IconProp
-    subNav?: Array<Nav>
+    subNav?: Array<INavigation>
 }
 
 export interface User {
