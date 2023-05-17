@@ -84,9 +84,9 @@ const paths =[
 export default async function Page() {
     return ( 
         <>
-            <Breadcrumbs paths={paths}/>
-            <div className="max-w-7xl mx-4 md:mx-auto">
-                <section className="py-20">
+            <div className="max-w-7xl mx-4 lg:mx-auto py-5 lg:py-10">
+                <Breadcrumbs paths={paths}/>
+                <section className="">
                     <div className="text-3xl font-semibold pb-5">Tài liệu API</div>
                     <div className="flex flex-col gap-y-3">
                         {data}
