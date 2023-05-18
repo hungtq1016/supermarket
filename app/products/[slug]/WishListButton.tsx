@@ -20,7 +20,6 @@ export default function WishListButton({variantId,type}:{variantId:string,type:s
     }
 
     async function removeFromWishList(payload: any){
-        console.log(payload);
         
         axios.delete(`/api/wishlist`, { data: payload }).then(
             res=>setLike(false)
