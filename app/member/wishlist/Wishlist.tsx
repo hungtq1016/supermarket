@@ -7,9 +7,10 @@ import useWishlist from '@/hook/useWishlist';
 import Loading from '@/app/loading';
 import axios from 'axios';
 
-async function removeWishlist(payload:any){
-   await axios.delete('/api/wishlist',{data:payload.id})
-    .catch((e) => console.log(e));
+async function removeFromWishList(payload: any){
+        
+    axios.delete(`/api/wishlist`, { data: payload }).catch(err=>console.log(err));
+    
 }
 
 function CartList({ item }: { item: any }) {
@@ -31,7 +32,7 @@ function CartList({ item }: { item: any }) {
             </div>
 
             <Link href={`/products/${product?.product?.slug}`} className="text-right text-gray-600 hover:text-gray-900 text-sm md:text-base min-w-[100px]">Xem sản phẩm</Link>
-            <button onClick={() =>removeWishlist({id:product.id})}
+            <button onClick={()=>removeFromWishList({id:product?.id})}
                 className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'x'} className='w-4 h-4 text-red-600' /></button>
         </div>
     )
