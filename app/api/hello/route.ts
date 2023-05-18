@@ -15,6 +15,6 @@ export async function POST(request:Request) {
     // const id = searchParams.get()
     // const data = await request.json();
     // return NextResponse.json({ res });
-      return  NextResponse.json({request});
+      return  NextResponse.json({searchParams});
 
 }
