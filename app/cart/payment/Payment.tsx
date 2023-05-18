@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RadioGroup } from '@headlessui/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +11,7 @@ import { totalPriceSelector,clearById } from '@/app/store/cartSlice';
 import Link from 'next/link';
 import Image from 'next/image';
 import useMember from '@/hook/useMember';
+import axios from 'axios';
 
 const deliveryMethods = [
   { id: 1, title: 'Bình Thường', turnaround: '3-5 ngày', price: 10000 },
@@ -30,13 +31,33 @@ function classNames(...classes: any[]) {
 export default function Payment() {
     const cities = State.getStatesOfCountry('VN')
     const router = useRouter()
-    const {data:user} = useMember();
+    const {data,isLoading} = useMember();
+    const [form,setForm] = useState({ name:'', address:'', email:'', city:'', phone:'' })
 
+    useEffect(()=>{
+        setForm({...form,name:data?.name,email:data?.email,city:data?.city})
+    },[isLoading])
     const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(deliveryMethods[0])
-
     const dispatch = useAppDispatch()
     const cartItems = useAppSelector( (state) => state.cart.cartItems )
     const totalPrice = useAppSelector(totalPriceSelector)
+    const total = selectedDeliveryMethod.price + totalPrice
+    
+    async function confirm() {
+        const payload = {
+            name: form.name,
+            email: form.email,
+            address: form.address,
+            city: form.city,
+            phone: form.phone,
+            status: 'isPending',
+            total:total
+        }
+        const cart = await axios.post('/api/cart',payload).then(res=>console.log(res)).catch(err=>console.log(err));
+        console.log(cart);
+        
+    }
+
   return (
       <section className="pb-10">
           <div className="mx-auto max-w-2xl lg:max-w-none">
@@ -50,7 +71,8 @@ export default function Payment() {
                                       Họ và Tên
                                   </label>
                                   <div className="mt-1">
-                                      <input type="text" id="name" name="name" autoComplete="family-name" value={user?.name}
+                                      <input onChange={(e)=>setForm({...form,name:e.target.value})}
+                                      type="text" id="name" name="name" autoComplete="family-name" value={form.name}
                                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
                                   </div>
                               </div>
@@ -59,7 +81,8 @@ export default function Payment() {
                                       Email
                                   </label>
                                   <div className="mt-1">
-                                      <input type="email" id="email" name="email" autoComplete="email" value={user?.email}
+                                      <input  onChange={(e)=>setForm({...form,email:e.target.value})}
+                                      type="email" id="email" name="email" autoComplete="email" value={form.email}
                                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
                                   </div>
                               </div>
@@ -68,7 +91,7 @@ export default function Payment() {
                                       Tỉnh/TP
                                   </label>
                                   <div className="mt-1">
-                                      <select defaultValue={user?.address}
+                                      <select defaultValue={form.city}  onChange={(e)=>setForm({...form,city:e.target.value})}
                                       className=" block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 ">
                                           {
                                             cities.map((city)=>{
@@ -86,7 +109,9 @@ export default function Payment() {
                                       Địa Chỉ
                                   </label>
                                   <div className="mt-1">
-                                      <input type="text" name="address" id="address" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
+                                      <input  onChange={(e)=>setForm({...form,address:e.target.value})}
+                                      type="text" name="address" id="address" 
+                                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
                                   </div>
                               </div>
 
@@ -95,7 +120,9 @@ export default function Payment() {
                                       Số Điện Thoại
                                   </label>
                                   <div className="mt-1">
-                                      <input type="text" name="phone" id="phone" autoComplete="tel" className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
+                                      <input  onChange={(e)=>setForm({...form,phone:e.target.value})}
+                                      type="text" name="phone" id="phone" autoComplete="tel" 
+                                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-rose-500 focus:ring-rose-500 sm:text-sm" />
                                   </div>
                               </div>
                           </div>
@@ -259,12 +286,12 @@ export default function Payment() {
 
                               <div className="flex items-center justify-between border-t border-gray-200 pt-6">
                                   <dt className="text-base font-medium">Tổng</dt>
-                                  <dd className="text-base font-medium text-gray-900">{totalPrice >0 ? (selectedDeliveryMethod.price + totalPrice).toLocaleString(): 0} VNĐ</dd>
+                                  <dd className="text-base font-medium text-gray-900">{totalPrice >0 ? total.toLocaleString(): 0} VNĐ</dd>
                               </div>
                           </dl>
 
                           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                              <button type="submit" onClick={() => router.push(`/cart/confirm/${'645739f4bb9ad70736502132'}`)}
+                              <button onClick={()=>confirm}
                               className="w-full rounded-md border border-transparent bg-rose-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-gray-50" >
                                   Xác Nhận
                               </button>

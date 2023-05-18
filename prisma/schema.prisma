@@ -37,6 +37,7 @@ model Variant {
   images    Image[]
   comments  Comment[]
   wishlist  Wishlist[]
+  inCart InCart[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
@@ -105,4 +106,26 @@ model Wishlist {
   emailUser String 
   variant   Variant @relation(fields: [variantId], references: [id])
   variantId String  @db.ObjectId
+}
+
+model Cart{
+  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  email String
+  address String
+  city String
+  phone String
+  status String
+  total BigInt
+  inCarts InCart[]
+}
+
+model InCart{
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  variant Variant @relation(fields: [variantId], references: [id])
+  variantId String  @db.ObjectId
+  quantity Int
+  total BigInt
+  cart Cart  @relation(fields: [cartId], references: [id])
+  cartId String @db.ObjectId
 }
