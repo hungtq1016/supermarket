@@ -1,5 +1,5 @@
 import prisma from '@/lib/prismadb';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 // export async function GET(request:Request,{ params }: { params: { slug: string } }) {
    
@@ -9,7 +9,7 @@ import { NextResponse } from 'next/server';
 // }
 
 
-export async function POST(request:Request) {
+export async function POST(request:NextRequest) {
    
     const { searchParams } = new URL(request.url);
     // const id = searchParams.get()
