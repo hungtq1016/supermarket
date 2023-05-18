@@ -8,15 +8,16 @@ import Loading from '@/app/loading';
 import axios from 'axios';
 
 async function removeWishlist(payload:any){
-   await axios.delete('/api/wishlist',payload.id)
+   await axios.delete('/api/wishlist',{data:payload.id})
     .catch((e) => console.log(e));
 }
 
 function CartList({ item }: { item: any }) {
     const product = item?.variant
+
     const image = (item?.variant?.images || [])[0]
     return (
-        <div className="flex gap-x-1 items-center px-2 py-1 md:px-10 md:py-7 border border-gray-100 rounded-md relative group md:grid grid-cols-4" >
+        <div className="flex gap-x-1 items-center px-2 py-1 md:px-10 md:py-7 border border-gray-100 rounded-md relative group md:grid grid-cols-4 overflow-x-auto" >
             <div className="flex gap-x-5 items-center min-w-[80px]">
                 <Image src={image?.url} alt={product?.product?.name} className='w-full h-full object-cover max-w-[80px]' width={80} height={80} />
             </div>
@@ -30,10 +31,8 @@ function CartList({ item }: { item: any }) {
             </div>
 
             <Link href={`/products/${product?.product?.slug}`} className="text-right text-gray-600 hover:text-gray-900 text-sm md:text-base min-w-[100px]">Xem sản phẩm</Link>
-            <form >
-                <button onClick={() =>removeWishlist(product.id)}
+            <button onClick={() =>removeWishlist({id:product.id})}
                 className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'x'} className='w-4 h-4 text-red-600' /></button>
-            </form>
         </div>
     )
 
@@ -47,8 +46,8 @@ export default function Wishlist() {
     return (
         <section>
             <div className="">
-                <div className='space-y-3 overflow-x-auto'>
-                    <div className="flex px-2 py-1 md:px-10 md:py-6 md:grid grid-cols-4">
+                <div className='space-y-3'>
+                    <div className="flex px-2 py-1 md:px-10 md:py-6 md:grid grid-cols-4 overflow-x-auto">
                         <div className="text-left font-medium min-w-[80px]">Sản Phẩm</div>
                         <div className="font-medium min-w-[220px]">Tên </div>
                         <div className="text-center font-medium min-w-[80px]">Trạng Thái</div>
