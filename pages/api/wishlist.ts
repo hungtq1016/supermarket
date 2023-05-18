@@ -21,6 +21,8 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
         case 'DELETE':
             try {
                 const dataDelete =req.body
+                console.log(dataDelete);
+                
                 await prisma.wishlist.delete({
                     where:{
                         id:dataDelete.id                    
