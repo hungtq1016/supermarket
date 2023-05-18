@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useAppDispatch } from '@/app/store';
 import { increment} from '@/app/store/cartSlice'
 import { ICartItem, IProductCard, IVariant } from "@/lib/interface";
+import WishListButton from "@/app/products/[slug]/WishListButton";
+import { useSession } from "next-auth/react";
 
 library.add(fas)
 const calculateDiscount = (price:number,discount:number):number=>{
@@ -36,7 +38,7 @@ function ProductVertical({product}:{product:IVariant}) {
         inCart:1,
     }
     const image = (productCard?.images ?? [])[0]
-
+    const {status} = useSession()
     return ( 
         <div className="relative space-y-1 group mb-4">
             <div className="relative border">
@@ -47,11 +49,9 @@ function ProductVertical({product}:{product:IVariant}) {
                         Thêm vào giỏ
                     </button>
                 </div>
-                <div className="absolute top-2 right-2 space-y-2 hidden group-hover:inline">
-                    <div className="bg-gray-50 rounded-full">
-                        <button className="w-6 h-6 flex items-center  justify-center ">
-                            <FontAwesomeIcon icon={'heart'} className='w-4 h-4 text-red-600'/>
-                        </button>
+                <div className="absolute top-2 right-2 space-y-2 ">
+                    <div className="bg-gray-50 rounded-full flex items-center justify-center">
+                        {status === 'authenticated' && <WishListButton variantId={product.id} type="vertical"/>}
                     </div>
                     <div className="bg-gray-50 rounded-full">
                         <Link href={`/products/${productCard?.slug}`} className="w-6 h-6 flex items-center  justify-center ">

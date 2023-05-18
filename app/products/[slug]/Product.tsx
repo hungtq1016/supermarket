@@ -14,11 +14,13 @@ import Slider from "./Slider";
 import Comment from "./Comment";
 
 import { ICartItem, IImage } from "@/lib/interface";
+import WishListButton from "./WishListButton";
+import { useSession } from "next-auth/react";
 
 export default function Product(props:any) {
     const product = props.product
     const children = props.child
-    
+
     const [variantId,setVariantId] = useState(0);
     
     const [count, setCount] = useState<number>(1);
@@ -56,7 +58,7 @@ export default function Product(props:any) {
             </section>
         )
     }
-
+    const {  status } = useSession();
     const images : Array<IImage> =  product.variants[variantId].images;
     const stateProduct : ICartItem = {
         product:{
@@ -125,7 +127,7 @@ export default function Product(props:any) {
                                 <button onClick={() => dispatch(increment(stateProduct))}
                                 className="flex-1 sm:flex-auto sm:order-none order-last px-6 py-2 bg-rose-600 rounded-md capitalize text-gray-50 font-medium hover:bg-rose-700 disabled:bg-gray-400" 
                                 disabled={!(product.variants[variantId].quantity > 0)}>mua hàng</button>
-                                <button className='flex-1 sm:flex-auto px-4 flex items-center justify-center border rounded-md duration-500 bg-red-600 text-gray-50 hover:bg-red-700'><FontAwesomeIcon icon={'heart'} width={16} height={16} /></button>
+                                {status === 'authenticated' && <WishListButton variantId={product.variants[variantId].id} type="product"/>}
                             </div>
                             <div className="border-2 border-gray-400 rounded-md divide-y-2 divide-gray-400 mt-8 xl:mt-0">
                                 <div className="flex items-center gap-x-4 p-3">

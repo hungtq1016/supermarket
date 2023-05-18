@@ -17,6 +17,7 @@ const serverAuth = async (req:NextApiRequest)=>{
             id:true,
             variant:{
                 select:{
+                    id:true,
                     color:{
                         select:{
                             name:true

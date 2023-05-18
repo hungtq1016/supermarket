@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useAppDispatch } from '@/app/store';
 import { increment} from '@/app/store/cartSlice'
 import { ICartItem, IProductCard, IVariant } from "@/lib/interface";
+import WishListButton from "@/app/products/[slug]/WishListButton";
+import { useSession } from "next-auth/react";
 
 const calculateDiscount = (price:number,discount:number):number=>{
     return 100-Math.round((discount/price) * 100) ;
@@ -34,6 +36,7 @@ function ProductHorizontal({product}:{product:IVariant}) {
         inCart:1,
     }
     const image = (productCard?.images ?? [])[0]
+    const {status} = useSession()
 
     return ( 
         <div className="md:flex p-4 bg-gray-50 mb-2 gap-x-2 justify-between items-center">      
@@ -69,9 +72,7 @@ function ProductHorizontal({product}:{product:IVariant}) {
             </div>
             <div className="space-y-3">
                 <div className="flex gap-x-2">
-                    <button className="flex-1 bg-red-100 p-1 rounded-sm">
-                            <FontAwesomeIcon icon={'heart'} className='w-4 h-4 text-red-600' />
-                    </button>
+                    {status === 'authenticated' && <WishListButton variantId={product.id} type="horizontal"/>}
                     <button onClick={() => dispatch(increment(stateProduct))}
                     className="flex-1 bg-gray-200 p-1 rounded-sm">
                             <FontAwesomeIcon icon={'shopping-cart'} className='w-4 h-4 text-gray-600' />

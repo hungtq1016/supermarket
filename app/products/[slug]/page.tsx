@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import Product from "./Product";
 import Breadcrumbs from "@/ui/Include/BreadCrumb";
 import ProductSection from "@/ui/Product/ProductSection";
+import axios from "axios";
+import { revalidatePath } from "next/cache";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const productData: Promise<any> = getProduct(params.slug)
@@ -19,7 +21,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function Page({ params }: { params: { slug: string } }) {
     const productData: Promise<any> = getProduct(params.slug)
     const data = await productData
-    
+
     const paths=[
         {
           name:'Sản Phẩm',
