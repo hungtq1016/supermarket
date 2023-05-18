@@ -9,14 +9,12 @@ import { NextResponse } from 'next/server';
 // }
 
 
-export async function DELETE(request:Request) {
+export async function POST(request:Request) {
    
-    const deleteWishList = await prisma.wishlist.deleteMany({
-        where: {
-            emailUser:'hungtq1016@gmail.com'
-        },
-      })
-
-      return  NextResponse.json({deleteWishList});
+    const { searchParams } = new URL(request.url);
+    // const id = searchParams.get()
+    // const data = await request.json();
+    // return NextResponse.json({ res });
+      return  NextResponse.json({request});
 
 }
