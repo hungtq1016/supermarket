@@ -5,7 +5,6 @@ import { RadioGroup } from "@headlessui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { State } from "country-state-city";
-import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/app/store";
 import { totalPriceSelector, clearById } from "@/app/store/cartSlice";
 import Link from "next/link";
@@ -29,7 +28,7 @@ function classNames(...classes: any[]) {
 
 export default function Payment() {
   const cities = State.getStatesOfCountry("VN");
-  const router = useRouter();
+
   const { data, isLoading } = useMember();
   const [form, setForm] = useState({
     name: "",
@@ -47,6 +46,7 @@ export default function Payment() {
       city: data?.city,
     });
   }, [isLoading]);
+
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     deliveryMethods[0]
   );
@@ -55,27 +55,17 @@ export default function Payment() {
   const totalPrice = useAppSelector(totalPriceSelector);
   const total = selectedDeliveryMethod.price + totalPrice;
 
-  async function formSubmit() {
-    const payload = {
-      name: form.name,
-      email: form.email,
-      address: form.address,
-      city: form.city,
-      phone: form.phone,
-      status: "isPending",
-      total: total,
-    };
-    const cart = await axios
-      .post("/api/cart", payload)
+  async function testcart(payload:any) {
+ 
+    await axios
+      .post("/api/cart", {data:payload})
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    console.log(cart);
   }
 
   return (
     <section className="pb-10">
-      <form action="" onSubmit={formSubmit}>
-        <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+      <div className="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
           <div>
             <h2 className="text-lg font-medium text-gray-900">
               Thông Tin Giao Hàng
@@ -412,7 +402,7 @@ export default function Payment() {
 
               <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                 <button
-                  type="submit"
+                  onClick={() => testcart({...form,status:'isPending',total:total})}
                   className="w-full rounded-md border border-transparent bg-rose-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-gray-50"
                 >
                   Xác Nhận
@@ -421,7 +411,6 @@ export default function Payment() {
             </div>
           </div>
         </div>
-      </form>
     </section>
   );
 }

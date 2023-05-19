@@ -14,8 +14,7 @@ export default function WishListButton({ variantId, type }: { variantId: string,
 
     async function addToWishList(payload: any) {
 
-        axios.post(`/api/wishlist`, payload).then(
-            res => setLike(true)
+        axios.post(`/api/wishlist`, payload).then((res) => setLike(true)
         ).catch(err => console.log(err));
     }
 
