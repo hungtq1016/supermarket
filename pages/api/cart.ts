@@ -6,6 +6,8 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
         case 'POST':
             try {
                 const dataPost =req.body
+                console.log(dataPost);
+                
                 await prisma.cart.create({
                     data:{
                         name : dataPost.name,

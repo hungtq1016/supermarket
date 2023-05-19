@@ -2,10 +2,10 @@ import fetcher from '@/lib/fetcher'
 import useSWR from 'swr'
 
 const useWishlist  = ()=>{
-    const { data, error, isLoading } =   useSWR(`/api/wishlistByEmail`, fetcher)
+    const { data, error, isLoading ,isValidating } =   useSWR(`/api/wishlistByEmail`, fetcher)
 
     return {
-        data, error, isLoading
+        data, error, isLoading,isValidating
     }
 }
 

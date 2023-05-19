@@ -40,8 +40,8 @@ function CartList({ item }: { item: any }) {
 }
 
 export default function Wishlist() {
-    const { data, error, isLoading } = useWishlist()
-    if (isLoading) { return <Loading /> }
+    const { data, error, isLoading ,isValidating} = useWishlist()
+    if (isLoading || isValidating) { return <Loading /> }
     if (error) { return <div>Lỗi Khổng Thể Tải Trang</div> }
     return (
         <section>
