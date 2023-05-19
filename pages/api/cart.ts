@@ -20,9 +20,7 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
                 })
         
                 return res.status(201).json({message:'Thanh cong'})
-            } catch (error) {
-                console.log(error);
-                
+            } catch (error) {                
                 return res.status(400).end()
             }
             break;

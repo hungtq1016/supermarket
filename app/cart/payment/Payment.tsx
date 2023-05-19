@@ -34,7 +34,7 @@ export default function Payment() {
     name: "",
     address: "",
     email: "",
-    city: "",
+    city: "Hồ Chí Minh",
     phone: "",
   });
 

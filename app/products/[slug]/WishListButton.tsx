@@ -2,6 +2,7 @@ import useMember from "@/hook/useMember";
 import useWishlist from "@/hook/useWishlist";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { mutate } from "swr";
 
 
 
@@ -14,14 +15,14 @@ export default function WishListButton({ variantId, type }: { variantId: string,
 
     async function addToWishList(payload: any) {
 
-        axios.post(`/api/wishlist`, payload).then((res) => setLike(true)
+        axios.post(`/api/wishlist`, payload).then((res) => {setLike(true),mutate('/api/wishlistByEmail')}
         ).catch(err => console.log(err));
     }
 
     async function removeFromWishList(payload: any) {
 
         axios.delete(`/api/wishlist`, { data: payload }).then(
-            res => setLike(false)
+            res => {setLike(false),mutate('/api/wishlistByEmail')}
         ).catch(err => console.log(err));
 
     }
