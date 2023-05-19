@@ -8,14 +8,16 @@ import Loading from '@/app/loading';
 import axios from 'axios';
 
 async function removeFromWishList(payload: any){
-        
+    console.log(payload);
+    
     axios.delete(`/api/wishlist`, { data: payload }).catch(err=>console.log(err));
     
 }
 
 function CartList({ item }: { item: any }) {
     const product = item?.variant
-
+    console.log(product);
+    
     const image = (item?.variant?.images || [])[0]
     return (
         <div className="flex gap-x-1 items-center px-2 py-1 md:px-10 md:py-7 border border-gray-100 rounded-md relative group md:grid grid-cols-4 overflow-x-auto" >
@@ -32,7 +34,7 @@ function CartList({ item }: { item: any }) {
             </div>
 
             <Link href={`/products/${product?.product?.slug}`} className="text-right text-gray-600 hover:text-gray-900 text-sm md:text-base min-w-[100px]">Xem sản phẩm</Link>
-            <button onClick={()=>removeFromWishList({id:product?.id})}
+            <button onClick={()=>removeFromWishList({id:item?.id})}
                 className='absolute top-2 right-3 hidden group-hover:inline'><FontAwesomeIcon icon={'x'} className='w-4 h-4 text-red-600' /></button>
         </div>
     )
@@ -46,8 +48,7 @@ export default function Wishlist() {
     if(error) {return <div>Lỗi Khổng Thể Tải Trang</div>}
     return (
         <section>
-            <div className="">
-                <div className='space-y-3'>
+            <div className='space-y-3'>
                     <div className="flex px-2 py-1 md:px-10 md:py-6 md:grid grid-cols-4 overflow-x-auto">
                         <div className="text-left font-medium min-w-[80px]">Sản Phẩm</div>
                         <div className="font-medium min-w-[220px]">Tên </div>
@@ -56,7 +57,6 @@ export default function Wishlist() {
                     </div>
                     {data?.map((item: any, index: number) => (<CartList key={index} item={item} />))}
                 </div>
-            </div>
         </section>
     );
 }
