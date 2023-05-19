@@ -34,7 +34,7 @@ const navbar:Array<INavigation> = [
         subNav:[
             {
                 title:'Đang Vận Chuyển',
-                slug:'?filter=doing',
+                slug:'?filter=isPending',
             },
             {
                 title:'Đã Thanh Toán',

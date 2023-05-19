@@ -11,6 +11,8 @@ import Link from "next/link";
 import Image from "next/image";
 import useMember from "@/hook/useMember";
 import axios from "axios";
+import { useRouter } from 'next/navigation';
+import {  clearAll } from '@/app/store/cartSlice'
 
 const deliveryMethods = [
   { id: 1, title: "Bình Thường", turnaround: "3-5 ngày", price: 10000 },
@@ -28,6 +30,7 @@ function classNames(...classes: any[]) {
 
 export default function Payment() {
   const cities = State.getStatesOfCountry("VN");
+  const router = useRouter();
 
   const { data, isLoading } = useMember();
   const [form, setForm] = useState({
@@ -56,7 +59,10 @@ export default function Payment() {
   const total = selectedDeliveryMethod.price + totalPrice;
 
   async function testcart(payload:any) {
-    await axios.post("/api/cart",payload).then((res) => console.log(res)).catch((err) => console.log(err));
+    await axios.post("/api/cart",payload).then((res) => {
+      router.push(`/cart/confirm/${res.data.id}`)
+      dispatch(clearAll())
+    }).catch((err) => console.log(err));
   }
 
   return (
@@ -76,7 +82,7 @@ export default function Payment() {
                     Họ và Tên
                   </label>
                   <div className="mt-1">
-                    <input
+                    <input required
                       onChange={(e) =>
                         setForm({ ...form, name: e.target.value })
                       }
@@ -97,7 +103,7 @@ export default function Payment() {
                     Email
                   </label>
                   <div className="mt-1">
-                    <input
+                    <input required
                       onChange={(e) =>
                         setForm({ ...form, email: e.target.value })
                       }
@@ -144,7 +150,7 @@ export default function Payment() {
                     Địa Chỉ
                   </label>
                   <div className="mt-1">
-                    <input
+                    <input required
                       onChange={(e) =>
                         setForm({ ...form, address: e.target.value })
                       }
@@ -164,7 +170,7 @@ export default function Payment() {
                     Số Điện Thoại
                   </label>
                   <div className="mt-1">
-                    <input
+                    <input required
                       onChange={(e) =>
                         setForm({ ...form, phone: e.target.value })
                       }

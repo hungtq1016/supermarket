@@ -1,161 +1,84 @@
 'use client'
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+
+import Loading from "@/app/loading";
+import useOrders from "@/hook/useOrders";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { parseISO } from "date-fns";
+import { formatDistance } from "date-fns/esm";
+import { vi } from "date-fns/locale";
+import Link from "next/link";
 import { useSearchParams } from 'next/navigation';
-
-library.add(fas)
-interface TimeLine{
-  id: number | string,
-  content: string,
-  target: string,
-  href: string,
-  status: string,
-  datetime: string,
-}
-const timeline: Array<TimeLine> =  [
-    {
-      id: 1,
-      content: 'Đã nhận đơn hàng',
-      target: '63V93W6D11SJ1HQ0NZPSA20W',
-      href: '#',
-      status: 'done',
-      datetime: '2023-09-20',
-  
-    },
-    {
-      id: 2,
-      content: 'Đang vận chuyển đơn hàng',
-      target: '86M1IMJSU4JKQXUEP2GTPI4A',
-      href: '#',
-      status: 'doing',
-      datetime: '2023-09-22',
-
-    },
-    {
-      id: 3,
-      content: 'Hoàn trả đơn hàng',
-      target: 'A9D2X2NWW7AC6NYSH57L58HO',
-      href: '#',
-      status: 'back',
-      datetime: '2023-09-28',
-
-    },
-    {
-      id: 4,
-      content: 'Đã hủy đơn hàng',
-      target: '3C3UDSRBYA03L3B7KIXCTOLT',
-      href: '#',
-      status: 'cancel',
-      datetime: '2023-09-30',
- 
-    },
-    {
-      id: 5,
-      content: 'Đã nhận đơn hàng',
-      target: '5FUMS95PRDRV1TFLMLO49EZ8',
-      href: '#',
-      status: 'done',
-      datetime: '2023-10-04',
-
-    },
-    {
-      id: 6,
-      content: 'Đang vận chuyển đơn hàng',
-      target: '86M1IMJSU4JKQXUEP2GTPI4A',
-      href: '#',
-      status: 'doing',
-      datetime: '2023-09-22',
-
-    },
-    {
-      id: 7,
-      content: 'Hoàn trả đơn hàng',
-      target: 'A9D2X2NWW7AC6NYSH57L58HO',
-      href: '#',
-      status: 'back',
-      datetime: '2023-09-28',
-
-    },
-    {
-      id: 8,
-      content: 'Đã hủy đơn hàng',
-      target: '3C3UDSRBYA03L3B7KIXCTOLT',
-      href: '#',
-      status: 'cancel',
-      datetime: '2023-09-30',
- 
-    },
-  ]
 
 export default function Order() {
     const searchParams = useSearchParams();
     const filter = searchParams?.get('filter');
-
-
-    const filterQuery = () => {
-        // Avoid filter for null value
-        if (!filter) {
-            return timeline;
-        }
-
-        const filterData = timeline.filter(
-            (event) => event.status === filter
-        );
-        return filterData;
-    };
-
-    const data = filterQuery();
+    const {data,error,isLoading} = useOrders(typeof filter == 'string' ? `?status=${filter}`: '')
+      
+    if (isLoading || error) {
+        return <Loading/>
+    }
+    if (data.length == 0) {
+        return <div>Không có đơn hàng nào</div>
+    }
     return (
         <>
             <div className="flow-root max-h-[400px] h-full overflow-y-scroll">
                 <ul role="list" className="-mb-8">
-                    {data.map((event, eventIdx) => (
-                        <li key={event.id} className='pr-4'>
+                    {data.map((order:any) => (
+                        <li key={order.id} className='pr-4'>
                             <div className="relative pb-8">
-                                {eventIdx !== timeline.length - 1 ? (
-                                    <span className="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
-                                ) : null}
-                                <div className="relative flex space-x-3">
-                                    {event.status == 'done' &&
-                                        <div>
+                                <div className="relative flex gap-x-3">
+                                    {order.status == 'done' &&
+                                        <div className="flex gap-x-3 items-center">
                                             <span className={'h-8 w-8 rounded-full flex items-center justify-center ring-8 bg-lime-100 ring-white'} >
                                                 <FontAwesomeIcon className="h-5 w-5 text-lime-600" aria-hidden="true" icon={'check'} />
                                             </span>
+                                            <p className="text-gray-600">
+                                                Đơn hàng đã hoàn thành
+                                            </p>
                                         </div>
                                     }
-                                    {event.status == 'doing' &&
-                                        <div>
+                                    {order.status == 'isPending' &&
+                                        <div className="flex gap-x-3 items-center">
                                             <span className={'h-8 w-8 rounded-full flex items-center justify-center ring-8 bg-amber-100 ring-white'} >
                                                 <FontAwesomeIcon className="h-5 w-5 text-amber-600" aria-hidden="true" icon={'truck-fast'} />
                                             </span>
+                                            <p className="text-gray-600">
+                                                Đang vận chuyển đơn hàng
+                                            </p>
                                         </div>
                                     }
-                                    {event.status == 'back' &&
-                                        <div>
+                                    {order.status == 'back' &&
+                                        <div className="flex gap-x-3 items-center">
                                             <span className={'h-8 w-8 rounded-full flex items-center justify-center ring-8 bg-sky-100 ring-white'} >
                                                 <FontAwesomeIcon className="h-5 w-5 text-sky-600" aria-hidden="true" icon={'rotate-left'} />
                                             </span>
+                                            <p className="text-gray-600">
+                                                Đơn hàng bị trả
+                                            </p>
                                         </div>
                                     }
-                                    {event.status == 'cancel' &&
-                                        <div>
+                                    {order.status == 'cancel' &&
+                                        <div className="flex gap-x-3 items-center">
                                             <span className={'h-8 w-8 rounded-full flex items-center justify-center ring-8 bg-red-100 ring-white'} >
                                                 <FontAwesomeIcon className="h-5 w-5 text-red-600" aria-hidden="true" icon={'ban'} />
                                             </span>
+                                            <p className="text-gray-600">
+                                                Hủy đơn hàng
+                                            </p>
                                         </div>
                                     }
                                     <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
                                         <div>
                                             <p className="text-sm text-gray-500">
-                                                {event.content}{' '}
-                                                <a href={event.href} className="font-medium text-gray-900">
-                                                    {event.target}
-                                                </a>
+                                                {order.content}{' '}
+                                                <Link href={`/member/order/${order.id}`} className="font-medium text-gray-900">
+                                                    {order.id}
+                                                </Link>
                                             </p>
                                         </div>
                                         <div className="whitespace-nowrap text-right text-sm text-gray-500">
-                                            <time dateTime={event.datetime}>{event.datetime}</time>
+                                            <time dateTime={order.createdAt}>{formatDistance(parseISO(order.createdAt), new Date(), { addSuffix: true, locale: vi })}</time>
                                         </div>
                                     </div>
                                 </div>
