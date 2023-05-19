@@ -6,18 +6,15 @@ import Image from 'next/image';
 import useWishlist from '@/hook/useWishlist';
 import Loading from '@/app/loading';
 import axios from 'axios';
+import { revalidatePath } from 'next/cache';
 
-async function removeFromWishList(payload: any){
-    console.log(payload);
-    
-    axios.delete(`/api/wishlist`, { data: payload }).catch(err=>console.log(err));
-    
+async function removeFromWishList(payload: any){    
+    axios.delete(`/api/wishlist`, { data: payload })
+    .then(res=>revalidatePath('/member/wishlist')).catch(err=>console.log(err));
 }
 
 function CartList({ item }: { item: any }) {
-    const product = item?.variant
-    console.log(product);
-    
+    const product = item?.variant    
     const image = (item?.variant?.images || [])[0]
     return (
         <div className="flex gap-x-1 items-center px-2 py-1 md:px-10 md:py-7 border border-gray-100 rounded-md relative group md:grid grid-cols-4 overflow-x-auto" >
