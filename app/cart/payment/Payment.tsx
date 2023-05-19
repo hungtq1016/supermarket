@@ -56,11 +56,7 @@ export default function Payment() {
   const total = selectedDeliveryMethod.price + totalPrice;
 
   async function testcart(payload:any) {
- 
-    await axios
-      .post("/api/cart", {data:payload})
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    await axios.post("/api/cart",payload).then((res) => console.log(res)).catch((err) => console.log(err));
   }
 
   return (

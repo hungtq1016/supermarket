@@ -116,7 +116,7 @@ model Cart{
   city String
   phone String
   status String
-  total BigInt
+  total Float
   inCarts InCart[]
 }
 
@@ -125,7 +125,7 @@ model InCart{
   variant Variant @relation(fields: [variantId], references: [id])
   variantId String  @db.ObjectId
   quantity Int
-  total BigInt
+  total Float
   cart Cart  @relation(fields: [cartId], references: [id])
   cartId String @db.ObjectId
 }

@@ -5,22 +5,24 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
     switch (method) {
         case 'POST':
             try {
-                const dataPost =req.body
+                const cart =req.body
                 
                 await prisma.cart.create({
                     data:{
-                        name : dataPost.name,
-                        email : dataPost.email,
-                        address : dataPost.address,
-                        city : dataPost.city,
-                        phone : dataPost.phone,
-                        status : dataPost.status,
-                        total : dataPost.total,
+                        name:cart.name,
+                        address:cart.address,
+                        city:cart.city,
+                        email:cart.email,
+                        phone:cart.phone,
+                        status:cart.status,
+                        total:Number.parseInt(cart.total)
                     }
                 })
         
-                return res.status(201).json({message:'Thành Công'})
+                return res.status(201).json({message:'Thanh cong'})
             } catch (error) {
+                console.log(error);
+                
                 return res.status(400).end()
             }
             break;
